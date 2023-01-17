@@ -1,0 +1,7 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    max-width: calc(1440px - 64px);
+    pointer-events: none;
+}

@@ -1,0 +1,97 @@
+.DCNav {
+    backdrop-filter: saturate(50%) blur(8px);
+    background: rgba(255,255,255,.7);
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    pointer-events: none;
+}
+
+.DCNavbar {
+    height: var(--dc-nav-height-mobile);
+    position: relative;
+}
+
+.DCSocials {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    &:before {
+        margin-left: 16px;
+        margin-right: 8px;
+        width: 1px;
+        height: 24px;
+        background-color: rgba(60, 60, 60, 0.12);
+        content: "";
+        width: 1px;
+    }
+}
+
+.DCSocialLink {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 36px;
+    height: 36px;
+    color: rgba(60, 60, 60, .7);
+    transition: color .5s;
+
+    &:hover {
+        color: #213547;
+        transition: color .25s;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+        fill: currentColor;
+        pointer-events: auto;
+    }
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: var(--dc-nav-height);
+    font-size: 16px;
+    font-weight: 600;
+    color: #213547;
+    pointer-events: auto;
+    transition: opacity .25s;
+
+    &:hover {
+        opacity: .6;
+    }
+}
+
+.content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+}
+
+@media (min-width: 768px) {
+
+    .DCNavbar {
+        padding: 0 32px;
+    }
+
+}
+
+@media (min-width: 960px) {
+
+    .DCNav {
+        position: fixed;
+    }
+
+    .DCNavbar {
+        height: var(--dc-nav-height-desktop);
+    }
+
+}
