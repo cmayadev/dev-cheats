@@ -1,0 +1,43 @@
+.cardBox {
+    display: block;
+    border: 1px solid #F9F9F9;
+    border-radius: 12px;
+    height: 100%;
+    background-color: #F9F9F9;
+    transition: border-color .25s,background-color .25s;
+}
+
+.article {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    height: 100%;
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    background-color: #e5e5e5;
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+    transition: background-color .25s;
+}
+
+.title {
+    line-height: 24px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.description {
+    flex-grow: 1;
+    padding-top: 8px;
+    line-height: 24px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(60, 60, 60, .7);
+}

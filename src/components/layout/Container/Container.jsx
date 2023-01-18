@@ -1,8 +1,8 @@
 import styles from './Container.module.scss'
 
-const Container = ({ children }) => {
+const Container = ({ children, size }) => {
     return ( 
-        <div className={styles.container}>
+        <div className={styles[`container-` + size]}>
             {children}
         </div>
      );

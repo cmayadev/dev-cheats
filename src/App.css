@@ -1,4 +1,5 @@
 :root {
+    --dc-brand-color: #2E8BC0;
     --dc-nav-height: var(--dc-nav-height-mobile);
     --dc-nav-height-mobile: 56px;
     --dc-nav-height-desktop: 72px;
@@ -21,7 +22,40 @@ body {
     min-width: 320px;
     min-height: 100vh;
     line-height: 24px;
+    font-family: 'Inter Tight', sans-serif;
     font-size: 16px;
     font-weight: 400;
-    font-family: 'Inter Tight', sans-serif;
+    color: #213547;
+    background-color: #ffffff;
+    direction: ltr;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+.main {
+    width: 100%;
+    max-width: 100%;
+    flex-grow: 1;
+    flex-shrink: 0;
+    margin: var(--dc-layout-top-height, 0px) auto 0;
+}
+
+.home {
+    padding-bottom: 96px;
+}
+
+@media (min-width: 960px) {
+    .main {
+        padding-top: var(--dc-nav-height);
+    }
+    .hero {
+        padding: calc(var(--dc-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 64px;
+    }
+}
+
+@media (min-width: 768px) {
+    .home {
+        padding-bottom: 128px;
+    }
 }

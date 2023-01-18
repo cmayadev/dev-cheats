@@ -1,14 +1,21 @@
 import Layout from './components/layout/Layout/Layout.jsx';
+import Hero from './components/layout/Hero/Hero.jsx';
+import Tools from './components/layout/Tools/Tools.jsx';
 
 import './App.css'
 
 function App() {
   return (
-    <div id="App">
+    <> 
       <Layout>
-        Body
+        <div className="main">
+          <div className="home">
+            <Hero />
+            <Tools />
+          </div>
+        </div>
       </Layout>
-    </div>
+    </>
   )
 }
 

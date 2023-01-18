@@ -1,19 +1,18 @@
-.DCNav {
-    backdrop-filter: saturate(50%) blur(8px);
-    background: rgba(255,255,255,.7);
+.header {
     position: relative;
     top: 0;
     left: 0;
+    z-index: 20;
     width: 100%;
     pointer-events: none;
 }
 
-.DCNavbar {
+.headerNavbar {
     height: var(--dc-nav-height-mobile);
     position: relative;
 }
 
-.DCSocials {
+.headerSocials {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -30,7 +29,7 @@
     }
 }
 
-.DCSocialLink {
+.social {
 
     display: flex;
     justify-content: center;
@@ -76,22 +75,50 @@
     flex-grow: 1;
 }
 
+.link {
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    line-height: var(--dc-nav-height-mobile);
+    font-size: 14px;
+    font-weight: 500;
+    color: #213547;
+    transition: color .25s;
+    pointer-events: auto;
+
+    &:hover {
+        color: var(--dc-brand-color)
+    }
+}
+
 @media (min-width: 768px) {
 
-    .DCNavbar {
+    .headerNavbar {
         padding: 0 32px;
+    }
+
+    .nav {
+        display: flex;
     }
 
 }
 
 @media (min-width: 960px) {
 
-    .DCNav {
+    .header {
         position: fixed;
+        backdrop-filter: saturate(50%) blur(8px);
+        background: rgba(255,255,255,.7);
     }
 
-    .DCNavbar {
+    .headerNavbar {
         height: var(--dc-nav-height-desktop);
     }
 
+}
+
+@media (min-width: 1280px) {
+    .link {
+        line-height: var(--dc-nav-height-desktop);
+    }
 }

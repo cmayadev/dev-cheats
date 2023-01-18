@@ -1,7 +1,20 @@
-.container {
+.container-md {
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
     max-width: calc(1440px - 64px);
     pointer-events: none;
+}
+
+.container-xl {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    max-width: 1152px;
+}
+
+@media (min-width: 960px) {
+    .container-xl {
+        flex-direction: row;
+    }
 }
