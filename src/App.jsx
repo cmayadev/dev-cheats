@@ -1,18 +1,21 @@
+import { Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout/Layout.jsx';
-import Hero from './components/layout/Hero/Hero.jsx';
-import Tools from './components/layout/Tools/Tools.jsx';
+
+import Home from './pages/Home';
+import Passwords from './pages/Passwords';
 
 import './App.css'
 
 function App() {
   return (
     <> 
+
       <Layout>
         <div className="main">
-          <div className="home">
-            <Hero />
-            <Tools />
-          </div>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/passwords" element={<Passwords />} />
+          </Routes>
         </div>
       </Layout>
     </>

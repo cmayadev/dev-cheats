@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Container from '../Container/Container';
 
 import styles from './Header.module.scss'
@@ -9,13 +10,13 @@ const Header = () => {
                 <div className={styles.headerNavbar}>
                     <Container size="md">
                         <div className={styles.navbarTitle}>
-                            <a href="" className={styles.title}>Dev Cheats</a>
+                            <Link to="/" className={styles.title}>Dev Cheats</Link>
                         </div>
                         <div className={styles.content}>
                             <nav className={styles.nav}>
                                 <a href="" className={styles.link} >Faker</a>
                                 <a href="" className={styles.link} >Lorem Ipsum</a>
-                                <a href="" className={styles.link} >Pass Generator</a>
+                                <a href="" className={styles.link} >Password Generator</a>
                                 <a href="" className={styles.link} >Rgb to Hex</a>
                                 <a href="" className={styles.link} >Url Shortener</a>
                             </nav>
