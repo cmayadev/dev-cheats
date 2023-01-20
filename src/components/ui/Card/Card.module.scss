@@ -1,10 +1,14 @@
 .cardBox {
     display: block;
-    border: 1px solid #F9F9F9;
+    border: 1px solid #F6F6F6;
     border-radius: 12px;
     height: 100%;
-    background-color: #F9F9F9;
+    background-color: #F6F6F6;
     transition: border-color .25s,background-color .25s;
+
+    &:hover {
+        background-color: #EFEFEF;
+    }
 }
 
 .article {

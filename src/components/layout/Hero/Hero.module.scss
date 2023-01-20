@@ -1,3 +1,5 @@
+@import '../../../sass/variables.scss';
+
 .hero {
     margin-top: calc((var(--dc-nav-height) + var(--dc-layout-top-height, 0px)) * -1);
 }
@@ -16,7 +18,7 @@
 }
 
 .clip {
-    background: -webkit-linear-gradient( 120deg, #2E8BC0 30%, #145DA0);
+    background: $brand-gradient;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
