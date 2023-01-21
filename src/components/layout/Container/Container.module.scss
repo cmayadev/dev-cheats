@@ -13,8 +13,24 @@
     max-width: 1152px;
 }
 
+.container-xxl {
+    margin: 0 auto;
+    width: 100%;
+}
+
 @media (min-width: 960px) {
     .container-xl {
         flex-direction: row;
+    }
+    .container-xxl {
+        display: flex;
+        justify-content: center;
+        max-width: 992px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .container-xxl {
+        max-width: 1104px;
     }
 }
