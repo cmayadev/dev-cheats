@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/layout/Layout/Layout.jsx';
 
 import Home from './pages/Home';
@@ -9,7 +11,6 @@ import './App.css'
 function App() {
   return (
     <> 
-
       <Layout>
         <div className="main">
           <Routes>
@@ -17,6 +18,7 @@ function App() {
             <Route path="/passwords" element={<Passwords />} />
           </Routes>
         </div>
+        <ToastContainer autoClose={8000} />
       </Layout>
     </>
   )
