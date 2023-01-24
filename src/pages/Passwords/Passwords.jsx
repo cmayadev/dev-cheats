@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import cx from 'classnames'
 import { toast } from 'react-toastify';
 import { generatePassword } from "../../api/password-generator";
+import { determineSecurity } from "../../api/password-validator";
 import Dice from '/dice.svg';
 import Heading from '../../components/ui/Heading/Heading';
 import Container from '../../components/layout/Container/Container';
@@ -11,6 +12,7 @@ import styles from './Passwords.module.scss'
 const Passwords = ({setSidebar}) => {
 
     const [password, setPassword] = useState("");
+    const [security, setSecurity] = useState("empty");
     const [uppercase, setUppercase] = useState(true);
     const [numbers, setNumbers] = useState(true);
     const [symbols, setSymbols] = useState(false);
@@ -24,6 +26,7 @@ const Passwords = ({setSidebar}) => {
         e.preventDefault();
         const newPassword = generatePassword(size, uppercase, numbers, symbols);
         setPassword(newPassword);
+        setSecurity(determineSecurity(newPassword));
     };
 
     const handleRandomize = () => {
@@ -62,6 +65,14 @@ const Passwords = ({setSidebar}) => {
                                 <button className={styles.random} onClick={handleRandomize}>
                                     <img src={Dice} alt="Randomize" title="Randomize" />
                                 </button>    
+                            </div>
+                            
+                            <div className={styles.security}>
+                                <span className={security === "veryWeak" ? cx(styles.veryWeak, styles.active) : styles.veryWeak}></span>
+                                <span className={security === "weak" ? cx(styles.weak, styles.active) : styles.weak}></span>
+                                <span className={security === "medium" ? cx(styles.medium, styles.active) : styles.medium}></span>
+                                <span className={security === "strong" ? cx(styles.strong, styles.active) : styles.strong}></span>
+                                <span className={security === "veryStrong" ? cx(styles.veryStrong, styles.active) : styles.veryStrong}></span>
                             </div>
         
                             <div className={styles.range}>
