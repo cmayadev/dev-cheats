@@ -18,7 +18,7 @@ const Tools = () => {
                     <div className={styles.items}>
                         {
                             tools.map((tool, i) => 
-                                <Link to={tool.link}>
+                                <Link to={tool.link} key={i}>
                                     <Card key={i} icon={tool.icon} title={tool.title} description={tool.description} />
                                 </Link>
                             )

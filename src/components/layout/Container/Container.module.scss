@@ -13,9 +13,14 @@
     max-width: 1152px;
 }
 
-.container-xxl {
+.container-doc {
     margin: 0 auto;
     width: 100%;
+}
+
+.container-content {
+    margin: 0 auto;
+    max-width: 688px;
 }
 
 @media (min-width: 960px) {
@@ -28,6 +33,14 @@
         max-width: 992px;
     }
 }
+
+@media (min-width: 1280px) {
+    .container-doc {
+        display: flex;
+        justify-content: center;
+    }
+}
+
 
 @media (min-width: 1440px) {
     .container-xxl {

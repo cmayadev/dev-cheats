@@ -1,19 +1,24 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import cx from 'classnames'
 import { toast } from 'react-toastify';
 import { generatePassword } from "../../api/password-generator";
 import Dice from '/dice.svg';
+import Heading from '../../components/ui/Heading/Heading';
 import Container from '../../components/layout/Container/Container';
 
 import styles from './Passwords.module.scss'
 
-const Passwords = () => {
+const Passwords = ({setSidebar}) => {
 
     const [password, setPassword] = useState("");
     const [uppercase, setUppercase] = useState(true);
     const [numbers, setNumbers] = useState(true);
     const [symbols, setSymbols] = useState(false);
     const [size, setSize] = useState(12);
+
+    useEffect(() => {
+        setSidebar(true);
+    }, [setSidebar, true]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -44,18 +49,21 @@ const Passwords = () => {
 
     return (
         <div className={styles.content}>
-            <div className={styles.document}>
-                <Container size="xxl">
-                    <div className={styles.tool}>
-                        <h1>Password Generator</h1>
+            <Container size="doc">
+                <div className={styles.aside}>
+                    asdasd
+                </div>
+                <div className={styles.tool}>
+                    <Container size="content">
                         <div>
+                            <Heading level="h2">Password Generator</Heading>
                             <div className={styles.password}>
                                 {password}
                                 <button className={styles.random} onClick={handleRandomize}>
                                     <img src={Dice} alt="Randomize" title="Randomize" />
                                 </button>    
                             </div>
-
+        
                             <div className={styles.range}>
                                 <input
                                     type="range"
@@ -65,7 +73,7 @@ const Passwords = () => {
                                     onChange={(e) => setSize(e.target.value)}
                                 />
                             </div>
-
+        
                             <div className={styles.options}>
                                 <span> Password length: {size} </span>
                                 <div>
@@ -98,16 +106,15 @@ const Passwords = () => {
                                     </label>
                                 </div>
                             </div>
-
+        
                             <div className={styles.buttons}>
                                 <button className={styles.values} onClick={handleSubmit}>Generate</button>
                                 <button className={styles.copy} onClick={handleCopy}>Copy</button>
                             </div>
-
                         </div>
-                    </div>
-                </Container>
-            </div>
+                    </Container>
+                </div>
+            </Container>
         </div>
     );
 }
