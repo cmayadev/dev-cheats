@@ -16,7 +16,9 @@ export function determineSecurity(password) {
         security += 5;
     }
 
-    if (security < 10) {
+    if (security == 0) {
+        return "";
+    } else if (security < 10) {
         return "veryWeak";
     } else if (security < 10) {
         return "weak";
@@ -24,7 +26,7 @@ export function determineSecurity(password) {
         return "medium";
     } else if (security < 30) {
         return "strong";
-    } else {
+    } else if (security >= 30) {
         return "veryStrong";
     }
 }

@@ -67,12 +67,12 @@ const Passwords = ({setSidebar}) => {
                                 </button>    
                             </div>
                             
-                            <div className={styles.security}>
-                                <span className={security === "veryWeak" ? cx(styles.veryWeak, styles.active) : styles.veryWeak}></span>
-                                <span className={security === "weak" ? cx(styles.weak, styles.active) : styles.weak}></span>
-                                <span className={security === "medium" ? cx(styles.medium, styles.active) : styles.medium}></span>
-                                <span className={security === "strong" ? cx(styles.strong, styles.active) : styles.strong}></span>
-                                <span className={security === "veryStrong" ? cx(styles.veryStrong, styles.active) : styles.veryStrong}></span>
+                            <div className={ cx(styles.security, styles[security]) }>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                                <span></span>
                             </div>
         
                             <div className={styles.range}>
