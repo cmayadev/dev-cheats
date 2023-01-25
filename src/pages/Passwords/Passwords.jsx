@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { generatePassword } from "../../api/password-generator";
 import { checkPasswordSecurity } from "../../api/password-validator";
 import Dice from '/dice.svg';
+import Button from '../../components/ui/Button/Button';
 import Heading from '../../components/ui/Heading/Heading';
 import Container from '../../components/layout/Container/Container';
 
@@ -126,8 +127,8 @@ const Passwords = ({setSidebar}) => {
                             </div>
         
                             <div className={styles.buttons}>
-                                <button className={styles.values} onClick={handleSubmit}>Generate</button>
-                                <button className={styles.copy} onClick={handleCopy}>Copy</button>
+                                <Button type="primary" onClick={handleSubmit}>Generate</Button>
+                                <Button type="secondary" onClick={handleCopy}>Copy</Button>
                             </div>
                         </div>
                     </Container>

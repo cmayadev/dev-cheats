@@ -1,4 +1,7 @@
-$brand-gradient: -webkit-linear-gradient( 120deg, #2E8BC0 30%, #145DA0);
+$brand-color: #145DA0;
+$brand-light: #2E8BC0;
+$brand-dark: #12518C;
+$brand-gradient: -webkit-linear-gradient( 120deg, $brand-light 30%, $brand-color);
 
 $text-default: #213547;
 $text-light: #4e4e4e;
