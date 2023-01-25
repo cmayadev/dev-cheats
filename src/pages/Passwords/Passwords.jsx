@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import cx from 'classnames'
 import { toast } from 'react-toastify';
 import { generatePassword } from "../../api/password-generator";
-import { determineSecurity } from "../../api/password-validator";
+import { checkPasswordSecurity } from "../../api/password-validator";
 import Dice from '/dice.svg';
 import Heading from '../../components/ui/Heading/Heading';
 import Container from '../../components/layout/Container/Container';
@@ -26,8 +26,15 @@ const Passwords = ({setSidebar}) => {
         e.preventDefault();
         const newPassword = generatePassword(size, uppercase, numbers, symbols);
         setPassword(newPassword);
-        setSecurity(determineSecurity(newPassword));
+        setSecurity(checkPasswordSecurity(newPassword));
     };
+
+    const handleRangeChange = (e) => {
+        setSize(e.target.value);
+        const newPassword = generatePassword(size, uppercase, numbers, symbols);
+        setPassword(newPassword);
+        setSecurity(checkPasswordSecurity(newPassword));
+    }
 
     const handleRandomize = () => {
         setUppercase(Math.random() >= 0.5);
@@ -81,7 +88,7 @@ const Passwords = ({setSidebar}) => {
                                     min="8"
                                     max="32"
                                     value={size}
-                                    onChange={(e) => setSize(e.target.value)}
+                                    onChange={handleRangeChange}
                                 />
                             </div>
         

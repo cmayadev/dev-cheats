@@ -1,32 +1,30 @@
-export function determineSecurity(password) {
+import zxcvbn from 'zxcvbn';
 
-    let security = 0;
+export function checkPasswordSecurity(password) {
 
-    security += password.length;
+    const result = zxcvbn(password);
+    let score = '';
 
-    if (password.match(/[A-Z]/)) {
-        security += 5;
+    switch (result.score) {
+        case 0:
+            score = 'veryWeak';
+            break;
+        case 1:
+            score = 'weak';
+            break;
+        case 2:
+            score = 'medium';
+            break;
+        case 3:
+            score = 'strong';
+            break;
+        case 4:
+            score = 'veryStrong';
+            break;
+        default:
+            score = '';
+            break;
     }
 
-    if (password.match(/\d+/)) {
-        security += 5;
-    }
-
-    if (password.match(/[!@#\$%^&*]/)) {
-        security += 5;
-    }
-
-    if (security == 0) {
-        return "";
-    } else if (security < 10) {
-        return "veryWeak";
-    } else if (security < 10) {
-        return "weak";
-    } else if (security < 20) {
-        return "medium";
-    } else if (security < 30) {
-        return "strong";
-    } else if (security >= 30) {
-        return "veryStrong";
-    }
-}
+    return score;
+};
