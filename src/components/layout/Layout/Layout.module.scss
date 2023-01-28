@@ -7,3 +7,9 @@
 main {
     padding-top: var(--dc-nav-height);
 }
+
+@media (min-width: 960px) {
+    .content {
+        padding: 32px 32px 0;
+    }
+}

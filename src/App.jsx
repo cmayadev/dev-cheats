@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Layout from './components/layout/Layout/Layout.jsx';
 
 import Home from './pages/Home';
-import Passwords from './pages/Passwords/Passwords';
+
+import tools from './api/tools.json';
 
 import './App.css'
 
@@ -16,12 +17,17 @@ function App() {
   return (
     <> 
       <Layout sidebar={sidebar}>
-        <div className={`main${sidebar ? ' has-sidebar' : ''}`}>
+        <Suspense>
           <Routes>
             <Route path="/" element={<Home setSidebar={setSidebar} />} />
-            <Route path="/passwords" element={<Passwords setSidebar={setSidebar} />} />
+            {
+              tools.map((tool, i) => {
+                const Tool = React.lazy(() => import(`./pages/${tool.component}/${tool.component}`));
+                return <Route key={i} path={tool.slug} element={<Tool title={tool.title} setSidebar={setSidebar} />} />
+              })
+            }
           </Routes>
-        </div>
+        </Suspense>
         <ToastContainer autoClose={8000} />
       </Layout>
     </>

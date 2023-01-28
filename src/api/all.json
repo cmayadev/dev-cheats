@@ -1,0 +1,47 @@
+[
+    {
+        "component": "Lorem",
+        "title": "Lorem Ipsum",
+        "slug": "lorem-ipsum",
+        "description": "Generate dummy text for your designs or mockups.",
+        "icon": "📜",
+        "featured": false,
+        "menu": true
+    },
+    {
+        "component": "Passwords",
+        "title": "Password Generator",
+        "slug": "password-generator",
+        "description": "Generate secure passwords for your applications.",
+        "icon": "🔐",
+        "featured": true,
+        "menu": true
+    },
+    {
+        "component": "PixelToRem",
+        "title": "PX to REM",
+        "slug": "px-to-rem",
+        "description": "Calculator to convert Px to Rem and vice versa.",
+        "icon": "📐",
+        "featured": true,
+        "menu": true
+    },
+    {
+        "component": "RgbToHex",
+        "title": "RGB to HEX",
+        "slug": "rgb-to-hex",
+        "description": "Calculator to convert RGB to HEX and vice versa.",
+        "icon": "📐",
+        "featured": false,
+        "menu": true
+    },
+    {
+        "component": "UrlShortener",
+        "title": "Url Shortener",
+        "slug": "url-shortener",
+        "description": "Reduce your links to something more comfortable.",
+        "icon": "✂️",
+        "featured": true,
+        "menu": true
+    }
+]

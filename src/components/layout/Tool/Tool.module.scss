@@ -1,0 +1,19 @@
+.tool {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+}
+
+@media (min-width: 960px) {
+    .tool {
+        padding: 0 32px 128px;
+    }
+}
+
+@media (min-width: 1280px) {
+    .tool {
+        order: 1;
+        margin: 0;
+        min-width: 640px;
+    }
+}

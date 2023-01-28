@@ -1,9 +1,10 @@
-import styles from './Aside.module.scss';
+import styles from './Aside.module.scss'
 
 const Aside = () => {
+
     return ( 
         <div className={styles.aside}>
-            sidebar
+            Related
         </div>
     );
 }

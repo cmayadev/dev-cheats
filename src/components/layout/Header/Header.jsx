@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import Container from '../Container/Container';
 
+import tools from '../../../api/tools.json';
+
 import styles from './Header.module.scss'
 
 const Header = () => {
@@ -14,11 +16,13 @@ const Header = () => {
                         </div>
                         <div className={styles.content}>
                             <nav className={styles.nav}>
-                                <a href="" className={styles.link} >Faker</a>
-                                <a href="" className={styles.link} >Lorem Ipsum</a>
-                                <a href="" className={styles.link} >Password Generator</a>
-                                <a href="" className={styles.link} >Rgb to Hex</a>
-                                <a href="" className={styles.link} >Url Shortener</a>
+                                {
+                                    tools.map((tool, i) => tool.menu &&
+                                        <Link to={tool.slug} key={i} className={styles.link}>
+                                            {tool.title}
+                                        </Link>
+                                    )
+                                }
                             </nav>
                             <div className={styles.headerSocials}>
                                 <a href="https://github.com/cmayadev/dev-cheats" className={styles.social} target="_blank">

@@ -2,13 +2,9 @@ import { Link } from 'react-router-dom';
 import Container from '../Container/Container';
 import Card from '../../ui/Card/Card';
 
-import styles from './Tools.module.scss';
+import tools from '../../../api/tools.json';
 
-const tools = [
-    { icon: "📜", title: "Lorem Ipsum", link: "/lorem", description: "Generate dummy text for your designs or mockups." },
-    { icon: "🔐", title: "Pass Generator", link: "/passwords", description: "Generate secure passwords for your applications." },
-    { icon: "✂️", title: "Url Shortener", link: "/url-shortener", description: "Reduce your links to something more comfortable." }
-]
+import styles from './Tools.module.scss';
 
 const Tools = () => {
     return ( 
@@ -17,8 +13,8 @@ const Tools = () => {
                 <Container size="xl">
                     <div className={styles.items}>
                         {
-                            tools.map((tool, i) => 
-                                <Link to={tool.link} key={i}>
+                            tools.map((tool, i) => tool.featured &&
+                                <Link to={tool.slug} key={i}>
                                     <Card key={i} icon={tool.icon} title={tool.title} description={tool.description} />
                                 </Link>
                             )

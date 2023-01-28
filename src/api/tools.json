@@ -1,0 +1,20 @@
+[
+    {
+        "component": "Passwords",
+        "title": "Password Generator",
+        "slug": "password-generator",
+        "description": "Generate secure passwords for your applications.",
+        "icon": "🔐",
+        "featured": true,
+        "menu": true
+    },
+    {
+        "component": "PixelToRem",
+        "title": "PX to REM",
+        "slug": "px-to-rem",
+        "description": "Calculator to convert Px to Rem and vice versa.",
+        "icon": "📐",
+        "featured": true,
+        "menu": true
+    }
+]

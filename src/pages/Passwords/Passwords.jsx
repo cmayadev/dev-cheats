@@ -5,12 +5,13 @@ import { generatePassword } from "../../api/password-generator";
 import { checkPasswordSecurity } from "../../api/password-validator";
 import Dice from '/dice.svg';
 import Button from '../../components/ui/Button/Button';
-import Heading from '../../components/ui/Heading/Heading';
-import Container from '../../components/layout/Container/Container';
+import Tool from '../../components/layout/Tool/Tool';
 
 import styles from './Passwords.module.scss'
 
-const Passwords = ({setSidebar}) => {
+const Passwords = (props) => {
+
+    const { setSidebar, title } = props;
 
     const [password, setPassword] = useState("");
     const [security, setSecurity] = useState("empty");
@@ -59,82 +60,72 @@ const Passwords = ({setSidebar}) => {
     };
 
     return (
-        <div className={styles.content}>
-            <Container size="doc">
-                <div className={styles.aside}>
-                    asdasd
+        <Tool title={title}>
+
+            <div className={styles.password}>
+                {password}
+                <button className={styles.random} onClick={handleRandomize}>
+                    <img src={Dice} alt="Randomize" title="Randomize" />
+                </button>    
+            </div>
+            
+            <div className={ cx(styles.security, styles[security]) }>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div className={styles.range}>
+                <input
+                    type="range"
+                    min="8"
+                    max="32"
+                    value={size}
+                    onChange={handleRangeChange}
+                />
+            </div>
+
+            <div className={styles.options}>
+                <span> Password length: {size} </span>
+                <div>
+                    <label className={ cx(styles.control, styles.controlCheckbox) }>
+                        A-Z
+                        <input
+                            type="checkbox"
+                            checked={uppercase}
+                            onChange={() => setUppercase(!uppercase)}
+                        />
+                        <div className={styles.control_indicator}></div>
+                    </label>
+                    <label className={ cx(styles.control, styles.controlCheckbox) }>
+                        0-9
+                        <input
+                            type="checkbox"
+                            checked={numbers}
+                            onChange={() => setNumbers(!numbers)}
+                        />
+                        <div className={styles.control_indicator}></div>
+                    </label>
+                    <label className={ cx(styles.control, styles.controlCheckbox) }>
+                        @#$
+                        <input
+                            type="checkbox"
+                            checked={symbols}
+                            onChange={() => setSymbols(!symbols)}
+                        />
+                        <div className={styles.control_indicator}></div>
+                    </label>
                 </div>
-                <div className={styles.tool}>
-                    <Container size="content">
-                        <div>
-                            <Heading level="h2">Password Generator</Heading>
-                            <div className={styles.password}>
-                                {password}
-                                <button className={styles.random} onClick={handleRandomize}>
-                                    <img src={Dice} alt="Randomize" title="Randomize" />
-                                </button>    
-                            </div>
-                            
-                            <div className={ cx(styles.security, styles[security]) }>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                                <span></span>
-                            </div>
-        
-                            <div className={styles.range}>
-                                <input
-                                    type="range"
-                                    min="8"
-                                    max="32"
-                                    value={size}
-                                    onChange={handleRangeChange}
-                                />
-                            </div>
-        
-                            <div className={styles.options}>
-                                <span> Password length: {size} </span>
-                                <div>
-                                    <label className={ cx(styles.control, styles.controlCheckbox) }>
-                                        A-Z
-                                        <input
-                                            type="checkbox"
-                                            checked={uppercase}
-                                            onChange={() => setUppercase(!uppercase)}
-                                        />
-                                        <div className={styles.control_indicator}></div>
-                                    </label>
-                                    <label className={ cx(styles.control, styles.controlCheckbox) }>
-                                        0-9
-                                        <input
-                                            type="checkbox"
-                                            checked={numbers}
-                                            onChange={() => setNumbers(!numbers)}
-                                        />
-                                        <div className={styles.control_indicator}></div>
-                                    </label>
-                                    <label className={ cx(styles.control, styles.controlCheckbox) }>
-                                        @#$
-                                        <input
-                                            type="checkbox"
-                                            checked={symbols}
-                                            onChange={() => setSymbols(!symbols)}
-                                        />
-                                        <div className={styles.control_indicator}></div>
-                                    </label>
-                                </div>
-                            </div>
-        
-                            <div className={styles.buttons}>
-                                <Button type="primary" onClick={handleSubmit}>Generate</Button>
-                                <Button type="secondary" onClick={handleCopy}>Copy</Button>
-                            </div>
-                        </div>
-                    </Container>
-                </div>
-            </Container>
-        </div>
+            </div>
+
+            <div className={styles.buttons}>
+                <Button type="primary" onClick={handleSubmit}>Generate</Button>
+                <Button type="secondary" onClick={handleCopy}>Copy</Button>
+            </div>
+
+        </Tool>
     );
 }
 

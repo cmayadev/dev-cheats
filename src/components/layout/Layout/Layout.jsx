@@ -1,5 +1,7 @@
 import Header from '../Header/Header'
 import Aside from '../Aside/Aside'
+import Container from '../Container/Container'
+import Sidebar from '../Sidebar/Sidebar'
 import Footer from '../Footer/Footer'
 
 import styles from './Layout.module.scss'
@@ -11,8 +13,23 @@ const Layout = (props) => {
     return (
         <div className={styles.Layout}>
             <Header />
-            { sidebar && <Aside /> }
-            {children}
+            { 
+                sidebar ? 
+                <>
+                    <Sidebar /> 
+                    <div className={`main${sidebar ? ' has-sidebar' : ''}`}>
+                        <div className={styles.content}>
+                            <Container size="doc">
+                                <Aside />
+                                {children}
+                            </Container>
+                        </div>
+                    </div>
+                </> :
+                <div className={`main${sidebar ? ' has-sidebar' : ''}`}>
+                    {children}
+                </div>
+            }
             <Footer />
         </div>
     )
