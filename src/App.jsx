@@ -22,7 +22,7 @@ function App() {
             <Route path="/" element={<Home setSidebar={setSidebar} />} />
             {
               tools.map((tool, i) => {
-                const Tool = React.lazy(() => import(`./pages/${tool.component}/${tool.component}`));
+                const Tool = React.lazy(() => import(`./pages/${tool.component}/${tool.component}.jsx`));
                 return <Route key={i} path={tool.slug} element={<Tool title={tool.title} setSidebar={setSidebar} />} />
               })
             }

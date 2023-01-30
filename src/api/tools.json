@@ -10,7 +10,7 @@
     },
     {
         "component": "PixelToRem",
-        "title": "PX to REM",
+        "title": "PX / REM Converter",
         "slug": "px-to-rem",
         "description": "Calculator to convert Px to Rem and vice versa.",
         "icon": "📐",
