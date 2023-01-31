@@ -49,18 +49,6 @@
 
 }
 
-input {
-    border: 2px solid #e3e9f1;
-    border-radius: 10px;
-    box-sizing: border-box;
-    display: block;
-    padding: 0.25rem 1.25rem;
-    font-size: 2.4rem;
-    width: 100%;
-    text-align: center;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-
 abbr {
     font-weight: 500;
     position: absolute;
@@ -88,6 +76,19 @@ abbr {
             height: 100%;
         }
     }
+
+    input {
+        border: 2px solid #e3e9f1;
+        border-radius: 10px;
+        box-sizing: border-box;
+        display: block;
+        padding: 0.25rem 1.25rem;
+        font-size: 2.4rem;
+        width: 100%;
+        text-align: center;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+    
 }
 
 .swap {

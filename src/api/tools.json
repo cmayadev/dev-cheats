@@ -16,5 +16,14 @@
         "icon": "📐",
         "featured": true,
         "menu": true
+    },
+    {
+        "component": "UrlShortener",
+        "title": "Url Shortener",
+        "slug": "url-shortener",
+        "description": "Reduce your links to something more comfortable.",
+        "icon": "✂️",
+        "featured": true,
+        "menu": true
     }
 ]
