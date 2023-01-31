@@ -8,6 +8,53 @@
     max-width: 256px;
 }
 
+.asideContainer {
+    position: sticky;
+    top: 0;
+    margin-top: calc((72px + var(--dc-layout-top-height, 0px)) * -1 - 32px);
+    padding-top: calc(72px + var(--dc-layout-top-height, 0px) + 32px);
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.asideContent {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - (72px + var(--dc-layout-top-height, 0px) + 32px));
+    padding-bottom: 32px;
+}
+
+.content {
+    position: relative;
+    border-left: 1px solid #3c3c3c1f;
+    padding-left: 16px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.outlineTitle {
+    letter-spacing: .4px;
+    line-height: 28px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.outlineLink {
+    display: block;
+    line-height: 28px;
+    color: #3c3c3cb3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color .5s;
+
+    &:hover {
+        color: #213547;
+        transition: color .25s;
+    }
+}
+
 @media (min-width: 1280px) {
     .aside {
         display: block;
