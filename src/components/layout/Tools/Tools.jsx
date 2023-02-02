@@ -14,7 +14,7 @@ const Tools = () => {
                     <div className={styles.items}>
                         {
                             tools.map((tool, i) => tool.featured &&
-                                <Link to={tool.slug} key={i}>
+                                <Link to={tool.category + "/" + tool.slug} key={i}>
                                     <Card key={i} icon={tool.icon} title={tool.title} description={tool.description} />
                                 </Link>
                             )

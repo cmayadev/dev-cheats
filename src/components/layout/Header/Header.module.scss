@@ -1,3 +1,5 @@
+@import '../../../sass/variables.scss';
+
 .header {
     position: relative;
     top: 0;
@@ -5,11 +7,16 @@
     z-index: 20;
     width: 100%;
     pointer-events: none;
+    transition: background-color .5s;
 }
 
 .headerNavbar {
-    height: var(--dc-nav-height-mobile);
     position: relative;
+    border-bottom: 1px solid transparent;
+    padding: 0 8px 0 24px;
+    height: var(--dc-nav-height);
+    transition: border-color .5s,background-color .5s;
+    pointer-events: none;
 }
 
 .headerSocials {
@@ -27,6 +34,15 @@
         content: "";
         width: 1px;
     }
+}
+
+.logo {
+    margin-right: 8px;
+    height: 32px;
+}
+
+.content {
+    flex-grow: 1;
 }
 
 .social {
@@ -68,7 +84,7 @@
     }
 }
 
-.content {
+.contentBody {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -87,7 +103,7 @@
     pointer-events: auto;
 
     &:hover {
-        color: var(--dc-brand-color)
+        color: $brand-color;
     }
 }
 
@@ -107,12 +123,47 @@
 
     .header {
         position: fixed;
-        backdrop-filter: saturate(50%) blur(8px);
-        background: rgba(255,255,255,.7);
     }
 
     .headerNavbar {
-        height: var(--dc-nav-height-desktop);
+
+        &.hasSidebar {
+            border-bottom-color: transparent;
+            padding: 0;
+
+            > div {
+                max-width: 100%;
+            }
+
+            .content {
+                position: relative;
+                z-index: 1;
+                padding-right: 32px;
+                padding-left: 272px;
+            }
+
+            .contentBody {
+                position: relative;
+                background-color: #FFF;
+            }
+
+            .navbarTitle {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2;
+                padding: 0 32px;
+                width: 272px;
+                height: var(--dc-nav-height);
+                background-color: transparent;
+            }
+        }
+
+        &:not(.hasSidebar) {
+            backdrop-filter: saturate(50%) blur(8px);
+            background: rgba(255,255,255,.7);
+        }
+
     }
 
 }
@@ -120,5 +171,20 @@
 @media (min-width: 1280px) {
     .link {
         line-height: var(--dc-nav-height-desktop);
+    }
+}
+
+@media (min-width: 1440px) {
+
+    .headerNavbar {
+        &.hasSidebar .navbarTitle {
+            padding-left: max(32px,calc((100% - (1440px - 64px)) / 2));
+            width: calc((100% - (1440px - 64px)) / 2 + 272px - 32px);
+        }
+
+        &.hasSidebar .content {
+            padding-right: calc((100vw - 1440px) / 2 + 32px);
+            padding-left: calc((100vw - 1440px) / 2 + 272px);
+        }
     }
 }

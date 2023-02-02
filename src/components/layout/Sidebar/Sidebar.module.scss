@@ -7,7 +7,7 @@
     padding: 32px 32px 96px;
     width: calc(100vw - 64px);
     max-width: 320px;
-    background-color: #FFF;
+    background-color: #F6F6F7;
     opacity: 0;
     box-shadow: var(--vp-c-shadow-3);
     overflow-x: hidden;
@@ -23,11 +23,28 @@
         padding-bottom: 128px;
         width: var(--vp-sidebar-width);
         max-width: 100%;
-        background-color: var(--vp-c-bg-alt);
+        background-color: #F6F6F7;
         opacity: 1;
         visibility: visible;
         box-shadow: none;
         transform: translate(0);
+    }
+
+    .sideGroup {
+        padding-top: 10px;
+        width: calc(272px - 64px);
+    }
+
+    .head {
+        position: sticky;
+        top: -64px;
+        left: 0;
+        z-index: 1;
+        margin-top: calc(var(--dc-nav-height) * -1);
+        margin-right: -32px;
+        margin-left: -32px;
+        height: var(--dc-nav-height);
+        background-color: #F6F6F7;
     }
 }
 

@@ -1,8 +1,8 @@
 :root {
-    --dc-brand-color: #2E8BC0;
+    --dc-brand-color: #7386D5;
     --dc-nav-height: var(--dc-nav-height-mobile);
     --dc-nav-height-mobile: 56px;
-    --dc-nav-height-desktop: 72px;
+    --dc-nav-height-desktop: 64px;
 }
 
 a {

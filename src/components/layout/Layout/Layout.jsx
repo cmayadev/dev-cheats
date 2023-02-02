@@ -12,7 +12,7 @@ const Layout = (props) => {
 
     return (
         <div className={styles.Layout}>
-            <Header />
+            <Header sidebar={sidebar} />
             { 
                 sidebar ? 
                 <>
