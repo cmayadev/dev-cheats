@@ -14,7 +14,7 @@
     position: relative;
     border-bottom: 1px solid transparent;
     padding: 0 8px 0 24px;
-    height: var(--dc-nav-height);
+    height: var(--nav-height);
     transition: border-color .5s,background-color .5s;
     pointer-events: none;
 }
@@ -30,7 +30,7 @@
         margin-right: 8px;
         width: 1px;
         height: 24px;
-        background-color: rgba(60, 60, 60, 0.12);
+        background-color: var(--divider-background);
         content: "";
         width: 1px;
     }
@@ -52,11 +52,11 @@
     align-items: center;
     width: 36px;
     height: 36px;
-    color: rgba(60, 60, 60, .7);
+    color: var(--text-light);
     transition: color .5s;
 
     &:hover {
-        color: #213547;
+        color: var(--text-default);
         transition: color .25s;
     }
 
@@ -72,10 +72,10 @@
     display: flex;
     align-items: center;
     width: 100%;
-    height: var(--dc-nav-height);
+    height: var(--nav-height);
     font-size: 16px;
     font-weight: 600;
-    color: #213547;
+    color: var(--text-default);
     pointer-events: auto;
     transition: opacity .25s;
 
@@ -95,10 +95,10 @@
     display: flex;
     align-items: center;
     padding: 0 12px;
-    line-height: var(--dc-nav-height-mobile);
+    line-height: var(--nav-height-mobile);
     font-size: 14px;
     font-weight: 500;
-    color: #213547;
+    color: var(--text-default);
     transition: color .25s;
     pointer-events: auto;
 
@@ -144,7 +144,7 @@
 
             .contentBody {
                 position: relative;
-                background-color: #FFF;
+                background-color: var(--header-background);
             }
 
             .navbarTitle {
@@ -154,14 +154,14 @@
                 z-index: 2;
                 padding: 0 32px;
                 width: 272px;
-                height: var(--dc-nav-height);
+                height: var(--nav-height);
                 background-color: transparent;
             }
         }
 
         &:not(.hasSidebar) {
             backdrop-filter: saturate(50%) blur(8px);
-            background: rgba(255,255,255,.7);
+            background: var(--header-background);
         }
 
     }
@@ -170,7 +170,7 @@
 
 @media (min-width: 1280px) {
     .link {
-        line-height: var(--dc-nav-height-desktop);
+        line-height: var(--nav-height-desktop);
     }
 }
 

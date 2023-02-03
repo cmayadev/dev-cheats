@@ -8,11 +8,11 @@ import styles from './Layout.module.scss'
 
 const Layout = (props) => {
 
-    const { children, sidebar } = props;
+    const { children, theme, setTheme, sidebar } = props;
 
     return (
         <div className={styles.Layout}>
-            <Header sidebar={sidebar} />
+            <Header theme={theme} setTheme={setTheme} sidebar={sidebar} />
             { 
                 sidebar ? 
                 <>

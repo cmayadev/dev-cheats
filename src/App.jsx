@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -12,11 +12,12 @@ import './App.css'
 
 function App() {
 
+  const [ theme, setTheme ] = useState('light');
   const [ sidebar, setSidebar ] = useState(false);
 
   return (
-    <> 
-      <Layout sidebar={sidebar}>
+    <div>
+      <Layout theme={theme} setTheme={setTheme} sidebar={sidebar}>
         <Suspense>
           <Routes>
             <Route path="/" element={<Home setSidebar={setSidebar} />} />
@@ -30,7 +31,7 @@ function App() {
         </Suspense>
         <ToastContainer autoClose={8000} />
       </Layout>
-    </>
+    </div>
   )
 }
 

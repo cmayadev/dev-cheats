@@ -1,8 +1,52 @@
 :root {
-    --dc-brand-color: #7386D5;
-    --dc-nav-height: var(--dc-nav-height-mobile);
-    --dc-nav-height-mobile: 56px;
-    --dc-nav-height-desktop: 64px;
+    --brand-color: #7386D5;
+    --nav-height: var(--nav-height-mobile);
+    --nav-height-mobile: 56px;
+    --nav-height-desktop: 64px;
+
+    --button-alt-background: #F6F6F7;
+    --button-alt-border: #3c3c434a;
+    --card-background: #FFFFFF;
+    --card-hover: #F6F6F6;
+    --card-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    --body--background: #FFFFFF;
+    --divider-background: #3c3c3c1f;
+    --check-border: #3c3c434a;
+    --header-background: rgba(255,255,255,.7);
+    --icon-background: #FFFFFF;
+    --input-background: #FFF;
+    --input-border: #e3e9f1;
+    --sidebar-background: #F6F6F7;
+    --text-default: #213547;
+    --text-light: rgb(60 60 60 / 70%);
+
+    --check-background: #F6F6F7;
+    --check--transform: none;
+    --sun-icon-display: block;
+    --moon-icon-display: none;
+}
+
+.dark {
+    --button-alt-background: #313136;
+    --button-alt-border: #525259ad;
+    --card-background: #252529;
+    --card-hover: #404044;
+    --card-shadow: rgba(255, 255, 255, 0.1) 0px 4px 12px;
+    --body--background: #1e1e20;
+    --check-border: #525259ad;
+    --divider-background: #52525952;
+    --header-background: transparent;
+    --icon-background: #1e1e20;
+    --input-background: #313136;
+    --input-border: transparent;
+    --sidebar-background: #161618;
+    --text-default: rgb(255 255 245 / 86%);
+    --text-light: rgb(235 235 245 / 60%);
+
+    --check-background: #313136;
+    --check--transform: translate(18px);
+    --sun-icon-display: none;
+    --moon-icon-display: block;
 }
 
 a {
@@ -12,7 +56,7 @@ a {
 
 @media (min-width: 960px) {
     :root {
-        --dc-nav-height: var(--dc-nav-height-desktop);
+        --nav-height: var(--nav-height-desktop);
     }
 }
 
@@ -25,8 +69,8 @@ body {
     font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 400;
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--text-default);
+    background-color: var(--body--background);
     direction: ltr;
     font-synthesis: none;
     text-rendering: optimizeLegibility;
@@ -59,14 +103,14 @@ body {
 
 @media (min-width: 960px) {
     .main {
-        padding-top: var(--dc-nav-height);
+        padding-top: var(--nav-height);
     }
     .main.has-sidebar {
         margin: var(--dc-layout-top-height, 0px) 0 0;
         padding-left: 272px;
     }
     .hero {
-        padding: calc(var(--dc-nav-height) + var(--dc-layout-top-height, 0px) + 80px) 64px 64px;
+        padding: calc(var(--nav-height) + var(--dc-layout-top-height, 0px) + 80px) 64px 64px;
     }
 }
 

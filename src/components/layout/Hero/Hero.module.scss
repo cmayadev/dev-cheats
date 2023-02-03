@@ -1,7 +1,7 @@
 @import '../../../sass/variables.scss';
 
 .hero {
-    margin-top: calc((var(--dc-nav-height) + var(--dc-layout-top-height, 0px)) * -1);
+    margin-top: calc((var(--nav-height) + var(--dc-layout-top-height, 0px)) * -1);
 }
 
 .slogan {
@@ -25,6 +25,7 @@
 }
 
 .text {
+    color: var(--text-default);
     max-width: 392px;
     letter-spacing: -.4px;
     line-height: 40px;
@@ -40,7 +41,7 @@
     font-size: 18px;
     font-weight: 500;
     white-space: pre-wrap;
-    color: rgba(60, 60, 60, .7);
+    color: var(--text-light);
 }
 
 @media (min-width: 640px) {
@@ -60,7 +61,7 @@
 
 @media (min-width: 960px) {
     .hero {
-        padding: calc(var(--dc-nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 64px;
+        padding: calc(var(--nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 64px;
     }
     .slogan {
         max-width: 592px;

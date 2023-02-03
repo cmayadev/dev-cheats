@@ -15,7 +15,7 @@
 
     &.primary {
         background-color: $brand-color;
-        border: 0px solid #000;
+        border: none;
         color: #fff;
         &:hover {
             background-color: $brand-dark;
@@ -23,8 +23,9 @@
     }
     
     &.secondary {
-        background-color: #f9f9f9;
-        border: 2px solid $text-lighter;
+        background-color: var(--button-alt-background);
+        border: 1px solid var(--button-alt-border);
+        color: var(--text-default);
         &:hover {
             background-color: #f1f1f1;
         }

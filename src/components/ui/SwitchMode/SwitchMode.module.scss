@@ -1,0 +1,71 @@
+.switch {
+    display: flex;
+    align-items: center;
+    pointer-events: auto;
+
+    &:before {
+        margin-right: 16px;
+        margin-left: 8px;
+        width: 1px;
+        height: 24px;
+        background-color: var(--divider-background);
+        content: "";
+        width: 1px;
+    }
+
+    button {
+        cursor: pointer;
+        position: relative;
+        pointer-events: auto;
+        border-radius: 11px;
+        display: block;
+        width: 40px;
+        height: 22px;
+        flex-shrink: 0;
+        border: 1px solid var(--check-border);
+        background-color: var(--check-background);
+        transition: border-color .25s;
+        &:hover {
+            border: 1px solid #8e8e93;
+        }
+    }
+
+    .icon {
+        position: relative;
+        display: block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        overflow: hidden;
+
+        svg {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 12px;
+            height: 12px;
+            fill: var(--text-default);
+        }
+
+        .moon {
+            display: var(--moon-icon-display);
+        }
+
+        .sun {
+            display: var(--sun-icon-display);
+        }
+    }
+}
+
+.check {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: var(--body--background);
+    box-shadow: var(--vp-shadow-1);
+    transition: transform .25s;
+    transform: var(--check--transform);
+}
