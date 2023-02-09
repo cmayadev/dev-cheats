@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 
+import Input from '../../components/ui/Input/Input';
 import Tool from '../../components/layout/Tool/Tool';
 
 import styles from './PixelToRem.module.scss'
@@ -69,22 +70,13 @@ const PixelToRem = (props) => {
     return ( 
         <Tool title={title}>
             <div className={`${styles.converter} ${swapped ? styles.swapped : ''} ${styles[activeInput]}`}>
-            <div className={styles.number}>
-                    <input type="text" value={rem} decimals="3" format="technical" onChange={handleRemChange} />
-                    <abbr className="unit">rem</abbr>
-                </div>
+                <Input abbr="rem" type="text" value={rem} decimals="3" format="technical" onChange={handleRemChange} />
                 <a className={styles.swap} title="Swap" onClick={swapValues}>⇄</a>
-                <div className={styles.number}>
-                    <input type="text" value={pixels} decimals="3" format="technical" onChange={handlePixelsChange} />
-                    <abbr className="unit">px</abbr>
-                </div>
+                <Input abbr="px" type="text" value={pixels} decimals="3" format="technical" onChange={handlePixelsChange} />
             </div>
             <div className={styles.toolContainer}>
                 <p>Calculated with a root font-size of:</p> 
-                <div className={styles.number}>
-                    <input type="text" value={fontSize} onChange={handleFontSize} />
-                    <abbr className="unit">px</abbr>
-                </div>
+                <Input abbr="px" size="m" type="text" value={fontSize} onChange={handleFontSize} />
             </div>
         </Tool>
     );
