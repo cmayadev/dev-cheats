@@ -9,7 +9,7 @@ import styles from './Tools.module.scss';
 const Tools = () => {
     return ( 
         <>
-            <div>
+            <div className={styles.tools}>
                 <Container size="xl">
                     <div className={styles.items}>
                         {

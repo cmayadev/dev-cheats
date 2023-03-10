@@ -2,6 +2,8 @@
 
 .hero {
     margin-top: calc((var(--nav-height) + var(--dc-layout-top-height, 0px)) * -1);
+    padding: calc(var(--nav-height) + var(--dc-layout-top-height, 0px) + 48px) 24px 48px;
+    text-align: center;
 }
 
 .slogan {
@@ -27,6 +29,7 @@
 .text {
     color: var(--text-default);
     max-width: 392px;
+    margin: 0 auto;
     letter-spacing: -.4px;
     line-height: 40px;
     font-size: 32px;
@@ -37,6 +40,7 @@
 .tagline {
     padding-top: 8px;
     max-width: 392px;
+    margin: 0 auto;
     line-height: 28px;
     font-size: 18px;
     font-weight: 500;
@@ -45,6 +49,10 @@
 }
 
 @media (min-width: 640px) {
+    .hero {
+        padding: calc(var(--nav-height) + var(--dc-layout-top-height, 0px) + 80px) 48px 64px;
+        text-align: left;
+    }
     .name, 
     .text {
         max-width: 576px;
@@ -61,7 +69,8 @@
 
 @media (min-width: 960px) {
     .hero {
-        padding: calc(var(--nav-height) + var(--vp-layout-top-height, 0px) + 80px) 64px 64px;
+        text-align: left;
+        padding: calc(var(--nav-height) + var(--dc-layout-top-height, 0px) + 80px) 64px 64px;
     }
     .slogan {
         max-width: 592px;

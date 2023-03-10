@@ -1,13 +1,12 @@
 .cardBox {
     display: block;
-    background: linear-gradient(var(--card-background), var(--card-background)) padding-box, linear-gradient(to right, #96A4E0, #7386D5) border-box;
+    background: var(--card-background);
     border-radius: 8px;
     border: 2px solid transparent;
     height: 100%;
-    transition: all .25s;
+    transition: transform .25s;
 
     &:hover {
-        background-color: var(--card-hover);
         box-shadow: var(--card-shadow);
         transform: translate(0, -4px);
     }
@@ -30,7 +29,6 @@
         font-size: 28px;
         height: 48px;
         width: 48px;
-        transition: background-color 0.25s;
     }
     
     .title {
