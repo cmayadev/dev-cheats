@@ -1,5 +1,15 @@
 [
     {
+        "component": "ColorConverter",
+        "title": "Color Converter",
+        "slug": "color-converter",
+        "category": "converters",
+        "description": "Convert HEX, RGB, HSL, CMYK and more.",
+        "icon": "🎨",
+        "featured": true,
+        "menu": true
+    },
+    {
         "component": "Passwords",
         "title": "Password Generator",
         "slug": "password-generator",
@@ -26,7 +36,7 @@
         "category": "tools",
         "description": "Reduce your links to something more comfortable.",
         "icon": "✂️",
-        "featured": true,
-        "menu": true
+        "featured": false,
+        "menu": false
     }
 ]
