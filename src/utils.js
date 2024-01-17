@@ -84,7 +84,7 @@ export const generateTints = (hsl, count) => {
   hsl = parseHSL(hsl);
   const tints = [];
   for (let i = 1; i <= count; i++) {
-    const lightness = Math.min(100, hsl.l + i * 10);
+    const lightness = Math.min(100, hsl.l + i * 6);
     tints.push(`hsl(${hsl.h}, ${hsl.s}%, ${lightness}%)`);
   }
   return tints;
@@ -94,7 +94,7 @@ export const generateShades = (hsl, count) => {
   hsl = parseHSL(hsl);
   const shades = [];
   for (let i = 1; i <= count; i++) {
-    const lightness = Math.max(0, hsl.l - i * 10);
+    const lightness = Math.max(0, hsl.l - i * 6);
     shades.push(`hsl(${hsl.h}, ${hsl.s}%, ${lightness}%)`);
   }
   return shades;
@@ -116,4 +116,54 @@ export const getComplementaryColor = (hsl) => {
   const complementaryHue = (h + 180) % 360;
 
   return `hsl(${complementaryHue}, ${s}%, ${l}%)`;
+};
+
+export let hslToHex = (hsl) => {
+  const match = hsl.match(/hsl\((\d+),\s*(\d+)%,\s*(\d+)%\)/);
+
+  if (!match) {
+    return null;
+  }
+
+  const [, h, s, l] = match.map(Number);
+
+  let hue = h;
+  let saturation = s;
+  let lightness = l;
+
+  hue /= 360;
+  saturation /= 100;
+  lightness /= 100;
+
+  let r, g, b;
+
+  if (saturation === 0) {
+    r = g = b = lightness;
+  } else {
+    const hue2rgb = (p, q, t) => {
+      if (t < 0) t += 1;
+      if (t > 1) t -= 1;
+      if (t < 1 / 6) return p + (q - p) * 6 * t;
+      if (t < 1 / 2) return q;
+      if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+      return p;
+    };
+
+    const q =
+      lightness < 0.5
+        ? lightness * (1 + saturation)
+        : lightness + saturation - lightness * saturation;
+    const p = 2 * lightness - q;
+
+    r = hue2rgb(p, q, hue + 1 / 3);
+    g = hue2rgb(p, q, hue);
+    b = hue2rgb(p, q, hue - 1 / 3);
+  }
+
+  const toHex = (c) => {
+    const hex = Math.round(c * 255).toString(16);
+    return hex.length === 1 ? "0" + hex : hex;
+  };
+
+  return `#${toHex(r)}${toHex(g)}${toHex(b)}`;
 };

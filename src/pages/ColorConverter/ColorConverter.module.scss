@@ -11,18 +11,38 @@
 }
 
 .square {
-  border: 1px solid #000;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
   border-radius: 8px;
   cursor: pointer;
-  height: 120px;
-  width: 120px;
+  height: 240px;
+  width: 320px;
+  position: relative;
+
+  span:hover {
+    text-decoration: underline;
+  }
+
+  div {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 0.5rem 1rem;
+    border-radius: 0 8px 0 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    font-size: 13px;
+    color: #fff;
+  }
 }
 
 .inputs {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   justify-content: center;
+  gap: 8px;
 
   input {
     padding: 0 0 0 8px;
@@ -31,7 +51,7 @@
 
 .colorTypes {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 2rem;
   h3 {
     margin-bottom: 0.5rem;
@@ -39,6 +59,10 @@
 }
 
 .colorGroup {
+  h4 {
+    margin-bottom: 0.5rem;
+  }
+
   div {
     display: flex;
     flex-direction: row;
@@ -46,10 +70,21 @@
   }
 
   div > div {
-    cursor: pointer;
-    width: 40px;
-    height: 40px;
+    color: #fff;
     border-radius: 0.5rem;
-    border: 1px solid gray;
+    display: flex;
+    font-size: 13px;
+    align-items: end;
+    cursor: pointer;
+    width: 140px;
+    height: 80px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+      rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+
+    span {
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 0 8px 0 8px;
+      padding: 0 8px;
+    }
   }
 }

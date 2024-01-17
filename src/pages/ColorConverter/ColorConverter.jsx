@@ -8,6 +8,7 @@ import {
   generateTints,
   generateShades,
   generateTones,
+  hslToHex,
 } from "../../utils.js";
 
 import styles from "./ColorConverter.module.scss";
@@ -19,6 +20,18 @@ const ColorConverter = (props) => {
   useEffect(() => {
     setSidebar(true);
   }, [setSidebar, true]);
+
+  const handleClick = (event) => {
+    const clickedElement = event.target;
+
+    if (
+      clickedElement.id === "colorDiv" ||
+      (clickedElement.parentElement &&
+        clickedElement.parentElement.id === "colorDiv")
+    ) {
+      document.getElementById("colorPicker").click();
+    }
+  };
 
   const handleColorChange = (event) => {
     setColor(event.target.value);
@@ -36,8 +49,9 @@ const ColorConverter = (props) => {
       <div className={styles.colorSections}>
         <div className={styles.colorConverter}>
           <div
+            id="colorDiv"
             className={styles.square}
-            onClick={() => document.getElementById("colorPicker").click()}
+            onClick={handleClick}
             style={{ backgroundColor: color }}
           >
             <input
@@ -47,25 +61,20 @@ const ColorConverter = (props) => {
               onChange={handleColorChange}
               style={{ display: "none" }}
             />
-          </div>
-          <div className={styles.inputs}>
-            <div className={styles.inputGroup}>
-              <input type="text" value={color} readOnly />
-              <button onClick={() => copyToClipboard(color)}>📋</button>
-            </div>
-            <div className={styles.inputGroup}>
-              <input
-                type="text"
-                value={`rgb(${rgb.r},${rgb.g},${rgb.b})`}
-                readOnly
-              />
-              <button
+            <div>
+              <span onClick={() => copyToClipboard(color)}>{color}</span>
+              <span
                 onClick={() =>
                   copyToClipboard(`rgb(${rgb.r},${rgb.g},${rgb.b})`)
                 }
-              >
-                📋
-              </button>
+              >{`rgb(${rgb.r},${rgb.g},${rgb.b})`}</span>
+              <span onClick={() => copyToClipboard(hsl)}>{hsl}</span>
+            </div>
+          </div>
+          <div className={styles.inputs}>
+            <div className={styles.inputGroup}>
+              <input type="text" value={color} />
+              <button onClick={() => copyToClipboard(color)}>📋</button>
             </div>
             <div className={styles.inputGroup}>
               <input type="text" value={hsl} readOnly />
@@ -76,26 +85,32 @@ const ColorConverter = (props) => {
         <div className={styles.palette}>
           <div className={styles.colorTypes}>
             <div className={styles.colorGroup}>
-              <h3>Tints</h3>
+              <h4>Tints</h4>
               <div>
                 {tints.map((tint, index) => (
-                  <div key={index} style={{ backgroundColor: tint }}></div>
+                  <div key={index} style={{ backgroundColor: tint }}>
+                    <span>{hslToHex(tint)}</span>
+                  </div>
                 ))}
               </div>
             </div>
             <div className={styles.colorGroup}>
-              <h3>Shades</h3>
+              <h4>Shades</h4>
               <div>
                 {shades.map((tint, index) => (
-                  <div key={index} style={{ backgroundColor: tint }}></div>
+                  <div key={index} style={{ backgroundColor: tint }}>
+                    <span>{hslToHex(tint)}</span>
+                  </div>
                 ))}
               </div>
             </div>
             <div className={styles.colorGroup}>
-              <h3>Tones</h3>
+              <h4>Tones</h4>
               <div>
                 {tones.map((tint, index) => (
-                  <div key={index} style={{ backgroundColor: tint }}></div>
+                  <div key={index} style={{ backgroundColor: tint }}>
+                    <span>{hslToHex(tint)}</span>
+                  </div>
                 ))}
               </div>
             </div>
