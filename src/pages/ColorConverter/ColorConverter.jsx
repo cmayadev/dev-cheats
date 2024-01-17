@@ -71,16 +71,6 @@ const ColorConverter = (props) => {
               <span onClick={() => copyToClipboard(hsl)}>{hsl}</span>
             </div>
           </div>
-          <div className={styles.inputs}>
-            <div className={styles.inputGroup}>
-              <input type="text" value={color} />
-              <button onClick={() => copyToClipboard(color)}>📋</button>
-            </div>
-            <div className={styles.inputGroup}>
-              <input type="text" value={hsl} readOnly />
-              <button onClick={() => copyToClipboard(hsl)}>📋</button>
-            </div>
-          </div>
         </div>
         <div className={styles.palette}>
           <div className={styles.colorTypes}>
