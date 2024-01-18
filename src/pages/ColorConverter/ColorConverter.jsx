@@ -15,7 +15,7 @@ import styles from "./ColorConverter.module.scss";
 
 const ColorConverter = (props) => {
   const { setSidebar, title } = props;
-  const [color, setColor] = useState("#ffffff");
+  const [color, setColor] = useState("#96A4E0");
 
   useEffect(() => {
     setSidebar(true);
@@ -34,7 +34,22 @@ const ColorConverter = (props) => {
   };
 
   const handleColorChange = (event) => {
-    setColor(event.target.value);
+    const enteredColor = event.target.value;
+    if (enteredColor.length === 7 && enteredColor.charAt(0) === "#") {
+      setColor(enteredColor);
+    }
+  };
+
+  const handleInputBlur = (event) => {
+    const enteredColor = event.target.value;
+
+    if (enteredColor.length === 7 && enteredColor.charAt(0) === "#") {
+      setColor(enteredColor);
+    } else {
+      console.log(
+        "Color inválido. Asegúrate de introducir un color válido en formato #RRGGBB."
+      );
+    }
   };
 
   const rgb = hexToRgb(color);
@@ -61,15 +76,42 @@ const ColorConverter = (props) => {
               onChange={handleColorChange}
               style={{ display: "none" }}
             />
-            <div>
-              <span onClick={() => copyToClipboard(color)}>{color}</span>
-              <span
-                onClick={() =>
-                  copyToClipboard(`rgb(${rgb.r},${rgb.g},${rgb.b})`)
-                }
-              >{`rgb(${rgb.r},${rgb.g},${rgb.b})`}</span>
-              <span onClick={() => copyToClipboard(hsl)}>{hsl}</span>
+            <div className={styles.methods}>
+              <div>
+                <span>HEX</span>
+                <span>RGB</span>
+                <span>HSL</span>
+              </div>
+              <div>
+                <span
+                  className={styles.canCopy}
+                  onClick={() => copyToClipboard(color)}
+                >
+                  {color}
+                </span>
+                <span
+                  className={styles.canCopy}
+                  onClick={() =>
+                    copyToClipboard(`rgb(${rgb.r},${rgb.g},${rgb.b})`)
+                  }
+                >{`${rgb.r}, ${rgb.g}, ${rgb.b}`}</span>
+                <span
+                  className={styles.canCopy}
+                  onClick={() => copyToClipboard(`hsl(${hsl})`)}
+                >
+                  {hsl}
+                </span>
+              </div>
             </div>
+          </div>
+          <div>
+            <input
+              type="text"
+              placeholder={color}
+              onChange={handleColorChange}
+              onBlur={handleInputBlur}
+              maxLength={7}
+            />
           </div>
         </div>
         <div className={styles.palette}>
@@ -78,7 +120,11 @@ const ColorConverter = (props) => {
               <h4>Tints</h4>
               <div>
                 {tints.map((tint, index) => (
-                  <div key={index} style={{ backgroundColor: tint }}>
+                  <div
+                    key={index}
+                    style={{ backgroundColor: tint }}
+                    onClick={() => copyToClipboard(hslToHex(tint))}
+                  >
                     <span>{hslToHex(tint)}</span>
                   </div>
                 ))}
@@ -87,9 +133,13 @@ const ColorConverter = (props) => {
             <div className={styles.colorGroup}>
               <h4>Shades</h4>
               <div>
-                {shades.map((tint, index) => (
-                  <div key={index} style={{ backgroundColor: tint }}>
-                    <span>{hslToHex(tint)}</span>
+                {shades.map((shade, index) => (
+                  <div
+                    key={index}
+                    style={{ backgroundColor: shade }}
+                    onClick={() => copyToClipboard(hslToHex(shade))}
+                  >
+                    <span>{hslToHex(shade)}</span>
                   </div>
                 ))}
               </div>
@@ -97,9 +147,13 @@ const ColorConverter = (props) => {
             <div className={styles.colorGroup}>
               <h4>Tones</h4>
               <div>
-                {tones.map((tint, index) => (
-                  <div key={index} style={{ backgroundColor: tint }}>
-                    <span>{hslToHex(tint)}</span>
+                {tones.map((tone, index) => (
+                  <div
+                    key={index}
+                    style={{ backgroundColor: tone }}
+                    onClick={() => copyToClipboard(hslToHex(tone))}
+                  >
+                    <span>{hslToHex(tone)}</span>
                   </div>
                 ))}
               </div>

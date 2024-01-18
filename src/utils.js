@@ -57,7 +57,7 @@ export const rgbToHsl = (r, g, b) => {
   l = Math.round(l);
   h = Math.round(360 * h);
 
-  return `hsl(${h}, ${s}%, ${l}%)`;
+  return `${h}, ${s}%, ${l}%`;
 };
 
 export const copyToClipboard = (text) => {
@@ -84,7 +84,7 @@ export const generateTints = (hsl, count) => {
   hsl = parseHSL(hsl);
   const tints = [];
   for (let i = 1; i <= count; i++) {
-    const lightness = Math.min(100, hsl.l + i * 6);
+    const lightness = Math.min(100, hsl.l + i * 4);
     tints.push(`hsl(${hsl.h}, ${hsl.s}%, ${lightness}%)`);
   }
   return tints;
@@ -94,7 +94,7 @@ export const generateShades = (hsl, count) => {
   hsl = parseHSL(hsl);
   const shades = [];
   for (let i = 1; i <= count; i++) {
-    const lightness = Math.max(0, hsl.l - i * 6);
+    const lightness = Math.max(0, hsl.l - i * 4);
     shades.push(`hsl(${hsl.h}, ${hsl.s}%, ${lightness}%)`);
   }
   return shades;
@@ -104,7 +104,7 @@ export const generateTones = (hsl, count) => {
   hsl = parseHSL(hsl);
   const tones = [];
   for (let i = 1; i <= count; i++) {
-    const saturation = Math.max(0, hsl.s - i * 10);
+    const saturation = Math.max(0, hsl.s - i * 6);
     tones.push(`hsl(${hsl.h}, ${saturation}%, ${hsl.l}%)`);
   }
   return tones;

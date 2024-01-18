@@ -18,23 +18,39 @@
   height: 240px;
   width: 320px;
   position: relative;
+}
 
-  span:hover {
-    text-decoration: underline;
+.methods {
+  display: grid;
+  grid-template-columns: 0.3fr 1fr;
+  cursor: default;
+
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0.5rem 1rem;
+  border-radius: 0 8px 0 8px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+
+  div:first-child {
+    font-size: 10px;
+    color: #fff;
   }
 
   div {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 0.5rem 1rem;
-    border-radius: 0 8px 0 8px;
-    position: absolute;
-    bottom: 0;
-    left: 0;
     display: flex;
     flex-direction: column;
     font-weight: 500;
     font-size: 13px;
     color: #fff;
+  }
+}
+
+.canCopy {
+  cursor: pointer;
+  width: fit-content;
+  &:hover {
+    text-decoration: underline;
   }
 }
 
@@ -80,6 +96,10 @@
     height: 80px;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
       rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    transition: transform 0.2s ease-in-out;
+    &:hover {
+      transform: translateY(-2px);
+    }
 
     span {
       background-color: rgba(0, 0, 0, 0.6);
