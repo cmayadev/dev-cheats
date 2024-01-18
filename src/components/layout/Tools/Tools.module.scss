@@ -1,36 +1,36 @@
 .tools {
-    padding: 0 24px;
-    position: relative;
+  padding: 0 24px;
+  position: relative;
 }
 
 .items {
-    display: flex;
-    flex-wrap: wrap;
-    margin: -8px;
+  display: flex;
+  flex-wrap: wrap;
+  margin: -8px;
 
-    a {
-        padding: 8px;
-        width: 100%;
-    }
+  a {
+    padding: 8px;
+    width: 100%;
+  }
 }
 
 @media (min-width: 640px) {
-    .tools {
-        padding: 0 48px;
-    }
-    .items a {
-        width: 50%;
-    }
+  .tools {
+    padding: 0 48px;
+  }
+  .items a {
+    width: 50%;
+  }
 }
 
 @media (min-width: 768px) {
-    .items a {
-        width: calc(100% / 3);
-    }
+  .items a {
+    width: calc(100% / 3);
+  }
 }
 
 @media (min-width: 960px) {
-    .tools {
-        padding: 0 64px;
-    }
+  .tools {
+    padding: 0 64px;
+  }
 }

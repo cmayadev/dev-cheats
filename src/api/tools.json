@@ -38,5 +38,15 @@
         "icon": "✂️",
         "featured": false,
         "menu": false
+    },
+    {
+        "component": "LoremIpsum",
+        "title": "Lorem Ipsum Generator",
+        "slug": "lorem-ipsum",
+        "category": "generators",
+        "description": "Generate Lorem Ipsum text for your projects.",
+        "icon": "📝",
+        "featured": true,
+        "menu": false
     }
 ]

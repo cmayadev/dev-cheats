@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Sidebar.module.scss";
 
-// Asegúrate de que la ruta de importación de tools.json es correcta
 import tools from "../../../api/tools.json";
 import { NavLink } from "react-router-dom";
 
 const Sidebar = () => {
   const [categories, setCategories] = useState({});
+
+  tools.sort((a, b) => a.title.localeCompare(b.title));
 
   useEffect(() => {
     const newCategories = {};
