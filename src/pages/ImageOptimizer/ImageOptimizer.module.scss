@@ -183,3 +183,103 @@
 
   p { font-size: .875rem; }
 }
+
+.previews[hidden] { display: none; }
+
+.viewOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+
+  button[aria-pressed="true"] {
+    border-color: var(--brand-color);
+    background: var(--icon-background);
+    color: var(--accent-text);
+  }
+}
+
+.sliderComparison {
+  overflow: hidden;
+  border: 1px solid var(--input-border);
+  border-radius: var(--surface-radius);
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 16px;
+    padding: 10px 12px;
+    font-size: .875rem;
+  }
+
+  small {
+    display: block;
+    color: var(--text-light);
+    font: .75rem/1.5 ui-monospace, monospace;
+  }
+}
+
+.sliderViewport {
+  position: relative;
+  height: clamp(200px, 54cqi, 420px);
+  overflow: hidden;
+  background:
+    repeating-conic-gradient(var(--divider-background) 0% 25%, transparent 0% 50%) 0 / 16px 16px,
+    var(--body--background);
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+
+  input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: ew-resize;
+    touch-action: pan-y;
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--brand-color);
+    outline-offset: -3px;
+  }
+}
+
+.sliderOriginal { clip-path: inset(0 calc(100% - var(--position)) 0 0); }
+.sliderExport { clip-path: inset(0 0 0 var(--position)); }
+
+.divider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: clamp(1px, var(--position), calc(100% - 1px));
+  width: 2px;
+  background: white;
+  box-shadow: 0 0 3px #000;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    border: 1px solid var(--input-border);
+    border-radius: 50%;
+    background: var(--card-background);
+    color: var(--text-default);
+    font-weight: 700;
+  }
+}

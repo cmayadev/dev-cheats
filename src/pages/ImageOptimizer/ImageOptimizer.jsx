@@ -24,6 +24,28 @@ function useObjectUrl(blob) {
   return entry?.blob === blob ? entry.url : null;
 }
 
+function SliderComparison({ sourceUrl, resultUrl, originalDetails, exportDetails }) {
+  const [position, setPosition] = useState(50);
+
+  return (
+    <figure className={styles.sliderComparison}>
+      <figcaption>
+        <span><strong>Original</strong><small>{originalDetails}</small></span>
+        <span><strong>Export</strong><small>{exportDetails}</small></span>
+      </figcaption>
+      <div className={styles.sliderViewport} style={{ "--position": `${position}%` }}>
+        <img className={styles.sliderOriginal} src={sourceUrl} alt="" />
+        <img className={styles.sliderExport} src={resultUrl} alt="" />
+        <div className={styles.divider} aria-hidden="true"><span>‹ ›</span></div>
+        <input type="range" min="0" max="100" value={position}
+          aria-label="Compare original and export"
+          aria-valuetext={`${position}% original, ${100 - position}% export`}
+          onChange={(event) => setPosition(Number(event.target.value))} />
+      </div>
+    </figure>
+  );
+}
+
 function ImageEditor({ file }) {
   const sourceUrl = useObjectUrl(file);
   const image = useRef(null);
@@ -34,6 +56,7 @@ function ImageEditor({ file }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [mode, setMode] = useState("side-by-side");
   const resultUrl = useObjectUrl(result);
   const height = source ? scaledHeight(Number(width), source.width, source.height) : 0;
   const validSize = validDimensions(Number(width), height);
@@ -69,6 +92,10 @@ function ImageEditor({ file }) {
   const difference = result ? file.size - result.size : 0;
   const percent = result && file.size ? readableSize.format(Math.abs(difference) / file.size * 100) : "";
   const filename = `${file.name.replace(/\.[^.]+$/, "") || "image"}-optimized.${formats[type]}`;
+  const originalDetails = `${fileSize(file.size)}${source ? ` · ${source.width} × ${source.height} px` : ""}`;
+  const exportDetails = result ? `${fileSize(result.size)} · ${width} × ${height} px` : "Preview pending";
+  const showSlider = Boolean(resultUrl) && mode === "slider";
+
 
   return (
     <>
@@ -108,11 +135,21 @@ function ImageEditor({ file }) {
       )}
       {error && <p role="alert" className="tool-error">{error}</p>}
       <section className={styles.comparison} aria-label="Image comparison" aria-busy={busy}>
-        <div className={styles.previews}>
+        {resultUrl && (
+          <div className={styles.viewOptions} role="group" aria-label="Comparison view">
+            <Button aria-pressed={mode === "side-by-side"} onClick={() => setMode("side-by-side")}>
+              Side by side
+            </Button>
+            <Button aria-pressed={mode === "slider"} onClick={() => setMode("slider")}>Slider</Button>
+          </div>
+        )}
+        {showSlider && <SliderComparison sourceUrl={sourceUrl} resultUrl={resultUrl}
+          originalDetails={originalDetails} exportDetails={exportDetails} />}
+        <div className={styles.previews} hidden={showSlider}>
           <figure>
             <figcaption>
               <strong>Original</strong>
-              <span>{fileSize(file.size)}{source && ` · ${source.width} × ${source.height} px`}</span>
+              <span>{originalDetails}</span>
             </figcaption>
             <div className={styles.viewport}>
               {sourceUrl && (
@@ -124,7 +161,7 @@ function ImageEditor({ file }) {
           <figure>
             <figcaption>
               <strong>Export</strong>
-              <span>{resultUrl ? `${fileSize(result.size)} · ${width} × ${height} px` : "Preview pending"}</span>
+              <span>{exportDetails}</span>
             </figcaption>
             <div className={styles.viewport}>
               {resultUrl
