@@ -100,6 +100,16 @@
         "keywords": "compare difference object array changes"
     },
     {
+        "component": "TextDiff",
+        "title": "Text Diff",
+        "slug": "text-diff",
+        "category": "tools",
+        "description": "Compare text line by line and highlight edits within changed lines.",
+        "icon": "±",
+        "group": "Data & Text",
+        "keywords": "compare text lines chars difference patch markdown config"
+    },
+    {
         "component": "UrlInspector",
         "title": "URL Inspector",
         "slug": "url-inspector",

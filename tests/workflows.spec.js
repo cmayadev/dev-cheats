@@ -204,3 +204,25 @@ test("Timestamp Converter preserves milliseconds and displays the selected zone"
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("1704067200000");
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
 });
+
+test("Text Diff highlights inline edits and reports line positions", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto("/tools/text-diff");
+  await page.getByRole("button", { name: "Load example" }).click();
+  await page.getByRole("button", { name: "Compare text" }).click();
+
+  const results = page.getByRole("region", { name: "Differences" });
+  await expect(results.getByRole("status")).toHaveText("2 differences");
+  await expect(results.getByText("Original · Line 2", { exact: true })).toBeVisible();
+  await expect(results.getByText("Updated · Line 4", { exact: true })).toBeVisible();
+  await expect(results.locator("mark")).toHaveText(["1", "2"]);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
+
+  await page.getByRole("button", { name: "Swap sides" }).click();
+  await page.getByRole("button", { name: "Compare text" }).click();
+  await expect(results.getByText("Removed", { exact: true })).toBeVisible();
+  await page.getByRole("textbox", { name: "Updated text" })
+    .fill(await page.getByRole("textbox", { name: "Original text" }).inputValue());
+  await page.getByRole("button", { name: "Compare text" }).click();
+  await expect(results.getByRole("status")).toHaveText("The texts match.");
+});

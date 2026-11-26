@@ -1,0 +1,67 @@
+.columns {
+  display: grid;
+  gap: 10px;
+
+  > * { min-width: 0; }
+}
+
+@container (min-width: 570px) {
+  .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.results { margin-top: 24px; }
+
+.changes {
+  display: grid;
+  gap: 10px;
+  margin: 12px 0;
+
+  li {
+    padding: 10px 12px;
+    border: 1px solid var(--divider-background);
+    border-radius: var(--surface-radius);
+    background: var(--body--background);
+  }
+
+  strong {
+    display: block;
+    margin-bottom: 6px;
+    font-size: .875rem;
+  }
+}
+
+.line {
+  > span { color: var(--text-light); font-size: .75rem; }
+
+  pre, p {
+    margin: 4px 0 0;
+    padding: 6px 8px;
+    border-radius: var(--surface-radius);
+    background: var(--input-background);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    font: .875rem/1.5 ui-monospace, monospace;
+  }
+
+  mark {
+    border-radius: 2px;
+    background: #c8e6c7;
+    color: #172416;
+    font-weight: 650;
+  }
+
+  &[data-side="before"] mark {
+    background: #f5d0d0;
+    color: #3a1818;
+  }
+}
+
+.emptyLine { color: var(--text-light); }
+.visuallyHidden { position: absolute; clip-path: inset(50%); width: 1px; height: 1px; overflow: hidden; }
