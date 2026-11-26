@@ -85,3 +85,7 @@
     background: var(--icon-background);
   }
 }
+
+.search input {
+  scroll-margin-top: calc(var(--nav-height) + 20px);
+}
