@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useToolFavorites } from "../../../api/toolFavorites";
 import { searchTools } from "../../../api/toolSearch";
 import styles from "./ToolSearch.module.scss";
 
@@ -29,8 +30,11 @@ export default function ToolSearch() {
   const [open, setOpen] = useState(false);
   const [recent, setRecent] = useState(readRecent);
   const recentRef = useRef(recent);
-  const showRecent = !query.trim() && recent.length > 0;
-  const results = showRecent ? recent.map((slug) => toolsBySlug.get(slug)) : searchTools(query);
+  const { favorites, slugs } = useToolFavorites();
+  const recentTools = recent.filter((slug) => !slugs.includes(slug)).map((slug) => toolsBySlug.get(slug));
+  const showSaved = !query.trim() && (favorites.length > 0 || recentTools.length > 0);
+  const results = showSaved ? [...favorites, ...recentTools] : searchTools(query);
+  const selectedIndex = Math.min(active, results.length - 1);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -91,16 +95,16 @@ export default function ToolSearch() {
     if (event.key === "ArrowDown" || event.key === "ArrowUp") {
       event.preventDefault();
       const direction = event.key === "ArrowDown" ? 1 : -1;
-      setActive((index) => (index + direction + results.length) % results.length);
+      setActive((selectedIndex + direction + results.length) % results.length);
     } else if (event.key === "Enter") {
       event.preventDefault();
-      select(results[active]);
+      select(results[selectedIndex]);
     }
   }
 
   useEffect(() => {
     if (open) activeOption.current?.scrollIntoView({ block: "nearest" });
-  }, [active, query, open]);
+  }, [selectedIndex, query, open]);
 
   return (
     <>
@@ -123,19 +127,34 @@ export default function ToolSearch() {
           aria-label="Find a tool" aria-autocomplete="list"
           aria-expanded={open && results.length > 0}
           aria-controls="global-tool-results"
-          aria-activedescendant={open && results.length ? `global-tool-option-${active}` : undefined}
+          aria-activedescendant={open && results.length ? `global-tool-option-${selectedIndex}` : undefined}
           placeholder="Search JSON, colors, CSS…" value={query}
           onKeyDown={handleInputKey}
           onChange={(event) => { setQuery(event.target.value); setActive(0); }} />
-        {showRecent && <p className={styles.recent}>Recently used</p>}
-        <ul id="global-tool-results" className={styles.results} role="listbox" aria-label={showRecent ? "Recently used tools" : "Matching tools"}
+        <ul id="global-tool-results" className={styles.results} role="listbox" aria-label={showSaved ? "Favorite and recent tools" : "Matching tools"}
           hidden={!results.length}>
-          {results.map((tool, index) => (
-            <li key={tool.slug} ref={index === active ? activeOption : null}
-              id={`global-tool-option-${index}`} role="option" aria-selected={index === active}
-              className={styles.option} onClick={() => select(tool)}>
-              <code className={styles.toolMark} aria-hidden="true">{tool.icon}</code>
-              <span><strong>{tool.title}</strong><small>{tool.group}</small></span>
+          {(showSaved
+            ? [
+              { label: "Favorites", items: favorites, offset: 0 },
+              { label: "Recently used", items: recentTools, offset: favorites.length },
+            ].filter(({ items }) => items.length)
+            : [{ label: "Matching tools", items: results, offset: 0 }]
+          ).map(({ label, items, offset }) => (
+            <li role="presentation" key={label}>
+              {showSaved && <p className={styles.recent} aria-hidden="true">{label}</p>}
+              <ul role="group" aria-label={label}>
+                {items.map((tool, index) => {
+                  const optionIndex = index + offset;
+                  return (
+                    <li key={tool.slug} ref={optionIndex === selectedIndex ? activeOption : null}
+                      id={`global-tool-option-${optionIndex}`} role="option" aria-selected={optionIndex === selectedIndex}
+                      className={styles.option} onClick={() => select(tool)}>
+                      <code className={styles.toolMark} aria-hidden="true">{tool.icon}</code>
+                      <span><strong>{tool.title}</strong><small>{tool.group}</small></span>
+                    </li>
+                  );
+                })}
+              </ul>
             </li>
           ))}
         </ul>

@@ -46,3 +46,23 @@
     &:hover { text-decoration: underline; }
   }
 }
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.favorite {
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--surface-radius);
+  background: var(--card-background);
+  color: var(--accent-text);
+  font-size: 1.35rem;
+  cursor: pointer;
+
+  &[aria-pressed="true"], &:hover { background: var(--icon-background); }
+}
