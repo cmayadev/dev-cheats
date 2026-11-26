@@ -48,15 +48,27 @@
   border-radius: var(--surface-radius);
 }
 
-.related {
-  padding: 8px 12px;
+.contrastLinks {
+  padding: 8px 12px 12px;
   border-top: 1px solid var(--divider-background);
-  color: var(--accent-text);
   font-size: .875rem;
   font-weight: 650;
 
-  &:hover { background: var(--card-hover); }
-  &:focus-visible { outline-offset: -3px; }
+  > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    margin-top: 4px;
+  }
+
+  a {
+    padding: 4px 8px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--surface-radius);
+    color: var(--accent-text);
+
+    &:hover { background: var(--card-hover); }
+  }
 }
 
 .methods {

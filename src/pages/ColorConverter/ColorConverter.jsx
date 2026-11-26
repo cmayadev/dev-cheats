@@ -53,9 +53,13 @@ export default function ColorConverter({ title }) {
         </div>
         <div className={styles.sample}>
           <div className={styles.preview} style={{ backgroundColor: color }} aria-hidden="true" />
-          <Link className={styles.related} to={`/tools/contrast-checker?background=${encodeURIComponent(color)}`}>
-            Check contrast <span aria-hidden="true">↗</span>
-          </Link>
+          <nav className={styles.contrastLinks} aria-label="Check contrast using this color">
+            <span>Check contrast</span>
+            <div>
+              <Link to={`/tools/contrast-checker?text=${encodeURIComponent(color)}`}>As text</Link>
+              <Link to={`/tools/contrast-checker?background=${encodeURIComponent(color)}`}>As background</Link>
+            </div>
+          </nav>
         </div>
       </div>
       {Object.entries(palette).map(([label, colors]) => (

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
+import Button from "../../components/ui/Button/Button";
+import TextPanel from "../../components/ui/TextPanel/TextPanel";
 import Tool from "../../components/layout/Tool/Tool";
 import { contrastRatio, normalizeHex } from "./contrast";
 import styles from "./ContrastChecker.module.scss";
@@ -28,8 +30,20 @@ function ColorField({ name, label, value, color, onChange }) {
 
 export default function ContrastChecker({ title }) {
   const [params] = useSearchParams();
-  const [foreground, setForeground] = useState(() => normalizeHex(params.get("text") ?? "") ?? "#213547");
-  const [background, setBackground] = useState(() => normalizeHex(params.get("background") ?? "") ?? "#FFFFFF");
+  const initialText = normalizeHex(params.get("text") ?? "") ?? "#213547";
+  const initialBackground = normalizeHex(params.get("background") ?? "") ?? "#FFFFFF";
+
+  return (
+    <Tool title={title}>
+      <ContrastEditor key={`${initialText}:${initialBackground}`}
+        initialText={initialText} initialBackground={initialBackground} />
+    </Tool>
+  );
+}
+
+function ContrastEditor({ initialText, initialBackground }) {
+  const [foreground, setForeground] = useState(initialText);
+  const [background, setBackground] = useState(initialBackground);
   const textColor = normalizeHex(foreground);
   const backgroundColor = normalizeHex(background);
   const ratio = contrastRatio(foreground, background);
@@ -40,12 +54,11 @@ export default function ContrastChecker({ title }) {
   }
 
   return (
-    <Tool title={title}>
-      <p className={styles.intro}>Check the contrast between text and its background.</p>
+    <>
       <div className={styles.controls}>
         <ColorField name="text" label="Text color" value={foreground} color={textColor} onChange={setForeground} />
         <ColorField name="background" label="Background color" value={background} color={backgroundColor} onChange={setBackground} />
-        <button type="button" className={styles.swap} onClick={swapColors}>Swap colors</button>
+        <Button className={styles.swap} onClick={swapColors}>Swap colors</Button>
       </div>
       {ratio !== null && (
         <>
@@ -73,8 +86,12 @@ export default function ContrastChecker({ title }) {
             </table>
             <p className={styles.note}>Large text is at least 24 CSS px, or about 18.7 CSS px when bold.</p>
           </section>
+          <div className={styles.export}>
+            <TextPanel label="CSS variables" rows={4} copyLabel="Copy CSS"
+              value={`:root {\n  --color-text: ${textColor};\n  --color-background: ${backgroundColor};\n}`} />
+          </div>
         </>
       )}
-    </Tool>
+    </>
   );
 }
