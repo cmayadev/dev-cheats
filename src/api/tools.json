@@ -110,6 +110,16 @@
         "keywords": "query string params fragment domain host api percent encoding utm"
     },
     {
+        "component": "TimestampConverter",
+        "title": "Timestamp Converter",
+        "slug": "timestamp-converter",
+        "category": "converters",
+        "description": "Convert Unix timestamps and ISO 8601 dates and compare time zones.",
+        "icon": "UTC",
+        "group": "Data & Text",
+        "keywords": "epoch unix iso date time seconds milliseconds timezone utc logs"
+    },
+    {
         "component": "ImageOptimizer",
         "title": "Image Optimizer",
         "slug": "image-optimizer",

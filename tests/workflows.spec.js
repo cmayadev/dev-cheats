@@ -179,3 +179,28 @@ test("CSS Shadow Builder previews, reorders and copies multiple layers", async (
   await page.getByRole("button", { name: "Remove layer" }).click();
   await expect(output).toHaveValue("box-shadow: none;");
 });
+
+test("Timestamp Converter preserves milliseconds and displays the selected zone", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto("/converters/timestamp-converter");
+
+  const format = page.getByLabel("Input format");
+  const input = page.getByRole("textbox", { name: "Timestamp" });
+  await input.fill("-0.001");
+  await expect(page.getByText("1969-12-31T23:59:59.999Z", { exact: true })).toBeVisible();
+  await format.selectOption("milliseconds");
+  await input.fill("1704067200000");
+  await expect(page.getByText("2024-01-01T00:00:00.000Z", { exact: true })).toBeVisible();
+
+  await format.selectOption("iso");
+  await input.fill("2023-02-29T01:00:00Z");
+  await expect(page.getByRole("alert")).toBeVisible();
+  await input.fill("2024-01-01T01:00:00+01:00");
+  await page.getByLabel("Display time zone").selectOption("Asia/Tokyo");
+  await expect(page.getByText(/9:00:00.*(?:GMT\+9|JST|Japan)/)).toBeVisible();
+  await page.getByRole("button", { name: "Copy Unix milliseconds", exact: true }).click();
+  await expect(page.getByText("Unix milliseconds copied to clipboard.")).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("1704067200000");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(320);
+});
