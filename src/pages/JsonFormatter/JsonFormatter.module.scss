@@ -14,3 +14,5 @@
 @container (min-width: 620px) {
   .editors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+.validation { margin-top: 8px; }
