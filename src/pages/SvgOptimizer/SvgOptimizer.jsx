@@ -1,5 +1,4 @@
-import { useRef, useState } from "react";
-import { optimize } from "svgo/browser";
+import { useEffect, useRef, useState } from "react";
 import Tool from "../../components/layout/Tool/Tool";
 import Button from "../../components/ui/Button/Button";
 import TextPanel from "../../components/ui/TextPanel/TextPanel";
@@ -21,7 +20,7 @@ function imageUrl(svg) {
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 
-function optimizeSource(input) {
+function prepareSource(input) {
   const originalBytes = encoder.encode(input).length;
   if (!input.trim()) throw new Error("Paste SVG markup or choose an SVG file.");
   if (originalBytes > maxBytes) throw new Error("Choose an SVG smaller than 1 MiB.");
@@ -37,14 +36,7 @@ function optimizeSource(input) {
 
   if (!root.namespaceURI) root.setAttribute("xmlns", svgNamespace);
   const source = root.namespaceURI ? input : new XMLSerializer().serializeToString(root);
-  const { data } = optimize(source, {
-    plugins: [{
-      name: "preset-default",
-      params: { overrides: { cleanupIds: false, removeDesc: false } },
-    }],
-  });
-  const optimizedBytes = encoder.encode(data).length;
-  return { data, originalBytes, optimizedBytes, originalUrl: imageUrl(source), optimizedUrl: imageUrl(data) };
+  return { source, originalBytes };
 }
 
 export default function SvgOptimizer({ title }) {
@@ -52,10 +44,29 @@ export default function SvgOptimizer({ title }) {
   const [filename, setFilename] = useState("image");
   const [result, setResult] = useState(null);
   const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [download, setDownload] = useState(null);
   const readVersion = useRef(0);
+  const worker = useRef(null);
+
+  useEffect(() => () => worker.current?.terminate(), []);
+
+  useEffect(() => {
+    if (!result) return;
+    const url = URL.createObjectURL(new Blob([result.data], { type: "application/octet-stream" }));
+    setDownload({ result, url });
+    return () => URL.revokeObjectURL(url);
+  }, [result]);
+
+  function cancelOptimization() {
+    worker.current?.terminate();
+    worker.current = null;
+    setBusy(false);
+  }
 
   function updateInput(value, name = "image") {
     readVersion.current++;
+    cancelOptimization();
     setInput(value);
     setFilename(name);
     setResult(null);
@@ -67,6 +78,7 @@ export default function SvgOptimizer({ title }) {
     event.target.value = "";
     if (!file) return;
     const version = ++readVersion.current;
+    cancelOptimization();
     setResult(null);
     setError("");
     if (file.size > maxBytes) {
@@ -84,16 +96,47 @@ export default function SvgOptimizer({ title }) {
   }
 
   function optimizeInput() {
+    setResult(null);
+    setError("");
     try {
-      setResult(optimizeSource(input));
-      setError("");
+      const { source, originalBytes } = prepareSource(input);
+      const job = new Worker(new URL("./optimizeSvg.worker.js", import.meta.url), { type: "module" });
+      worker.current = job;
+      setBusy(true);
+
+      job.onmessage = ({ data: message }) => {
+        if (worker.current !== job) return;
+        cancelOptimization();
+        if (message.error) {
+          setError(message.error);
+          return;
+        }
+        const data = message.data;
+        setResult({
+          data,
+          originalBytes,
+          optimizedBytes: encoder.encode(data).length,
+          originalUrl: imageUrl(source),
+          optimizedUrl: imageUrl(data),
+        });
+      };
+
+      job.onerror = () => {
+        if (worker.current !== job) return;
+        cancelOptimization();
+        setError("Could not run the SVG optimizer. Try again.");
+      };
+
+      job.postMessage(source);
     } catch (error) {
-      setResult(null);
+      cancelOptimization();
       setError(error.message);
     }
   }
 
   const saved = result ? result.originalBytes - result.optimizedBytes : 0;
+
+  const downloadUrl = download?.result === result ? download.url : null;
 
   return (
     <Tool title={title}>
@@ -109,7 +152,8 @@ export default function SvgOptimizer({ title }) {
             onChange={(event) => updateInput(event.target.value, filename)} />
           {error && <p id="svg-error" className="tool-error" role="alert">{error}</p>}
           <div className={styles.actions}>
-            <Button type="primary" onClick={optimizeInput}>Optimize SVG</Button>
+            <Button type="primary" onClick={optimizeInput} disabled={busy}>Optimize SVG</Button>
+            <span className="tool-feedback" role="status">{busy ? "Optimizing SVG…" : ""}</span>
             <Button onClick={() => updateInput("")} disabled={!input && !error}>Clear</Button>
           </div>
         </div>
@@ -131,7 +175,7 @@ export default function SvgOptimizer({ title }) {
           <div className={styles.summary}>
             <p role="status">{saved === 0 ? "Same file size"
               : `${sizes.format(Math.abs(saved) / result.originalBytes * 100)}% ${saved > 0 ? "smaller" : "larger"}`}</p>
-            <a href={result.optimizedUrl} download={`${filename}-optimized.svg`}>Download SVG</a>
+            {downloadUrl && <a href={downloadUrl} download={`${filename}-optimized.svg`}>Download SVG</a>}
           </div>
         </section>
       )}
