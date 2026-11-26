@@ -1,0 +1,127 @@
+.note {
+  color: var(--text-light);
+  font-size: 0.875rem;
+}
+
+.error {
+  color: var(--error-text);
+  margin-top: 8px;
+}
+
+.drop, .previews figure, .form {
+  border: 1px solid var(--input-border);
+  border-radius: 12px;
+  background: var(--card-background);
+}
+
+.drop {
+  display: grid;
+  gap: 10px;
+  margin: 16px 0;
+  padding: 16px;
+  border-style: dashed;
+  overflow-wrap: anywhere;
+
+  label {
+    font-weight: 600;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  input::file-selector-button {
+    margin-right: 8px;
+    padding: 6px 10px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    background: var(--button-alt-background);
+    color: var(--text-default);
+    cursor: pointer;
+  }
+}
+
+.dragging {
+  border-color: var(--brand-color);
+  background: var(--card-hover);
+}
+
+.previews {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 12px;
+
+  figure {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  figcaption {
+    padding: 8px 12px;
+    font-size: 0.875rem;
+  }
+
+  img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: repeating-conic-gradient(#ddd 0% 25%, #fff 0% 50%) 0 / 16px 16px;
+  }
+}
+
+.form {
+  margin-top: 16px;
+  padding: 16px;
+
+  legend {
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+}
+
+.settings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  align-items: start;
+  gap: 12px;
+  margin-bottom: 8px;
+
+  label {
+    display: grid;
+    gap: 4px;
+    min-width: 0;
+    font-size: 0.875rem;
+  }
+
+  input, select {
+    width: 100%;
+    min-height: 40px;
+  }
+
+  input[type="number"], select {
+    padding: 6px 10px;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    background: var(--input-background);
+  }
+}
+
+.primary {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  color: #fff;
+  background: #5145a5;
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.result {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+}

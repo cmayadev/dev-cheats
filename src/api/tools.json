@@ -88,5 +88,15 @@
         "icon": "🔗",
         "group": "Data & Text",
         "keywords": "query string params fragment domain host api percent encoding utm"
+    },
+    {
+        "component": "ImageOptimizer",
+        "title": "Image Optimizer",
+        "slug": "image-optimizer",
+        "category": "tools",
+        "description": "Resize images, compare file sizes and export WebP, PNG or JPEG.",
+        "icon": "🖼️",
+        "group": "CSS & Design",
+        "keywords": "compress convert resize image webp png jpeg jpg canvas quality"
     }
 ]
