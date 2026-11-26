@@ -157,3 +157,25 @@ test("Lorem Ipsum generates and copies the requested words", async ({ page, cont
   await expect(page.getByText("Copied to clipboard.", { exact: true })).toBeVisible();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await result.inputValue());
 });
+
+test("CSS Shadow Builder previews, reorders and copies multiple layers", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+  await page.setViewportSize({ width: 320, height: 800 });
+  await page.goto("/tools/css-shadow");
+  const output = page.getByRole("textbox", { name: "CSS", exact: true });
+  await page.getByRole("spinbutton", { name: "Horizontal offset" }).fill("-8");
+  await page.getByRole("button", { name: "Add layer" }).click();
+  await page.getByRole("checkbox", { name: "Inset shadow" }).check();
+  await page.getByRole("button", { name: "Move up", exact: true }).click();
+  await expect(output).toHaveValue(/^box-shadow: inset 0px 4px 10px 0px rgb\(18 21 18 \/ 15%\),\n  -8px/);
+  await expect(page.getByRole("region", { name: "Preview" }).locator("[style]"))
+    .toHaveCSS("box-shadow", /inset.*-8px/);
+  await page.getByRole("button", { name: "Dark", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Dark", exact: true })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("button", { name: "Copy CSS" }).click();
+  await expect(page.getByText("Copied to clipboard.", { exact: true })).toBeVisible();
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await output.inputValue());
+  await page.getByRole("button", { name: "Remove layer" }).click();
+  await page.getByRole("button", { name: "Remove layer" }).click();
+  await expect(output).toHaveValue("box-shadow: none;");
+});

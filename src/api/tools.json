@@ -50,6 +50,16 @@
         "keywords": "responsive typography font clamp linear fluid vw rem"
     },
     {
+        "component": "ShadowBuilder",
+        "title": "CSS Shadow Builder",
+        "slug": "css-shadow",
+        "category": "tools",
+        "description": "Build layered box shadows, preview them live and copy the CSS.",
+        "icon": "CSS",
+        "group": "CSS & Design",
+        "keywords": "box-shadow shadow blur spread inset rgba layer"
+    },
+    {
         "component": "UrlShortener",
         "title": "Url Shortener",
         "slug": "url-shortener",

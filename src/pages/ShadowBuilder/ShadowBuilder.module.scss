@@ -1,0 +1,125 @@
+.workspace {
+  display: grid;
+  gap: 20px;
+  align-items: start;
+
+  > * { min-width: 0; }
+}
+
+.preview {
+  overflow: hidden;
+  border: 1px solid var(--divider-background);
+  border-radius: var(--surface-radius);
+
+  .bar { padding: 10px 12px; }
+}
+
+.bar, .actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.bar {
+  min-height: 44px;
+  justify-content: space-between;
+
+  h2 { font-size: 1rem; }
+}
+
+.actions button[aria-pressed="true"] {
+  border-color: var(--brand-color);
+  background: var(--icon-background);
+  color: var(--accent-text);
+}
+
+.stage {
+  display: grid;
+  min-height: 245px;
+  place-items: center;
+  overflow: hidden;
+  background: #eae8df;
+
+  &[data-dark="true"] { background: #272a24; }
+}
+
+.sample {
+  width: min(42%, 144px);
+  aspect-ratio: 1;
+  border: 1px solid #d7d1bb;
+  border-radius: 16px;
+  background: #faf8ed;
+}
+
+.layers > .bar + .actions { margin-top: 8px; }
+
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-block: 14px;
+
+  label {
+    display: block;
+    min-width: 0;
+    font-size: .8125rem;
+    font-weight: 600;
+  }
+
+  label > span:not(.percent) {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  input[type="number"] {
+    width: 100%;
+    min-width: 0;
+    min-height: 36px;
+    padding: 4px 6px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--surface-radius);
+    background: var(--input-background);
+    font-family: ui-monospace, monospace;
+  }
+
+  input[type="range"] {
+    display: block;
+    width: 100%;
+    min-height: 36px;
+    accent-color: var(--brand-color);
+  }
+
+  small, code, .percent { color: var(--text-light); }
+}
+
+.color input {
+  width: 32px;
+  height: 36px;
+  padding: 3px;
+  border: 1px solid var(--input-border);
+  border-radius: var(--surface-radius);
+  background: var(--input-background);
+  cursor: pointer;
+}
+
+.percent { margin-inline-start: 3px; }
+
+.inset {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  margin-bottom: 8px;
+  font-size: .875rem;
+
+  input { accent-color: var(--brand-color); }
+}
+
+.output { margin-top: 20px; }
+
+@container (min-width: 630px) {
+  .workspace { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+  .stage { min-height: 320px; }
+}
