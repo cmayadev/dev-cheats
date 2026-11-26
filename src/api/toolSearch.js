@@ -1,5 +1,7 @@
 import tools from "./tools.json";
 
+export const toolGroups = ["CSS & Design", "Data & Text", "Generators"];
+
 const catalog = tools.filter((tool) => !tool.hidden);
 
 export function searchTools(query) {

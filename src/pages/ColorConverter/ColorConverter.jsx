@@ -40,21 +40,24 @@ export default function ColorConverter({ title }) {
               onChange={(event) => updateColor(event.target.value)} />
           </div>
           {invalid && <p id="color-error">Enter six hexadecimal digits, e.g. #96A4E0.</p>}
-        </div>
-        <div className={styles.preview} style={{ backgroundColor: color }}>
-          <div className={styles.methods}>
+          <dl className={styles.methods}>
             {Object.entries(formats).map(([format, value]) => (
-              <button key={format} type="button" aria-label={`Copy ${format} ${value}`}
-                onClick={() => copyToClipboard(value)}>
-                <span>{format}</span><code>{value}</code>
-              </button>
+              <div key={format}>
+                <dt>{format}</dt>
+                <dd><code>{value}</code></dd>
+                <dd><button type="button" aria-label={`Copy ${format} ${value}`}
+                  onClick={() => copyToClipboard(value)}>Copy</button></dd>
+              </div>
             ))}
-          </div>
+          </dl>
+        </div>
+        <div className={styles.sample}>
+          <div className={styles.preview} style={{ backgroundColor: color }} aria-hidden="true" />
+          <Link className={styles.related} to={`/tools/contrast-checker?background=${encodeURIComponent(color)}`}>
+            Check contrast <span aria-hidden="true">↗</span>
+          </Link>
         </div>
       </div>
-      <Link className={styles.related} to={`/tools/contrast-checker?background=${encodeURIComponent(color)}`}>
-        Check contrast with this color
-      </Link>
       {Object.entries(palette).map(([label, colors]) => (
         <section key={label} className={styles.group}>
           <h2>{label}</h2>

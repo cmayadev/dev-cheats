@@ -17,3 +17,19 @@
 
   .toolLayout .main { padding: 36px clamp(24px, 4vw, 56px) 64px; }
 }
+
+.main { scroll-margin-top: calc(var(--nav-height) + 12px); }
+
+.skip {
+  position: fixed;
+  top: 8px;
+  left: 12px;
+  z-index: 30;
+  padding: 8px 12px;
+  border-radius: var(--surface-radius);
+  background: var(--action-background);
+  color: var(--action-text);
+  transform: translateY(calc(-100% - 12px));
+
+  &:focus { transform: none; }
+}

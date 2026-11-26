@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../Container/Container";
-import { searchTools } from "../../../api/toolSearch";
+import { searchTools, toolGroups as groups } from "../../../api/toolSearch";
 import styles from "./Tools.module.scss";
 
-const groups = ["CSS & Design", "Data & Text", "Generators"];
 export default function Tools() {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("");
@@ -43,7 +42,7 @@ export default function Tools() {
                   {items.map((tool) => (
                     <li key={tool.slug}>
                       <Link to={`/${tool.category}/${tool.slug}`}>
-                        <span className={styles.toolTitle}>{tool.title}</span>
+                        <span className={styles.toolTitle}><code aria-hidden="true">{tool.icon}</code>{tool.title}</span>
                         <span className={styles.description}>{tool.description}</span>
                         <span className={styles.arrow} aria-hidden="true">↗</span>
                       </Link>

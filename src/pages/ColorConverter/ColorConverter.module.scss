@@ -22,7 +22,7 @@
     min-width: 0;
     height: 44px;
     border: 1px solid var(--input-border);
-    border-radius: 8px;
+    border-radius: var(--surface-radius);
     background: var(--input-background);
   }
 
@@ -40,30 +40,49 @@
   }
 }
 
-.preview {
-  min-height: 180px;
-  display: flex;
-  align-items: flex-end;
-  border-radius: 12px;
+.sample {
+  display: grid;
+  grid-template-rows: minmax(128px, 1fr) auto;
+  overflow: hidden;
+  border: 1px solid var(--input-border);
+  border-radius: var(--surface-radius);
+}
+
+.related {
+  padding: 8px 12px;
+  border-top: 1px solid var(--divider-background);
+  color: var(--accent-text);
+  font-size: .875rem;
+  font-weight: 650;
+
+  &:hover { background: var(--card-hover); }
+  &:focus-visible { outline-offset: -3px; }
 }
 
 .methods {
-  display: grid;
-  border-radius: 0 8px 0 12px;
-  background: #171721;
-  color: white;
-  padding: 6px;
+  margin-top: 16px;
+  border-top: 1px solid var(--divider-background);
+  font-size: .875rem;
 
-  button {
-    display: flex;
-    text-align: left;
-    gap: 12px;
-    padding: 3px 8px;
+  > div {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    border-bottom: 1px solid var(--divider-background);
   }
 
-  span {
-    min-width: 28px;
-    font-size: 0.75rem;
+  dt { color: var(--text-light); }
+  dd { margin: 0; overflow-wrap: anywhere; }
+
+  button {
+    padding: 4px 6px;
+    border: 0;
+    border-radius: 4px;
+    color: var(--accent-text);
+
+    &:hover { background: var(--card-hover); }
   }
 }
 
@@ -84,8 +103,8 @@
     display: flex;
     align-items: flex-end;
     min-height: 72px;
-    border: 1px solid var(--divider-background);
-    border-radius: 8px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--surface-radius);
   }
 
   code {
@@ -96,15 +115,8 @@
   }
 }
 
-@media (min-width: 640px) {
+@container (min-width: 560px) {
   .colorConverter {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
   }
-}
-
-.related {
-  display: inline-block;
-  margin-top: 16px;
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }

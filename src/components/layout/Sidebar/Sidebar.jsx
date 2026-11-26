@@ -1,21 +1,27 @@
-import styles from "./Sidebar.module.scss";
-import tools from "../../../api/tools.json";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { searchTools, toolGroups } from "../../../api/toolSearch";
+import styles from "./Sidebar.module.scss";
 
-const catalog = tools.filter((tool) => !tool.hidden);
-const groups = [...new Set(catalog.map((tool) => tool.group))];
+const catalog = searchTools("");
 
 export default function Sidebar() {
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <aside className={styles.sidebar}>
-      <nav className={styles.sideGroup} aria-label="Tools">
-        {groups.map((group) => (
+      <button className={styles.toggle} type="button" aria-expanded={expanded}
+        aria-controls="tool-navigation" onClick={() => setExpanded(!expanded)}>
+        Browse tools <span aria-hidden="true">{expanded ? "−" : "+"}</span>
+      </button>
+      <nav id="tool-navigation" className={styles.sideGroup} data-expanded={expanded} aria-label="Tools">
+        {toolGroups.map((group) => (
           <div className={styles.categoryGroup} key={group}>
             <h2>{group}</h2>
             <ul>
               {catalog.filter((tool) => tool.group === group).map((tool) => (
                 <li key={tool.slug}>
-                  <NavLink to={`/${tool.category}/${tool.slug}`}
+                  <NavLink to={`/${tool.category}/${tool.slug}`} onClick={() => setExpanded(false)}
                     className={({ isActive }) => isActive ? styles.activeLink : undefined}>
                     {tool.title}
                   </NavLink>

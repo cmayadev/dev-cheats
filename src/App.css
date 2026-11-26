@@ -139,3 +139,8 @@ code {
 .tool-feedback { color: var(--text-light); }
 
 .tool-error:not(:empty), .tool-feedback:not(:empty) { margin-block: 8px; }
+
+:where(input, textarea)::placeholder {
+  color: var(--text-light);
+  opacity: 1;
+}

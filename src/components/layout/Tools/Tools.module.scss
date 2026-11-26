@@ -125,3 +125,21 @@
   .items a, .arrow { transition: none; }
   .items a:hover .arrow { transform: none; }
 }
+
+.toolTitle {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  code {
+    flex: 0 0 2.5rem;
+    color: var(--accent-text);
+    font: 600 .7rem/1.6 ui-monospace, monospace;
+    text-align: center;
+    background: var(--icon-background);
+  }
+}
+
+@media (max-width: 699px) {
+  .description { padding-inline-start: 3rem; }
+}

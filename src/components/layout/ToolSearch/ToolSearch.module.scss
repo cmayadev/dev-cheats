@@ -68,11 +68,6 @@
   border-radius: 8px;
   cursor: pointer;
 
-  > span:first-child {
-    width: 24px;
-    text-align: center;
-  }
-
   small {
     display: block;
     color: var(--text-light);
@@ -114,4 +109,31 @@
     font-size: 0.72rem;
     white-space: nowrap;
   }
+}
+
+.toolMark {
+  flex: 0 0 2.5rem;
+  padding: 3px;
+  border-radius: 4px;
+  background: var(--icon-background);
+  color: var(--accent-text);
+  text-align: center;
+  font: 600 .75rem/1.4 ui-monospace, monospace;
+}
+
+.shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid var(--divider-background);
+  color: var(--text-light);
+  font-size: .75rem;
+
+  kbd { color: var(--text-default); }
+}
+
+@media (pointer: coarse) {
+  .shortcuts { display: none; }
 }

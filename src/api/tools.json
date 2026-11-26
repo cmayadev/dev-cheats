@@ -5,7 +5,7 @@
         "slug": "color-converter",
         "category": "converters",
         "description": "Convert HEX to RGB and HSL, and copy tints, shades and tones.",
-        "icon": "🎨",
+        "icon": "HEX",
         "group": "CSS & Design",
         "keywords": "hex rgb hsl palette tint shade tone colour"
     },
@@ -15,7 +15,7 @@
         "slug": "contrast-checker",
         "category": "tools",
         "description": "Check text and background colors against WCAG contrast thresholds.",
-        "icon": "◐",
+        "icon": "AA",
         "group": "CSS & Design",
         "keywords": "wcag accessibility aa aaa foreground background ratio"
     },
@@ -25,7 +25,7 @@
         "slug": "password-generator",
         "category": "generators",
         "description": "Generate secure passwords for your applications.",
-        "icon": "🔐",
+        "icon": "***",
         "group": "Generators",
         "keywords": "security random credentials"
     },
@@ -35,7 +35,7 @@
         "slug": "px-to-rem",
         "category": "converters",
         "description": "Calculator to convert Px to Rem and vice versa.",
-        "icon": "📐",
+        "icon": "rem",
         "group": "CSS & Design",
         "keywords": "pixels rem units root font size css"
     },
@@ -55,7 +55,7 @@
         "slug": "url-shortener",
         "category": "tools",
         "description": "Reduce your links to something more comfortable.",
-        "icon": "✂️",
+        "icon": "URL",
         "group": "Data & Text",
         "hidden": true
     },
@@ -65,7 +65,7 @@
         "slug": "lorem-ipsum",
         "category": "generators",
         "description": "Generate Lorem Ipsum text for your projects.",
-        "icon": "📝",
+        "icon": "Txt",
         "group": "Generators",
         "keywords": "placeholder dummy text"
     },
@@ -85,7 +85,7 @@
         "slug": "url-inspector",
         "category": "tools",
         "description": "Inspect a URL and edit its query parameters in your browser.",
-        "icon": "🔗",
+        "icon": "URL",
         "group": "Data & Text",
         "keywords": "query string params fragment domain host api percent encoding utm"
     },
@@ -95,7 +95,7 @@
         "slug": "image-optimizer",
         "category": "tools",
         "description": "Resize images, compare file sizes and export WebP, PNG or JPEG.",
-        "icon": "🖼️",
+        "icon": "IMG",
         "group": "CSS & Design",
         "keywords": "compress convert resize image webp png jpeg jpg canvas quality"
     }

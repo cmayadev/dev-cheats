@@ -134,12 +134,17 @@ export default function ToolSearch() {
             <li key={tool.slug} ref={index === active ? activeOption : null}
               id={`global-tool-option-${index}`} role="option" aria-selected={index === active}
               className={styles.option} onClick={() => select(tool)}>
-              <span aria-hidden="true">{tool.icon}</span>
+              <code className={styles.toolMark} aria-hidden="true">{tool.icon}</code>
               <span><strong>{tool.title}</strong><small>{tool.group}</small></span>
             </li>
           ))}
         </ul>
         {!results.length && <p className={styles.empty} role="status">No tools match your search.</p>}
+        <div className={styles.shortcuts} aria-hidden="true">
+          <span><kbd>↑</kbd> <kbd>↓</kbd> Navigate</span>
+          <span><kbd>↵</kbd> Open</span>
+          <span><kbd>Esc</kbd> Close</span>
+        </div>
       </dialog>
     </>
   );
