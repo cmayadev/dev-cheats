@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { loremIpsum } from "react-lorem-ipsum";
+import Button from "../../components/ui/Button/Button";
+import TextPanel from "../../components/ui/TextPanel/TextPanel";
 import Tool from "../../components/layout/Tool/Tool";
 import styles from "./LoremIpsum.module.scss";
 
@@ -31,23 +33,13 @@ export default function LoremIpsumGenerator({ title }) {
   const [count, setCount] = useState("5");
   const [mode, setMode] = useState("paragraphs");
   const [text, setText] = useState("");
-  const [status, setStatus] = useState("");
   const max = mode === "bytes" || mode === "words" ? 10000 : 1000;
 
   function generate(event) {
     event.preventDefault();
     setText(generateText(mode, Number(count)));
-    setStatus("");
   }
 
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(text);
-      setStatus("Copied to clipboard.");
-    } catch {
-      setStatus("Clipboard unavailable. Select and copy the text manually.");
-    }
-  }
 
   return (
     <Tool title={title}>
@@ -63,14 +55,10 @@ export default function LoremIpsumGenerator({ title }) {
             )}
           </select>
         </label>
-        <button className={styles.primary} type="submit">Generate</button>
+        <Button type="primary" htmlType="submit">Generate</Button>
       </form>
-      <div className={styles.outputHeader}>
-        <label htmlFor="lorem-output">Generated text</label>
-        <button className={styles.secondary} type="button" disabled={!text} onClick={copy}>Copy text</button>
-      </div>
-      <textarea id="lorem-output" className={styles.output} value={text} readOnly rows={8} />
-      <p className={styles.status} role="status">{status}</p>
+      <TextPanel id="lorem-output" label="Generated text" value={text}
+        placeholder="Generated text will appear here" copyLabel="Copy text" prose />
     </Tool>
   );
 }

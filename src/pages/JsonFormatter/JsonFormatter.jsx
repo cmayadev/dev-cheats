@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Button from "../../components/ui/Button/Button";
+import TextPanel from "../../components/ui/TextPanel/TextPanel";
 import Tool from "../../components/layout/Tool/Tool";
 import { transformJson } from "./transformJson";
 import styles from "./JsonFormatter.module.scss";
@@ -30,45 +32,26 @@ export default function JsonFormatter({ title }) {
     }
   }
 
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(output);
-      setStatus("Copied to clipboard.");
-    } catch {
-      setStatus("Clipboard unavailable. Select and copy the result manually.");
-    }
-  }
 
   return (
     <Tool title={title}>
       <p className={styles.intro}>Format, validate or minify JSON in your browser.</p>
-      <div className={styles.editors}>
-        <div className={styles.editor}>
-          <div className={styles.bar}>
-            <label htmlFor="json-input">Input</label>
-            <button type="button" onClick={() => updateInput(example)}>Load example</button>
-          </div>
-          <textarea id="json-input" value={input} spellCheck={false}
-            placeholder="Paste your JSON here"
-            aria-invalid={Boolean(error)}
-            aria-describedby={error ? "json-error" : undefined}
-            onChange={(event) => updateInput(event.target.value)} />
-        </div>
-        <div className={styles.editor}>
-          <div className={styles.bar}>
-            <label htmlFor="json-output">Output</label>
-            <button type="button" disabled={!output} onClick={copy}>Copy JSON</button>
-          </div>
-          <textarea id="json-output" value={output} spellCheck={false} readOnly />
-        </div>
-      </div>
-      {error && <p id="json-error" role="alert" className={styles.error}>{error}</p>}
       <div className={styles.actions}>
-        <button type="button" className={styles.primary} onClick={() => transform(true)}>Format JSON</button>
-        <button type="button" onClick={() => transform(false)}>Minify</button>
-        <button type="button" onClick={() => updateInput("")}>Clear</button>
+        <Button type="primary" onClick={() => transform(true)}>Format JSON</Button>
+        <Button onClick={() => transform(false)}>Minify</Button>
+        <Button onClick={() => updateInput("")}>Clear</Button>
         <span role="status">{status}</span>
       </div>
+      <div className={styles.editors}>
+        <TextPanel id="json-input" label="Input" value={input} rows={11}
+          placeholder="Paste your JSON here" invalid={Boolean(error)}
+          describedBy={error ? "json-error" : undefined}
+          action={<Button onClick={() => updateInput(example)}>Load example</Button>}
+          onChange={(event) => updateInput(event.target.value)} />
+        <TextPanel id="json-output" label="Output" value={output} rows={11}
+          placeholder="Formatted JSON will appear here" copyLabel="Copy JSON" />
+      </div>
+      {error && <p id="json-error" role="alert" className={styles.error}>{error}</p>}
     </Tool>
   );
 }

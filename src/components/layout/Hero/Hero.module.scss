@@ -1,16 +1,30 @@
 .hero {
-  padding: clamp(24px, 5vw, 64px) clamp(16px, 5vw, 56px) 24px;
+  padding: clamp(16px, 4vw, 36px) clamp(16px, 5vw, 56px) 28px;
+}
+
+.banner {
+  width: 100%;
+  padding: clamp(24px, 4.2vw, 56px);
+  border-radius: clamp(16px, 3vw, 24px);
+  color: #f8f9ff;
+  background:
+    radial-gradient(ellipse at 95% 5%, #5264c7 0, transparent 55%),
+    repeating-linear-gradient(90deg, #ffffff0b 0 1px, transparent 1px 32px),
+    repeating-linear-gradient(0deg, #ffffff0b 0 1px, transparent 1px 32px),
+    var(--hero-background);
 
   h1 {
-    font-size: clamp(2rem, 5vw, 3.5rem);
+    max-width: 15ch;
+    font-size: clamp(2rem, 5vw, 3.625rem);
+    line-height: 1.04;
+    letter-spacing: -0.06em;
     font-weight: 700;
-    letter-spacing: -0.045em;
-    line-height: 1.08;
   }
 
   p {
-    margin-top: 12px;
-    max-width: 62ch;
-    color: var(--text-light);
+    max-width: 49ch;
+    margin-top: 16px;
+    color: #d8e1ff;
+    line-height: 1.55;
   }
 }

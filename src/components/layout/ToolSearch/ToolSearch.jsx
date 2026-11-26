@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { searchTools } from "../../../api/toolSearch";
 import styles from "./ToolSearch.module.scss";
 
+const shortcut = /Mac|iPhone|iPad/.test(navigator.platform) ? "⌘ K" : "Ctrl K";
 const recentKey = "dev-cheats-recent-tools";
 const catalog = searchTools("");
 const toolsBySlug = new Map(catalog.map((tool) => [tool.slug, tool]));
@@ -110,6 +111,7 @@ export default function ToolSearch() {
           <path d="m16 16 4 4" />
         </svg>
         <span>Search</span>
+        <kbd>{shortcut}</kbd>
       </button>
       <dialog ref={dialog} className={styles.dialog} aria-labelledby="global-tool-search-heading"
         onClose={() => setOpen(false)}>

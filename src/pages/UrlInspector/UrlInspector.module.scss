@@ -1,4 +1,4 @@
-.intro, .status {
+.intro {
   color: var(--text-light);
 }
 
@@ -16,20 +16,6 @@
   font-weight: 600;
 }
 
-.bar button, .parameters button {
-  min-height: 40px;
-  padding: 6px 12px;
-  border: 1px solid var(--divider-background);
-  border-radius: 8px;
-  background: var(--button-alt-background);
-  font-size: 0.875rem;
-}
-
-.bar .primary {
-  color: #fff;
-  background: #5145a5;
-}
-
 .input {
   display: block;
   width: 100%;
@@ -41,11 +27,6 @@
   background: var(--input-background);
   color: var(--text-default);
   font: 0.875rem/1.55 ui-monospace, monospace;
-}
-
-textarea.input {
-  resize: vertical;
-  overflow-wrap: anywhere;
 }
 
 .details {
@@ -87,12 +68,9 @@ textarea.input {
   }
 }
 
-.error, .status {
+.error {
   margin-top: 8px;
   font-size: 0.875rem;
-}
-
-.error {
   color: var(--error-text);
 }
 

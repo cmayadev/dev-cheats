@@ -1,9 +1,9 @@
-.controls, .outputHeader {
+.controls {
   display: flex;
   align-items: end;
   flex-wrap: wrap;
   gap: 12px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 
   label {
     display: grid;
@@ -15,45 +15,11 @@
     max-width: 100px;
   }
 
-  input, select, button {
+  input, select {
     min-height: 40px;
     padding: 6px 12px;
     border: 1px solid var(--input-border);
     border-radius: 8px;
     background: var(--input-background);
   }
-
-  .primary {
-    color: #fff;
-    background: #5145a5;
-  }
-
-  .secondary {
-    background: var(--button-alt-background);
-
-    &:disabled {
-      opacity: 0.55;
-    }
-  }
-}
-
-.outputHeader {
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 24px;
-}
-
-.output {
-  display: block;
-  width: 100%;
-  padding: 12px;
-  resize: vertical;
-  border: 1px solid var(--input-border);
-  border-radius: 8px;
-  background: var(--input-background);
-}
-
-.status {
-  margin-top: 8px;
-  color: var(--text-light);
 }

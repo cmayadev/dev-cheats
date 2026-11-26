@@ -1,5 +1,3 @@
-@import '../../../sass/variables.scss';
-
 .header {
     position: relative;
     top: 0;
@@ -12,8 +10,9 @@
 
 .headerNavbar {
     position: relative;
-    border-bottom: 1px solid transparent;
-    padding: 0 8px 0 24px;
+    border-bottom: 1px solid var(--divider-background);
+    background: var(--header-background);
+    padding: 0 8px 0 14px;
     height: var(--nav-height);
     pointer-events: none;
 }
@@ -108,7 +107,7 @@
     pointer-events: auto;
 
     &:hover {
-        color: $brand-color;
+        color: var(--accent-text);
     }
 }
 
@@ -130,7 +129,7 @@
     .headerNavbar {
 
         &.hasSidebar {
-            border-bottom-color: transparent;
+            border-bottom-color: var(--divider-background);
             padding: 0;
 
             > div {

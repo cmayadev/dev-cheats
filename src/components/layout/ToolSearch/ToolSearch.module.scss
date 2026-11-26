@@ -100,3 +100,19 @@
   color: var(--text-light);
   font-size: 0.875rem;
 }
+
+.trigger kbd {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .trigger kbd {
+    display: inline-block;
+    padding: 0 5px;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    color: var(--text-light);
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+}

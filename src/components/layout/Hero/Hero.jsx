@@ -5,9 +5,9 @@ export default function Hero() {
   return (
     <div className={styles.hero}>
       <Container size="xl">
-        <div>
-          <h1>Tools for web developers</h1>
-          <p>Format JSON, convert CSS units, build color palettes and generate test content.</p>
+        <div className={styles.banner}>
+          <h1>Everyday tools for web developers</h1>
+          <p>Format JSON, work with CSS and colors, and optimize images. Right in your browser.</p>
         </div>
       </Container>
     </div>

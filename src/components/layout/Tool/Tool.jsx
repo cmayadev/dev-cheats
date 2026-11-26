@@ -11,7 +11,7 @@ const Tool = (props) => {
         <div className={styles.tool}>
             <Container size="content">
                 <Heading level="h1">{title}</Heading>
-                {children}
+                <div className={styles.workspace}>{children}</div>
             </Container>
         </div>
     );

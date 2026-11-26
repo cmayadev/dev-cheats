@@ -111,8 +111,12 @@
   margin-top: 10px;
   padding: 8px 12px;
   border-radius: 8px;
-  color: #fff;
-  background: #5145a5;
+  color: var(--action-text);
+  background: var(--action-background);
+
+  &:hover:not(:disabled) {
+    background: var(--action-hover);
+  }
 
   &:disabled {
     opacity: 0.6;

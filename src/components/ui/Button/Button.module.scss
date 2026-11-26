@@ -1,32 +1,36 @@
 .btn {
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    padding: 8px 12px;
-    position: relative;
-    border-radius: 8px;
-    display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 650;
+  cursor: pointer;
 
-    &:active {
-        top: 1px;
-    }
+  &:disabled {
+    cursor: default;
+    opacity: 0.55;
+  }
 
-    &.primary {
-        background-color: var(--brand-color);
-        border: none;
-        color: #fff;
-        &:hover {
-            background-color: var(--brand-color-600);
-        }
-    }
-    
-    &.secondary {
-        background-color: var(--button-alt-background);
-        border: 1px solid var(--button-alt-border);
-        color: var(--text-default);
-        &:hover {
-            background-color: var(--button-alt-hover);
-        }
-    }
+  &.primary {
+    background: var(--action-background);
+    color: var(--action-text);
 
+    &:hover:not(:disabled) {
+      background: var(--action-hover);
+    }
+  }
+
+  &.secondary {
+    background: var(--card-background);
+    border-color: var(--input-border);
+    color: var(--text-default);
+
+    &:hover:not(:disabled) {
+      background: var(--button-alt-hover);
+    }
+  }
 }

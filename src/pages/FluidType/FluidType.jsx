@@ -1,4 +1,5 @@
 import { useState } from "react";
+import TextPanel from "../../components/ui/TextPanel/TextPanel";
 import Tool from "../../components/layout/Tool/Tool";
 import { fluidType } from "./fluidType";
 import styles from "./FluidType.module.scss";
@@ -22,7 +23,6 @@ const initialValues = {
 export default function FluidType({ title }) {
   const [values, setValues] = useState(initialValues);
   const [position, setPosition] = useState(50);
-  const [status, setStatus] = useState("");
   const [minSize, maxSize, minWidth, maxWidth, rootSize] = fields.map(([name]) => Number(values[name]));
   const result = fluidType(minSize, maxSize, minWidth, maxWidth, rootSize);
   const viewport = minWidth + (maxWidth - minWidth) * (position / 100);
@@ -31,17 +31,8 @@ export default function FluidType({ title }) {
 
   function updateValue(name, value) {
     setValues((previous) => ({ ...previous, [name]: value }));
-    setStatus("");
   }
 
-  async function copy() {
-    try {
-      await navigator.clipboard.writeText(css);
-      setStatus("Copied to clipboard.");
-    } catch {
-      setStatus("Clipboard unavailable. Select and copy the CSS manually.");
-    }
-  }
 
   return (
     <Tool title={title}>
@@ -80,14 +71,9 @@ export default function FluidType({ title }) {
             <p className={styles.intro}>Font size · {Number(previewSize.toFixed(2))} px</p>
             {previewSize > 120 && <p className={styles.intro}>Preview limited to 120 px.</p>}
           </section>
-          <section className={styles.section} aria-labelledby="fluid-css">
-            <div className={styles.bar}>
-              <h2 id="fluid-css">CSS</h2>
-              <button type="button" onClick={copy}>Copy CSS</button>
-            </div>
-            <textarea className={styles.code} aria-labelledby="fluid-css" value={css} readOnly rows={2} />
-            <p role="status">{status}</p>
-          </section>
+          <div className={styles.section}>
+            <TextPanel id="fluid-css" label="CSS" value={css} rows={2} copyLabel="Copy CSS" />
+          </div>
         </>
       )}
     </Tool>

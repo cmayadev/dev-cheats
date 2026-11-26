@@ -1,67 +1,19 @@
-.intro {
+.intro, .actions span {
   color: var(--text-light);
-  margin-bottom: 24px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0;
+  font-size: 0.875rem;
 }
 
 .editors {
   display: grid;
-  gap: 16px;
-}
-
-.editor {
-  min-width: 0;
-  overflow: hidden;
-  border: 1px solid var(--input-border);
-  border-radius: 12px;
-  background: var(--input-background);
-
-  textarea {
-    display: block;
-    width: 100%;
-    min-height: 240px;
-    padding: 16px;
-    resize: vertical;
-    color: var(--text-default);
-    background: transparent;
-    font: 0.875rem/1.65 ui-monospace, monospace;
-  }
-}
-
-.bar, .actions {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap;
-
-  button {
-    padding: 6px 12px;
-    border: 1px solid var(--divider-background);
-    border-radius: 8px;
-    background: var(--button-alt-background);
-
-    &:disabled {
-      opacity: 0.55;
-    }
-  }
-}
-
-.bar {
-  justify-content: space-between;
-  padding: 10px 14px;
-  background: var(--sidebar-background);
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.actions {
-  margin-top: 16px;
-  font-size: 0.875rem;
-
-  .primary {
-    color: #fff;
-    background: #5145a5;
-    padding: 9px 16px;
-  }
+  gap: 14px;
 }
 
 .error {
@@ -73,5 +25,6 @@
 @media (min-width: 720px) {
   .editors {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
   }
 }

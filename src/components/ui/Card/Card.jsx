@@ -8,7 +8,8 @@ const Card = (props) => {
       <article className={styles.article}>
         <div className={styles.cardHeader}>
           <div className={styles.icon} aria-hidden="true">{icon}</div>
-          <h3 className={styles.title}>{title}</h3>
+          <h4 className={styles.title}>{title}</h4>
+          <span className={styles.arrow} aria-hidden="true">↗</span>
         </div>
         <p className={styles.description}>{description}</p>
       </article>

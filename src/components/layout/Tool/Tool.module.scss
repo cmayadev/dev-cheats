@@ -9,3 +9,10 @@
     padding: 0 0 96px;
   }
 }
+
+.workspace {
+  padding: clamp(14px, 3vw, 26px);
+  border: 1px solid var(--input-border);
+  border-radius: 16px;
+  background: var(--card-background);
+}
