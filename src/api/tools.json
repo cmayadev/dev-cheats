@@ -40,6 +40,16 @@
         "keywords": "pixels rem units root font size css"
     },
     {
+        "component": "FluidType",
+        "title": "CSS Clamp Generator",
+        "slug": "css-clamp",
+        "category": "tools",
+        "description": "Generate a fluid font size from two viewport widths.",
+        "icon": "Aa",
+        "group": "CSS & Design",
+        "keywords": "responsive typography font clamp linear fluid vw rem"
+    },
+    {
         "component": "UrlShortener",
         "title": "Url Shortener",
         "slug": "url-shortener",

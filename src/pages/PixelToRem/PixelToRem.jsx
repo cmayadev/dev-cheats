@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../../components/ui/Input/Input";
 import Tool from "../../components/layout/Tool/Tool";
 import styles from "./PixelToRem.module.scss";
@@ -46,6 +47,7 @@ export default function PixelToRem({ title }) {
         {value.trim() && !Number.isFinite(amount) &&
           <p className={styles.error}>Enter a valid length.</p>}
       </div>
+      <Link className={styles.related} to="/tools/css-clamp">Generate a fluid font size</Link>
     </Tool>
   );
 }
