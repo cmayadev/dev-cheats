@@ -2,10 +2,6 @@
   color: var(--text-light);
 }
 
-.intro {
-  margin-bottom: 12px;
-}
-
 .bar {
   display: flex;
   align-items: center;
@@ -23,7 +19,7 @@
   min-height: 42px;
   padding: 8px 12px;
   border: 1px solid var(--input-border);
-  border-radius: 8px;
+  border-radius: var(--surface-radius);
   background: var(--input-background);
   color: var(--text-default);
   font: 0.875rem/1.55 ui-monospace, monospace;
@@ -36,7 +32,7 @@
   padding: 14px;
   margin-top: 16px;
   border: 1px solid var(--input-border);
-  border-radius: 10px;
+  border-radius: var(--surface-radius);
   background: var(--sidebar-background);
 
   dt {
@@ -68,7 +64,7 @@
   }
 }
 
-@media (max-width: 480px) {
+@container (max-width: 460px) {
   .parameters li {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding-bottom: 10px;
@@ -91,3 +87,11 @@
 @container (min-width: 620px) {
   .editors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.editors .actions { margin-top: 8px; }

@@ -3,7 +3,7 @@ import Button from "../Button/Button";
 import styles from "./TextPanel.module.scss";
 
 export default function TextPanel({
-  id, label, value, onChange, placeholder, invalid, describedBy, action, copyLabel, rows = 8, prose, lineNumbers = false, fieldRef,
+  id, label, value, onChange, placeholder, invalid, describedBy, action, copyLabel, rows = 8, prose, lineNumbers = false, fieldRef, inputMode,
 }) {
   const generatedId = useId();
   const fieldId = id ?? generatedId;
@@ -46,7 +46,7 @@ export default function TextPanel({
         )}
         <textarea ref={field} id={fieldId} className={prose ? styles.prose : undefined}
           value={value} onChange={onChange} readOnly={!onChange} placeholder={placeholder}
-          rows={rows} spellCheck={false} aria-invalid={invalid} aria-describedby={describedBy}
+          rows={rows} inputMode={inputMode} spellCheck={false} aria-invalid={invalid} aria-describedby={describedBy}
           wrap={lineNumbers ? "off" : undefined} onScroll={lineNumbers ? syncGutter : undefined} />
       </div>
       {copyLabel && <p className={styles.feedback} role="status">{visibleFeedback}</p>}

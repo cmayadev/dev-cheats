@@ -9,9 +9,9 @@ export function inspectUrl(input) {
 }
 
 export function updateQuery(url, parameters) {
+  const query = new URLSearchParams(parameters.map(({ name, value }) => [name, value])).toString();
+  if (query === url.searchParams.toString()) return url.href;
   const result = new URL(url);
-  result.search = new URLSearchParams(
-    parameters.map(({ name, value }) => [name, value])
-  ).toString();
+  result.search = query;
   return result.href;
 }
