@@ -2,19 +2,13 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../Container/Container";
 import Card from "../../ui/Card/Card";
-import tools from "../../../api/tools.json";
+import { searchTools } from "../../../api/toolSearch";
 import styles from "./Tools.module.scss";
 
 const groups = ["CSS & Design", "Data & Text", "Generators"];
-const catalog = tools.filter((tool) => !tool.hidden);
-
 export default function Tools() {
   const [query, setQuery] = useState("");
-  const terms = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
-  const matches = catalog.filter((tool) => {
-    const searchable = [tool.title, tool.description, tool.group, tool.keywords].join(" ").toLowerCase();
-    return terms.every((term) => searchable.includes(term));
-  });
+  const matches = searchTools(query);
 
   return (
     <section className={styles.tools} aria-label="Tool catalog">

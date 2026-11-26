@@ -1,0 +1,96 @@
+.trigger, .header button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 9px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  background: var(--button-alt-background);
+  color: var(--text-default);
+  font-size: 0.875rem;
+}
+
+.trigger {
+  pointer-events: auto;
+  margin-right: 8px;
+
+  svg {
+    width: 17px;
+    height: 17px;
+  }
+}
+
+.dialog {
+  position: fixed;
+  inset: clamp(16px, 12vh, 96px) 0 auto;
+  margin: 0 auto;
+  width: min(540px, calc(100% - 24px));
+  max-height: 80vh;
+  overflow: auto;
+  padding: 16px;
+  border: 1px solid var(--input-border);
+  border-radius: 14px;
+  background: var(--card-background);
+  color: var(--text-default);
+  pointer-events: auto;
+
+  &::backdrop {
+    background: rgb(0 0 0 / 55%);
+  }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--input-border);
+  border-radius: 8px;
+  background: var(--input-background);
+}
+
+.results {
+  margin-top: 12px;
+  max-height: min(40vh, 320px);
+  overflow: auto;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  > span:first-child {
+    width: 24px;
+    text-align: center;
+  }
+
+  small {
+    display: block;
+    color: var(--text-light);
+  }
+
+  &[aria-selected="true"], &:hover {
+    background: var(--button-alt-background);
+  }
+}
+
+.empty {
+  color: var(--text-light);
+  margin-top: 12px;
+}
+
+@media (max-width: 560px) {
+  .trigger span {
+    display: none;
+  }
+}

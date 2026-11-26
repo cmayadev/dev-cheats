@@ -4,6 +4,7 @@ import Container from '../Container/Container';
 import Icon from '/ghost.svg';
 
 import SwitchMode from '../../ui/SwitchMode/SwitchMode';
+import ToolSearch from '../ToolSearch/ToolSearch';
 
 import styles from './Header.module.scss'
 
@@ -24,6 +25,7 @@ const Header = (props) => {
                         <div className={styles.content}>
                             <div className={styles.contentBody}>
                                 {sidebar && <NavLink to="/" className={styles.link}>All tools</NavLink>}
+                                <ToolSearch />
                                 <SwitchMode theme={theme} setTheme={setTheme} />
                                 <div className={styles.headerSocials}>
                                     <a href="https://github.com/cmayadev/dev-cheats" className={styles.social} target="_blank" rel="noreferrer">
