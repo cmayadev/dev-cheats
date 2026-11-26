@@ -80,6 +80,16 @@
         "keywords": "api pretty print parse indent"
     },
     {
+        "component": "JsonDiff",
+        "title": "JSON Diff",
+        "slug": "json-diff",
+        "category": "tools",
+        "description": "Compare two JSON documents by keys and values to see what changed.",
+        "icon": "±",
+        "group": "Data & Text",
+        "keywords": "compare difference object array changes"
+    },
+    {
         "component": "UrlInspector",
         "title": "URL Inspector",
         "slug": "url-inspector",

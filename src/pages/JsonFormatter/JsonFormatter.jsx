@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/ui/Button/Button";
 import TextPanel from "../../components/ui/TextPanel/TextPanel";
 import Tool from "../../components/layout/Tool/Tool";
@@ -12,6 +13,7 @@ export default function JsonFormatter({ title }) {
   const [output, setOutput] = useState("");
   const [error, setError] = useState(null);
   const inputField = useRef(null);
+  const navigate = useNavigate();
   const [status, setStatus] = useState("");
 
   function updateInput(value) {
@@ -73,6 +75,9 @@ export default function JsonFormatter({ title }) {
             <Button type="primary" onClick={() => transform(true)}>Format JSON</Button>
             <Button onClick={() => transform(false)}>Minify</Button>
             <Button onClick={() => updateInput("")}>Clear</Button>
+            <Button onClick={() => navigate("/tools/json-diff", { state: { originalJson: input } })}>
+              Compare with…
+            </Button>
           </div>
         </div>
         <div>
