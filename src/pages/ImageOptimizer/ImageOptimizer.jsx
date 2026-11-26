@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import Button from "../../components/ui/Button/Button";
 import Tool from "../../components/layout/Tool/Tool";
 import { encodeImage, scaledHeight, validDimensions } from "./image";
 import styles from "./ImageOptimizer.module.scss";
@@ -65,26 +66,12 @@ function ImageEditor({ file }) {
     }
   }
 
-  const savings = result && file.size ? Math.round((1 - result.size / file.size) * 100) : 0;
+  const difference = result ? file.size - result.size : 0;
+  const percent = result && file.size ? readableSize.format(Math.abs(difference) / file.size * 100) : "";
   const filename = `${file.name.replace(/\.[^.]+$/, "") || "image"}-optimized.${formats[type]}`;
 
   return (
     <>
-      <div className={styles.previews}>
-        <figure>
-          <figcaption><strong>Original</strong> · {fileSize(file.size)}{source && ` · ${source.width} × ${source.height} px`}</figcaption>
-          {sourceUrl && (
-            <img ref={image} src={sourceUrl} alt="Original image preview"
-              onLoad={readDimensions} onError={() => setError("This image could not be opened.")} />
-          )}
-        </figure>
-        {resultUrl && (
-          <figure>
-            <figcaption><strong>Export</strong> · {fileSize(result.size)} · {width} × {height} px</figcaption>
-            <img src={resultUrl} alt="Optimized image preview" />
-          </figure>
-        )}
-      </div>
       {source && (
         <form onSubmit={optimize} className={styles.form} noValidate>
           <fieldset disabled={busy}>
@@ -113,19 +100,51 @@ function ImageEditor({ file }) {
               {validSize ? `Output dimensions: ${width} × ${height} px` : "Use whole pixels, up to 8192 px per side and 16 megapixels total."}
             </p>
             {type === "image/jpeg" && <p className={styles.note}>Transparent areas become white in JPEG.</p>}
-            <button className={styles.primary} type="submit" disabled={!validSize}>{busy ? "Optimizing…" : "Optimize image"}</button>
+            <Button type="primary" htmlType="submit" disabled={!validSize}>
+              {busy ? "Optimizing…" : "Optimize image"}
+            </Button>
           </fieldset>
         </form>
       )}
-      {error && <p role="alert" className={styles.error}>{error}</p>}
-      <div className={styles.result} role="status">
-        {resultUrl && (
-          <>
-            <span>{savings >= 0 ? `${savings}% smaller` : `${Math.abs(savings)}% larger`}</span>
-            <a className={styles.primary} download={filename} href={resultUrl}>Download {formats[type].toUpperCase()}</a>
-          </>
-        )}
-      </div>
+      {error && <p role="alert" className="tool-error">{error}</p>}
+      <section className={styles.comparison} aria-label="Image comparison" aria-busy={busy}>
+        <div className={styles.previews}>
+          <figure>
+            <figcaption>
+              <strong>Original</strong>
+              <span>{fileSize(file.size)}{source && ` · ${source.width} × ${source.height} px`}</span>
+            </figcaption>
+            <div className={styles.viewport}>
+              {sourceUrl && (
+                <img ref={image} src={sourceUrl} alt="Original image preview"
+                  onLoad={readDimensions} onError={() => setError("This image could not be opened.")} />
+              )}
+            </div>
+          </figure>
+          <figure>
+            <figcaption>
+              <strong>Export</strong>
+              <span>{resultUrl ? `${fileSize(result.size)} · ${width} × ${height} px` : "Preview pending"}</span>
+            </figcaption>
+            <div className={styles.viewport}>
+              {resultUrl
+                ? <img src={resultUrl} alt="Optimized image preview" />
+                : <p>{busy ? "Preparing export…" : "Optimize the image to compare results."}</p>}
+            </div>
+          </figure>
+        </div>
+        <div className={styles.result}>
+          <p role="status">
+            {resultUrl && (difference === 0 ? "Same file size"
+              : `${percent}% ${difference > 0 ? "smaller" : "larger"} · ${fileSize(Math.abs(difference))} ${difference > 0 ? "saved" : "added"}`)}
+          </p>
+          {resultUrl && (
+            <a className={styles.primary} download={filename} href={resultUrl}>
+              Download {type === "image/jpeg" ? "JPEG" : formats[type].toUpperCase()}
+            </a>
+          )}
+        </div>
+      </section>
     </>
   );
 }
@@ -147,7 +166,7 @@ export default function ImageOptimizer({ title }) {
 
   return (
     <Tool title={title}>
-      <p className={styles.note}>Resize and convert images in your browser. Animated images export as a single frame.</p>
+      <p className={styles.note}>Animated images export as a single frame.</p>
       <div className={`${styles.drop} ${dragging ? styles.dragging : ""}`}
         onDragOver={(event) => { event.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
