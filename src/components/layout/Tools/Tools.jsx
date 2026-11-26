@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Container from "../Container/Container";
-import Card from "../../ui/Card/Card";
 import { searchTools } from "../../../api/toolSearch";
 import styles from "./Tools.module.scss";
 
@@ -40,13 +39,17 @@ export default function Tools() {
             return (
               <section className={styles.group} key={group}>
                 <h3>{group}</h3>
-                <div className={styles.items}>
+                <ul className={styles.items} role="list">
                   {items.map((tool) => (
-                    <Link to={`/${tool.category}/${tool.slug}`} key={tool.slug} aria-label={tool.title}>
-                      <Card icon={tool.icon} title={tool.title} description={tool.description} />
-                    </Link>
+                    <li key={tool.slug}>
+                      <Link to={`/${tool.category}/${tool.slug}`}>
+                        <span className={styles.toolTitle}>{tool.title}</span>
+                        <span className={styles.description}>{tool.description}</span>
+                        <span className={styles.arrow} aria-hidden="true">↗</span>
+                      </Link>
+                    </li>
                   ))}
-                </div>
+                </ul>
               </section>
             );
           })}

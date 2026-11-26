@@ -13,6 +13,35 @@
 .workspace {
   padding: clamp(14px, 3vw, 26px);
   border: 1px solid var(--input-border);
-  border-radius: 16px;
+  border-radius: var(--surface-radius);
   background: var(--card-background);
+}
+
+.intro {
+  margin-bottom: 24px;
+
+  h1 {
+    margin: 8px 0 6px;
+    font-size: clamp(1.85rem, 4vw, 3rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -.055em;
+  }
+
+  p {
+    max-width: 62ch;
+    color: var(--text-light);
+  }
+}
+
+.breadcrumb {
+  display: flex;
+  gap: 8px;
+  color: var(--text-light);
+  font: .8125rem/1.5 ui-monospace, monospace;
+
+  a {
+    color: var(--accent-text);
+    &:hover { text-decoration: underline; }
+  }
 }

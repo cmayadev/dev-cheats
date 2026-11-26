@@ -1,12 +1,12 @@
 :root {
-  --brand-color: #5462cf;
+  --brand-color: #866300;
   --error-text: #a72331;
-  --surface-radius: 12px;
-  --action-background: #404daf;
-  --action-hover: #323e95;
+  --surface-radius: 6px;
+  --action-background: #725300;
+  --action-hover: #594000;
   --action-text: #fff;
-  --accent-text: #404daf;
-  --hero-background: #131b39;
+  --accent-text: #725300;
+  --hero-background: #181b18;
   --brand-color-600: #6575ba;
   --brand-color-700: #5665a0;
   --brand-color-800: #485485;
@@ -14,25 +14,25 @@
   --nav-height-mobile: 56px;
   --nav-height-desktop: 64px;
 
-  --button-alt-background: #eef0f9;
+  --button-alt-background: #efeee8;
   --button-alt-hover: #f1f1f1;
   --button-alt-border: #3c3c434a;
   --card-background: #ffffff;
-  --card-hover: #f8f9ff;
+  --card-hover: #f4f1e7;
   --card-shadow: 0px 4px 8px -2px rgba(9, 30, 66, 0.25),
     0px 0px 0px 1px rgba(9, 30, 66, 0.08);
-  --body--background: #f7f8fd;
+  --body--background: #faf9f5;
   --divider-background: #3c3c3c1f;
   --check-border: #3c3c434a;
-  --header-background: rgba(255, 255, 255, 0.7);
-  --icon-background: #e9ecff;
+  --header-background: #faf9f5;
+  --icon-background: #f7edcb;
   --input-background: #fff;
-  --input-border: #d5daea;
-  --sidebar-background: #eef0f9;
-  --text-default: #171d35;
-  --text-light: #505b75;
+  --input-border: #c8c7bd;
+  --sidebar-background: #efeee8;
+  --text-default: #21231e;
+  --text-light: #5b5e54;
 
-  --check-background: #eef0f9;
+  --check-background: #efeee8;
   --check--transform: none;
   --sun-icon-display: block;
   --moon-icon-display: none;
@@ -40,30 +40,30 @@
 
 .dark {
   --error-text: #ffadb5;
-  --action-background: #aeb8ff;
-  --action-hover: #c3caff;
-  --action-text: #171d35;
-  --accent-text: #b5beff;
-  --brand-color: #a5b0ff;
-  --button-alt-background: #222c43;
+  --action-background: #f3cc54;
+  --action-hover: #ffdf7b;
+  --action-text: #21231e;
+  --accent-text: #f3cc54;
+  --brand-color: #f3cc54;
+  --button-alt-background: #292c26;
   --button-alt-hover: #2c2c30;
   --button-alt-border: #525259ad;
-  --card-background: #171e31;
-  --card-hover: #1e2841;
+  --card-background: #1c1f1a;
+  --card-hover: #272b24;
   --card-shadow: 0px 4px 8px -2px rgba(138, 154, 182, 0.25),
     0px 0px 0px 1px rgba(137, 154, 184, 0.08);
-  --body--background: #101523;
+  --body--background: #151713;
   --check-border: #525259ad;
   --divider-background: #52525952;
-  --header-background: #101523;
-  --icon-background: #101523;
-  --input-background: #222c43;
-  --input-border: #465572;
-  --sidebar-background: #131a2b;
-  --text-default: #f1f4ff;
-  --text-light: #aebad5;
+  --header-background: #151713;
+  --icon-background: #151713;
+  --input-background: #292c26;
+  --input-border: #585d50;
+  --sidebar-background: #1b1e19;
+  --text-default: #f1f0e9;
+  --text-light: #b4b8aa;
 
-  --check-background: #222c43;
+  --check-background: #292c26;
   --check--transform: translate(18px);
   --sun-icon-display: none;
   --moon-icon-display: block;
