@@ -1,143 +1,76 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { loremIpsum } from "react-lorem-ipsum";
 import Tool from "../../components/layout/Tool/Tool";
-import { LoremIpsum } from "react-lorem-ipsum";
+import styles from "./LoremIpsum.module.scss";
 
-const LoremIpsumGenerator = (props) => {
-  const [count, setCount] = useState(5);
-  const [selectedOption, setSelectedOption] = useState("paragraphs");
-  const [loremText, setLoremText] = useState("");
-  const { title } = props;
+const modes = {
+  paragraphs: "Paragraphs",
+  words: "Words",
+  bytes: "Bytes",
+  lists: "List items",
+};
 
-  const handleCountChange = (event) => {
-    setCount(parseInt(event.target.value, 10));
-  };
+function generateText(mode, count) {
+  if (mode === "paragraphs") return loremIpsum({ p: count }).join("\n\n");
+  if (mode === "lists") {
+    return loremIpsum({ p: count, avgSentencesPerParagraph: 1 })
+      .map((item) => `- ${item}`).join("\n");
+  }
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
+  if (mode === "words") {
+    return loremIpsum({ p: count, avgSentencesPerParagraph: 1 })
+      .join(" ").split(/\s+/).slice(0, count).join(" ");
+  }
 
-  const generateLoremIpsum = () => {
-    let generatedText = "";
+  const text = loremIpsum({ p: Math.ceil(count / 32) }).join(" ");
+  const bytes = new TextEncoder().encode(text);
+  return new TextDecoder().decode(bytes.subarray(0, count), { stream: true });
+}
 
-    switch (selectedOption) {
-      case "paragraphs":
-        generatedText = <LoremIpsum p={count} />;
-        break;
-      case "words":
-        generatedText = <LoremIpsum w={count} />;
-        break;
-      case "bytes":
-        generatedText = <LoremIpsum bytes={count} />;
-        break;
-      case "lists":
-        generatedText = <LoremIpsum ul={count} />;
-        break;
-      default:
-        break;
+export default function LoremIpsumGenerator({ title }) {
+  const [count, setCount] = useState("5");
+  const [mode, setMode] = useState("paragraphs");
+  const [text, setText] = useState("");
+  const [status, setStatus] = useState("");
+  const max = mode === "bytes" || mode === "words" ? 10000 : 1000;
+
+  function generate(event) {
+    event.preventDefault();
+    setText(generateText(mode, Number(count)));
+    setStatus("");
+  }
+
+  async function copy() {
+    try {
+      await navigator.clipboard.writeText(text);
+      setStatus("Copied to clipboard.");
+    } catch {
+      setStatus("Clipboard unavailable. Select and copy the text manually.");
     }
-
-    setLoremText(generatedText);
-  };
-
+  }
 
   return (
     <Tool title={title}>
-      <div>
-        <label>
-          Cantidad:
-          <input type="number" value={count} onChange={handleCountChange} />
+      <form className={styles.controls} onSubmit={generate}>
+        <label>Amount
+          <input type="number" min="1" max={max} step="1" required value={count}
+            onChange={(event) => setCount(event.target.value)} />
         </label>
-
-        <div>
-          <label>
-            <input
-              type="radio"
-              value="paragraphs"
-              checked={selectedOption === "paragraphs"}
-              onChange={handleOptionChange}
-            />
-            Paragraphs
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="words"
-              checked={selectedOption === "words"}
-              onChange={handleOptionChange}
-            />
-            Words
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="bytes"
-              checked={selectedOption === "bytes"}
-              onChange={handleOptionChange}
-            />
-            Bytes
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="lists"
-              checked={selectedOption === "lists"}
-              onChange={handleOptionChange}
-            />
-            Lists
-          </label>
-        </div>
-
-        <button onClick={generateLoremIpsum}>Generar</button>
+        <label htmlFor="lorem-mode">Format
+          <select id="lorem-mode" value={mode} onChange={(event) => setMode(event.target.value)}>
+            {Object.entries(modes).map(([value, label]) =>
+              <option key={value} value={value}>{label}</option>
+            )}
+          </select>
+        </label>
+        <button className={styles.primary} type="submit">Generate</button>
+      </form>
+      <div className={styles.outputHeader}>
+        <label htmlFor="lorem-output">Generated text</label>
+        <button className={styles.secondary} type="button" disabled={!text} onClick={copy}>Copy text</button>
       </div>
-      <hr />
-      <pre>
-        <div className="codeContainer">
-          <div className="codeDiv">
-            <span>jsx</span>
-            <span className="" data-state="closed">
-              <button
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "0.25rem",
-                  border: "none",
-                }}
-              >
-                <svg
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ strokeWidth: "2", height: "1rem", width: "1rem" }}
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M12 4C10.8954 4 10 4.89543 10 6H14C14 4.89543 13.1046 4 12 4ZM8.53513 4C9.22675 2.8044 10.5194 2 12 2C13.4806 2 14.7733 2.8044 15.4649 4H17C18.6569 4 20 5.34315 20 7V19C20 20.6569 18.6569 22 17 22H7C5.34315 22 4 20.6569 4 19V7C4 5.34315 5.34315 4 7 4H8.53513ZM8 6H7C6.44772 6 6 6.44772 6 7V19C6 19.5523 6.44772 20 7 20H17C17.5523 20 18 19.5523 18 19V7C18 6.44772 17.5523 6 17 6H16C16 7.10457 15.1046 8 14 8H10C8.89543 8 8 7.10457 8 6Z"
-                    fill="currentColor"
-                  ></path>
-                </svg>
-                Copy code
-              </button>
-            </span>
-          </div>
-          <div
-            style={{
-              color: "#FFF",
-              fontSize: "14px",
-              padding: "1rem",
-              overflowY: "auto",
-            }}
-          >
-            <code className="!whitespace-pre hljs language-jsx">
-              {loremText}
-            </code>
-          </div>
-        </div>
-      </pre>
+      <textarea id="lorem-output" className={styles.output} value={text} readOnly rows={8} />
+      <p className={styles.status} role="status">{status}</p>
     </Tool>
   );
-};
-
-export default LoremIpsumGenerator;
+}
