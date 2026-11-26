@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import cx from 'classnames'
 import { toast } from 'react-toastify';
 import { generatePassword } from "../../api/password-generator";
@@ -11,7 +11,7 @@ import styles from './Passwords.module.scss'
 
 const Passwords = (props) => {
 
-    const { setSidebar, title } = props;
+    const { title } = props;
 
     const [password, setPassword] = useState("");
     const [security, setSecurity] = useState("empty");
@@ -20,31 +20,31 @@ const Passwords = (props) => {
     const [symbols, setSymbols] = useState(false);
     const [size, setSize] = useState(12);
 
-    useEffect(() => {
-        setSidebar(true);
-    }, [setSidebar, true]);
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        const newPassword = generatePassword(size, uppercase, numbers, symbols);
-        setPassword(newPassword);
-        setSecurity(checkPasswordSecurity(newPassword));
+    const refreshPassword = (length, useUppercase, useNumbers, useSymbols) => {
+        const nextPassword = generatePassword(length, useUppercase, useNumbers, useSymbols);
+        setPassword(nextPassword);
+        setSecurity(checkPasswordSecurity(nextPassword));
     };
 
-    const handleRangeChange = (e) => {
-        setSize(e.target.value);
-        const newPassword = generatePassword(size, uppercase, numbers, symbols);
-        setPassword(newPassword);
-        setSecurity(checkPasswordSecurity(newPassword));
-    }
+    const handleSubmit = () => refreshPassword(size, uppercase, numbers, symbols);
+
+    const handleRangeChange = (event) => {
+        const length = Number(event.target.value);
+        setSize(length);
+        refreshPassword(length, uppercase, numbers, symbols);
+    };
 
     const handleRandomize = () => {
-        setUppercase(Math.random() >= 0.5);
-        setNumbers(Math.random() >= 0.5);
-        setSymbols(Math.random() >= 0.5);
-        handleSubmit({ preventDefault: () => {} });
+        const nextUppercase = Math.random() >= 0.5;
+        const nextNumbers = Math.random() >= 0.5;
+        const nextSymbols = Math.random() >= 0.5;
+        setUppercase(nextUppercase);
+        setNumbers(nextNumbers);
+        setSymbols(nextSymbols);
+        refreshPassword(size, nextUppercase, nextNumbers, nextSymbols);
     };
-    
+
     const handleCopy = () => {
         navigator.clipboard.writeText(password);
         toast.success("Password copied to clipboard!", {
@@ -80,6 +80,7 @@ const Passwords = (props) => {
             <div className={styles.range}>
                 <input
                     type="range"
+                    aria-label="Password length"
                     min="8"
                     max="32"
                     value={size}

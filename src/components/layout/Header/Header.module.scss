@@ -35,8 +35,8 @@
     }
 }
 
-.nav {
-    display: none;
+@media (max-width: 380px) {
+    .headerSocials { display: none; }
 }
 
 .logo {
@@ -98,7 +98,8 @@
 .link {
     display: flex;
     align-items: center;
-    padding: 0 12px;
+    padding: 0 8px;
+    white-space: nowrap;
     line-height: var(--nav-height-mobile);
     font-size: 14px;
     font-weight: 500;
@@ -117,9 +118,6 @@
         padding: 0 32px;
     }
 
-    .nav {
-        display: flex;
-    }
 
 }
 

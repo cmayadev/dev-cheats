@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Tool from "../../components/layout/Tool/Tool";
 import { LoremIpsum } from "react-lorem-ipsum";
 
@@ -6,7 +6,7 @@ const LoremIpsumGenerator = (props) => {
   const [count, setCount] = useState(5);
   const [selectedOption, setSelectedOption] = useState("paragraphs");
   const [loremText, setLoremText] = useState("");
-  const { setSidebar, title } = props;
+  const { title } = props;
 
   const handleCountChange = (event) => {
     setCount(parseInt(event.target.value, 10));
@@ -39,9 +39,6 @@ const LoremIpsumGenerator = (props) => {
     setLoremText(generatedText);
   };
 
-  useEffect(() => {
-    setSidebar(true);
-  }, [setSidebar, true]);
 
   return (
     <Tool title={title}>

@@ -1,137 +1,18 @@
-@import '../../../sass/variables.scss';
+.footer {
+  position: relative;
+  padding: 20px clamp(16px, 5vw, 56px);
+  border-top: 1px solid var(--divider-background);
+  background: var(--body--background);
+  font-size: 0.875rem;
 
-footer {
-    background-color: var(--sidebar-background);
-    color: var(--text-default);
-    padding: 2rem 1rem;
-    position: relative;
-    z-index: 60;
-
-    .title {
-        font-size: 16px;
-        font-weight: 600;
-        transition: opacity .25s;
-
-        + p {
-            color: var(--text-default);
-            margin: 0.5rem 0 2rem;
-        }
-
-        &:hover {
-            opacity: .6;
-        }
-    }
-
-    .socials {
-        display: flex;
-        gap: 1rem;
-        margin-top: 0.5rem;
-
-        li {
-            flex: 0 0 auto;
-        }
-
-        a {
-            display: block;
-            height: 24px;
-            width: 24px;
-        }
-
-        .github {
-            -webkit-mask-image: url('/github.svg');
-            mask-image: url('/github.svg');
-        }
-    }
-
-    svg {
-        fill: currentColor;
-        margin-right: 4px;
-    }
-
-    .category {
-        font-size: 16px;
-        font-weight: 400;
-        margin: 0 0 0.5rem;
-    }
-
-    .sections {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .section {
-        color: var(--text-light);
-        font-size: 14px;
-    }
-
-}
-
-.footerGrid {
+  div {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    justify-content: space-between;
+    max-width: 1152px;
     margin: 0 auto;
-    max-width: 1440px;
-}
+  }
 
-.icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--text-light);
-    transition: color 0.5s;
-
-    &:hover {
-        color: var(--text-default);
-        transition: color .25s;
-    }
-}
-
-@media screen and (min-width: 426px) {
-
-    .footerGrid {
-        grid-gap: 2.5rem;
-        display: grid;
-        gap: 2.5rem;
-        grid-template-areas:
-            "logo . "
-            "nav1 nav2"
-            "nav3 nav4"
-            "moz moz"
-            "legal legal";
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .logo {
-        grid-area: logo;
-    }
-
-    .col1 {
-        grid-area: nav1;
-    }
-    .col2 {
-        grid-area: nav2;
-    }
-    .col3 {
-        grid-area: nav3;
-    }
-    .col4 {
-        grid-area: nav4;
-    }
-}
-
-@media screen and (min-width: 769px) {
-    .footerGrid {
-        gap: 1rem;
-        grid-template-areas:
-            "logo nav1 nav2 nav3 nav4";
-        grid-template-columns: minmax(260px,2fr) repeat(4,minmax(0,1fr));
-    }
-}
-
-@media screen and (min-width: 1441px) {
-    .footerGrid {
-        gap: 2.5rem;
-    }
+  a:hover {
+    text-decoration: underline;
+  }
 }

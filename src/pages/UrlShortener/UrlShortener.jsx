@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { toast } from 'react-toastify';
 
@@ -10,13 +10,10 @@ import styles from './UrlShortener.module.scss';
 
 function URLShortener(props) {
 
-    const { setSidebar, title } = props;
+    const { title } = props;
     const [url, setUrl] = useState("");
     const [shortenedUrl, setShortenedUrl] = useState("");
 
-    useEffect(() => {
-        setSidebar(true);
-    }, [setSidebar, true]);
 
     const handleChange = (event) => {
         setUrl(event.target.value);

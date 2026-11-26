@@ -1,85 +1,51 @@
-import { useState, useEffect } from 'react';
+import { useState } from "react";
+import Input from "../../components/ui/Input/Input";
+import Tool from "../../components/layout/Tool/Tool";
+import styles from "./PixelToRem.module.scss";
 
-import Input from '../../components/ui/Input/Input';
-import Tool from '../../components/layout/Tool/Tool';
-
-import styles from './PixelToRem.module.scss'
-
-const PixelToRem = (props) => {
-
-    const { setSidebar, title } = props;
-
-    const [ rem, setRem ] = useState(1);
-    const [ pixels, setPixels ] = useState(16);
-    const [ fontSize, setFontSize ] = useState(16);
-    const [ swapped, setSwapped ] = useState(false);
-    const [ activeInput, setActiveInput ] = useState("rem");
-
-    const validateInput = (e) => {
-        const pattern = /^[0-9]*[.,]?[0-9]*$/;
-        if (!pattern.test(e.target.value)) {
-            e.preventDefault();
-            return false;
-        }
-        return true;
-    }
-
-    const handleFontSize = (e) => {
-        if (validateInput(e)) {
-            setFontSize(e.target.value);
-            if(swapped) {
-                let value = pixels / e.target.value;
-                value = Math.round((value + Number.EPSILON) * 1000) / 1000;
-                setPixels(pixels);
-                setRem(value);
-            } else {
-                let value = rem * e.target.value;
-                setPixels(value);
-                setRem(rem);
-            }
-
-        }
-    }
-
-    const handleRemChange = (e) => {
-        if (validateInput(e)) {
-            setRem(e.target.value);
-            setPixels(e.target.value * fontSize);
-            setActiveInput("px");
-        }
-    };
-    
-    const handlePixelsChange = (e) => {
-        if (validateInput(e)) {
-            setPixels(e.target.value);
-            let value = e.target.value / fontSize;
-            value = Math.round((value + Number.EPSILON) * 1000) / 1000;
-            setRem(value);
-            setActiveInput("rem");
-        }
-    };
-
-    const swapValues = () => {
-        setSwapped(!swapped);
-    };
-    
-    useEffect(() => {
-        setSidebar(true);
-    }, [setSidebar, true]);
-
-    return ( 
-        <Tool title={title}>
-            <div className={`${styles.converter} ${swapped ? styles.swapped : ''} ${styles[activeInput]}`}>
-                <Input abbr="rem" type="text" value={rem} decimals="3" format="technical" onChange={handleRemChange} />
-                <a className={styles.swap} title="Swap" onClick={swapValues}>⇄</a>
-                <Input abbr="px" type="text" value={pixels} decimals="3" format="technical" onChange={handlePixelsChange} />
-            </div>
-            <div className={styles.toolContainer}>
-                <p>Calculated with a root font-size of:</p> 
-                <Input abbr="px" size="m" type="text" value={fontSize} onChange={handleFontSize} />
-            </div>
-        </Tool>
-    );
+function readNumber(value) {
+  if (!value.trim()) return NaN;
+  return Number(value.replace(",", "."));
 }
 
-export default PixelToRem;
+export default function PixelToRem({ title }) {
+  const [source, setSource] = useState("rem");
+  const [value, setValue] = useState("1");
+  const [fontSize, setFontSize] = useState("16");
+  const [swapped, setSwapped] = useState(false);
+  const root = readNumber(fontSize);
+  const validRoot = Number.isFinite(root) && root > 0;
+  const amount = readNumber(value);
+  const result = source === "rem" ? amount * root : amount / root;
+  const output = validRoot && Number.isFinite(result)
+    ? String(Number(result.toFixed(3))) : "";
+
+  function updateAmount(event, unit) {
+    setSource(unit);
+    setValue(event.target.value);
+  }
+
+  return (
+    <Tool title={title}>
+      <div className={`${styles.converter} ${swapped ? styles.swapped : ""}`}>
+        <Input abbr="rem" label="Value in REM" type="text" inputMode="decimal"
+          value={source === "rem" ? value : output}
+          onChange={(event) => updateAmount(event, "rem")} />
+        <button type="button" className={styles.swap} aria-label="Swap field positions"
+          onClick={() => setSwapped(!swapped)}>⇄</button>
+        <Input abbr="px" label="Value in pixels" type="text" inputMode="decimal"
+          value={source === "px" ? value : output}
+          onChange={(event) => updateAmount(event, "px")} />
+      </div>
+      <div className={styles.toolContainer}>
+        <p>Root font size</p>
+        <Input abbr="px" label="Root font size in pixels" size="m" type="text"
+          inputMode="decimal" value={fontSize} onChange={(event) => setFontSize(event.target.value)}
+          invalid={!validRoot} describedBy={validRoot ? undefined : "root-error"} />
+        {!validRoot && <p className={styles.error} id="root-error">Enter a root font size greater than zero.</p>}
+        {value.trim() && !Number.isFinite(amount) &&
+          <p className={styles.error}>Enter a valid length.</p>}
+      </div>
+    </Tool>
+  );
+}

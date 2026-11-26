@@ -1,91 +1,16 @@
-@import '../../../sass/variables.scss';
-
 .hero {
-    margin-top: calc((var(--nav-height) + var(--dc-layout-top-height, 0px)) * -1);
-    padding: calc(var(--nav-height) + var(--dc-layout-top-height, 0px) + 48px) 24px 48px;
-    text-align: center;
-}
+  padding: clamp(24px, 5vw, 64px) clamp(16px, 5vw, 56px) 24px;
 
-.slogan {
-    position: relative;
-    z-index: 10;
-    order: 2;
-    flex-grow: 1;
-    flex-shrink: 0;
-}
-
-.name {
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 700;
-    margin: 0 auto;
-}
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+  }
 
-.clip {
-    background: $brand-gradient;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.text {
-    color: var(--text-default);
-    max-width: 392px;
-    margin: 0 auto;
-    letter-spacing: -.4px;
-    line-height: 40px;
-    font-size: 32px;
-    font-weight: 700;
-    white-space: pre-wrap;
-}
-
-.tagline {
-    padding-top: 8px;
-    max-width: 392px;
-    margin: 0 auto;
-    line-height: 28px;
-    font-size: 18px;
-    font-weight: 500;
-    white-space: pre-wrap;
+  p {
+    margin-top: 12px;
+    max-width: 62ch;
     color: var(--text-light);
-}
-
-@media (min-width: 640px) {
-    .hero {
-        padding: calc(var(--nav-height) + var(--dc-layout-top-height, 0px) + 80px) 48px 64px;
-        text-align: left;
-    }
-    .name, 
-    .text {
-        max-width: 576px;
-        line-height: 56px;
-        font-size: 48px;
-    }
-    .tagline {
-        padding-top: 12px;
-        max-width: 576px;
-        line-height: 32px;
-        font-size: 20px;
-    }
-}
-
-@media (min-width: 960px) {
-    .hero {
-        text-align: left;
-        padding: calc(var(--nav-height) + var(--dc-layout-top-height, 0px) + 80px) 64px 64px;
-    }
-    .slogan {
-        max-width: 592px;
-        width: calc((100% / 3) * 2);
-    }
-    .name,
-    .text {
-        line-height: 64px;
-        font-size: 56px;
-        margin: 0;
-    }
-
-    .tagline {
-        line-height: 36px;
-        font-size: 24px;
-        margin: 0;
-    }
+  }
 }

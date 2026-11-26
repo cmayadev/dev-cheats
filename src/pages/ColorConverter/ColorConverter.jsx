@@ -1,168 +1,73 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Tool from "../../components/layout/Tool/Tool";
-
 import {
-  hexToRgb,
-  rgbToHsl,
-  copyToClipboard,
-  generateTints,
-  generateShades,
-  generateTones,
-  hslToHex,
-} from "../../utils.js";
-
+  hexToRgb, rgbToHsl, copyToClipboard, generateTints,
+  generateShades, generateTones, hslToHex,
+} from "../../utils";
 import styles from "./ColorConverter.module.scss";
 
-const ColorConverter = (props) => {
-  const { setSidebar, title } = props;
-  const [color, setColor] = useState("#96A4E0");
-
-  useEffect(() => {
-    setSidebar(true);
-  }, [setSidebar, true]);
-
-  const handleClick = (event) => {
-    const clickedElement = event.target;
-
-    if (
-      clickedElement.id === "colorDiv" ||
-      (clickedElement.parentElement &&
-        clickedElement.parentElement.id === "colorDiv")
-    ) {
-      document.getElementById("colorPicker").click();
-    }
+export default function ColorConverter({ title }) {
+  const [input, setInput] = useState("#96A4E0");
+  const [color, setColor] = useState(input);
+  const invalid = !hexToRgb(input.trim());
+  const { r, g, b } = hexToRgb(color);
+  const hsl = rgbToHsl(r, g, b);
+  const formats = { HEX: color, RGB: `rgb(${r}, ${g}, ${b})`, HSL: `hsl(${hsl})` };
+  const palette = {
+    Tints: generateTints(hsl, 5),
+    Shades: generateShades(hsl, 5),
+    Tones: generateTones(hsl, 5),
   };
 
-  const handleColorChange = (event) => {
-    const enteredColor = event.target.value;
-    if (enteredColor.length === 7 && enteredColor.charAt(0) === "#") {
-      setColor(enteredColor);
-    }
-  };
-
-  const handleInputBlur = (event) => {
-    const enteredColor = event.target.value;
-
-    if (enteredColor.length === 7 && enteredColor.charAt(0) === "#") {
-      setColor(enteredColor);
-    } else {
-      console.log(
-        "Color inválido. Asegúrate de introducir un color válido en formato #RRGGBB."
-      );
-    }
-  };
-
-  const rgb = hexToRgb(color);
-  const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
-
-  const tints = generateTints(hsl, 5);
-  const shades = generateShades(hsl, 5);
-  const tones = generateTones(hsl, 5);
+  function updateColor(value) {
+    setInput(value);
+    const hex = value.trim();
+    if (hexToRgb(hex)) setColor(hex.startsWith("#") ? hex : `#${hex}`);
+  }
 
   return (
     <Tool title={title}>
-      <div className={styles.colorSections}>
-        <div className={styles.colorConverter}>
-          <div
-            id="colorDiv"
-            className={styles.square}
-            onClick={handleClick}
-            style={{ backgroundColor: color }}
-          >
-            <input
-              id="colorPicker"
-              type="color"
-              value={color}
-              onChange={handleColorChange}
-              style={{ display: "none" }}
-            />
-            <div className={styles.methods}>
-              <div>
-                <span>HEX</span>
-                <span>RGB</span>
-                <span>HSL</span>
-              </div>
-              <div>
-                <span
-                  className={styles.canCopy}
-                  onClick={() => copyToClipboard(color)}
-                >
-                  {color}
-                </span>
-                <span
-                  className={styles.canCopy}
-                  onClick={() =>
-                    copyToClipboard(`rgb(${rgb.r},${rgb.g},${rgb.b})`)
-                  }
-                >{`${rgb.r}, ${rgb.g}, ${rgb.b}`}</span>
-                <span
-                  className={styles.canCopy}
-                  onClick={() => copyToClipboard(`hsl(${hsl})`)}
-                >
-                  {hsl}
-                </span>
-              </div>
-            </div>
+      <div className={styles.colorConverter}>
+        <div className={styles.inputs}>
+          <label htmlFor="color-hex">HEX color</label>
+          <div className={styles.fields}>
+            <input id="color-hex" type="text" value={input}
+              onChange={(event) => updateColor(event.target.value)}
+              spellCheck={false} aria-invalid={invalid}
+              aria-describedby={invalid ? "color-error" : undefined} />
+            <input type="color" value={color} aria-label="Choose a color"
+              onChange={(event) => updateColor(event.target.value)} />
           </div>
-          <div>
-            <input
-              type="text"
-              placeholder={color}
-              onChange={handleColorChange}
-              onBlur={handleInputBlur}
-              maxLength={7}
-            />
-          </div>
+          {invalid && <p id="color-error">Enter six hexadecimal digits, e.g. #96A4E0.</p>}
         </div>
-        <div className={styles.palette}>
-          <div className={styles.colorTypes}>
-            <div className={styles.colorGroup}>
-              <h4>Tints</h4>
-              <div>
-                {tints.map((tint, index) => (
-                  <div
-                    key={index}
-                    style={{ backgroundColor: tint }}
-                    onClick={() => copyToClipboard(hslToHex(tint))}
-                  >
-                    <span>{hslToHex(tint)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className={styles.colorGroup}>
-              <h4>Shades</h4>
-              <div>
-                {shades.map((shade, index) => (
-                  <div
-                    key={index}
-                    style={{ backgroundColor: shade }}
-                    onClick={() => copyToClipboard(hslToHex(shade))}
-                  >
-                    <span>{hslToHex(shade)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className={styles.colorGroup}>
-              <h4>Tones</h4>
-              <div>
-                {tones.map((tone, index) => (
-                  <div
-                    key={index}
-                    style={{ backgroundColor: tone }}
-                    onClick={() => copyToClipboard(hslToHex(tone))}
-                  >
-                    <span>{hslToHex(tone)}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+        <div className={styles.preview} style={{ backgroundColor: color }}>
+          <div className={styles.methods}>
+            {Object.entries(formats).map(([format, value]) => (
+              <button key={format} type="button" aria-label={`Copy ${format} ${value}`}
+                onClick={() => copyToClipboard(value)}>
+                <span>{format}</span><code>{value}</code>
+              </button>
+            ))}
           </div>
         </div>
       </div>
+      {Object.entries(palette).map(([label, colors]) => (
+        <section key={label} className={styles.group}>
+          <h2>{label}</h2>
+          <div className={styles.swatches}>
+            {colors.map((value, index) => {
+              const hex = hslToHex(value);
+              return (
+                <button key={index} type="button" style={{ backgroundColor: value }}
+                  aria-label={`Copy ${label.toLowerCase()} color ${hex}`}
+                  onClick={() => copyToClipboard(hex)}>
+                  <code>{hex}</code>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+      ))}
     </Tool>
   );
-};
-
-export default ColorConverter;
+}

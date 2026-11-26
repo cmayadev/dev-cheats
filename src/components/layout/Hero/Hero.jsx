@@ -1,21 +1,15 @@
-import Container from '../Container/Container.jsx';
+import Container from "../Container/Container";
+import styles from "./Hero.module.scss";
 
-import styles from './Hero.module.scss'
-
-const Hero = () => {
-    return ( 
-        <div className={styles.hero}>
-            <Container size="xl">
-                <div className={styles.slogan}>
-                    <h1 className={styles.name}>
-                        <span className={styles.clip} title="Dev Cheats">Dev Cheats</span>
-                    </h1>
-                    <p className={styles.text}>Tools for developers</p>
-                    <p className={styles.tagline}>Boost your development with most used tools.</p>
-                </div>
-            </Container>
+export default function Hero() {
+  return (
+    <div className={styles.hero}>
+      <Container size="xl">
+        <div>
+          <h1>Tools for web developers</h1>
+          <p>Format JSON, convert CSS units, build color palettes and generate test content.</p>
         </div>
-    );
+      </Container>
+    </div>
+  );
 }
-
-export default Hero;

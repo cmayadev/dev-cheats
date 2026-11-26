@@ -7,8 +7,8 @@ const Card = (props) => {
     <div className={styles.cardBox}>
       <article className={styles.article}>
         <div className={styles.cardHeader}>
-          <div className={styles.icon}>{icon}</div>
-          <h2 className={styles.title}>{title}</h2>
+          <div className={styles.icon} aria-hidden="true">{icon}</div>
+          <h3 className={styles.title}>{title}</h3>
         </div>
         <p className={styles.description}>{description}</p>
       </article>

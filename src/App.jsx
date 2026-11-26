@@ -1,43 +1,71 @@
-import React, { useEffect, useState, Suspense } from "react";
-import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense, useEffect, useState } from "react";
+import { Link, Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import Layout from "./components/layout/Layout/Layout.jsx";
-
+import Layout from "./components/layout/Layout/Layout";
 import Home from "./pages/Home";
-
 import tools from "./api/tools.json";
-
 import "./App.css";
 
-function App() {
-  const [theme, setTheme] = useState("light");
-  const [sidebar, setSidebar] = useState(false);
+const pages = tools.map((tool) => ({
+  title: tool.title,
+  path: `/${tool.category}/${tool.slug}`,
+  Component: lazy(() => import(`./pages/${tool.component}/${tool.component}.jsx`)),
+}));
 
-  return (
-    <div>
-      <Layout theme={theme} setTheme={setTheme} sidebar={sidebar}>
-        <Suspense>
-          <Routes>
-            <Route path="/" element={<Home setSidebar={setSidebar} />} />
-            {tools.map((tool, i) => {
-              const Tool = React.lazy(() =>
-                import(`./pages/${tool.component}/${tool.component}.jsx`)
-              );
-              return (
-                <Route
-                  key={i}
-                  path={tool.category + "/" + tool.slug}
-                  element={<Tool title={tool.title} setSidebar={setSidebar} />}
-                />
-              );
-            })}
-          </Routes>
-        </Suspense>
-        <ToastContainer autoClose={8000} />
-      </Layout>
-    </div>
-  );
+function getInitialTheme() {
+  try {
+    const savedTheme = localStorage.getItem("dev-cheats-theme");
+    if (savedTheme === "dark" || savedTheme === "light") return savedTheme;
+  } catch {
+    // Theme selection also works when storage is disabled.
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-export default App;
+export default function App() {
+  const [theme, setTheme] = useState(getInitialTheme);
+  const { pathname } = useLocation();
+  const page = pages.find(({ path }) =>
+    path === pathname.toLowerCase().replace(/\/+$/, "")
+  );
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", theme === "dark");
+    document.documentElement.style.colorScheme = theme;
+  }, [theme]);
+
+  useEffect(() => {
+    document.title = page ? `${page.title} | Dev Cheats` : "Dev Cheats";
+    window.scrollTo(0, 0);
+  }, [pathname, page]);
+
+  function updateTheme(nextTheme) {
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem("dev-cheats-theme", nextTheme);
+    } catch {
+      // Keep the chosen theme for this session.
+    }
+  }
+
+  return (
+    <Layout theme={theme} setTheme={updateTheme} sidebar={Boolean(page)}>
+      <Suspense fallback={<p className="route-message" role="status">Loading tool…</p>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {pages.map(({ path, title, Component }) => (
+            <Route key={path} path={path} element={<Component title={title} />} />
+          ))}
+          <Route path="*" element={
+            <div className="route-message">
+              <h1>Page not found</h1>
+              <Link to="/">Browse all tools</Link>
+            </div>
+          } />
+        </Routes>
+      </Suspense>
+      <ToastContainer autoClose={8000} theme={theme} />
+    </Layout>
+  );
+}

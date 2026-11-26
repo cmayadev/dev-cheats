@@ -1,5 +1,6 @@
 :root {
   --brand-color: #7386d5;
+  --error-text: #a72331;
   --brand-color-600: #6575ba;
   --brand-color-700: #5665a0;
   --brand-color-800: #485485;
@@ -32,6 +33,7 @@
 }
 
 .dark {
+  --error-text: #ffadb5;
   --button-alt-background: #313136;
   --button-alt-hover: #2c2c30;
   --button-alt-border: #525259ad;
@@ -42,10 +44,10 @@
   --body--background: #1e1e20;
   --check-border: #525259ad;
   --divider-background: #52525952;
-  --header-background: transparent;
+  --header-background: #1e1e20;
   --icon-background: #1e1e20;
   --input-background: #313136;
-  --input-border: transparent;
+  --input-border: #525259;
   --sidebar-background: #161618;
   --text-default: rgb(255 255 245 / 86%);
   --text-light: rgb(235 235 245 / 60%);
@@ -151,4 +153,17 @@ code {
     padding-right: calc((100vw - 1440px) / 2);
     padding-left: calc((100vw - 1440px) / 2 + 272px);
   }
+}
+
+:where(a, button, input, textarea, select):focus-visible {
+  outline: 2px solid var(--brand-color);
+  outline-offset: 3px;
+}
+
+.route-message {
+  padding: 24px 16px;
+}
+
+.route-message a {
+  text-decoration: underline;
 }

@@ -1,5 +1,4 @@
 import Header from '../Header/Header'
-import Aside from '../Aside/Aside'
 import Container from '../Container/Container'
 import Sidebar from '../Sidebar/Sidebar'
 import Footer from '../Footer/Footer'
@@ -17,18 +16,17 @@ const Layout = (props) => {
                 sidebar ? 
                 <>
                     <Sidebar /> 
-                    <div className={`main${sidebar ? ' has-sidebar' : ''}`}>
+                    <main className={`main${sidebar ? ' has-sidebar' : ''}`}>
                         <div className={styles.content}>
                             <Container size="doc">
-                                <Aside />
                                 {children}
                             </Container>
                         </div>
-                    </div>
+                    </main>
                 </> :
-                <div className={`main${sidebar ? ' has-sidebar' : ''}`}>
+                <main className={`main${sidebar ? ' has-sidebar' : ''}`}>
                     {children}
-                </div>
+                </main>
             }
             <Footer />
         </div>

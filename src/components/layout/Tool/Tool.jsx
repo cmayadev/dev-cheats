@@ -10,7 +10,7 @@ const Tool = (props) => {
     return ( 
         <div className={styles.tool}>
             <Container size="content">
-                <Heading level="h2">{title}</Heading>
+                <Heading level="h1">{title}</Heading>
                 {children}
             </Container>
         </div>

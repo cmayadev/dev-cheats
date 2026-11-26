@@ -4,10 +4,10 @@
         "title": "Color Converter",
         "slug": "color-converter",
         "category": "converters",
-        "description": "Convert HEX, RGB, HSL, CMYK and more.",
+        "description": "Convert HEX to RGB and HSL, and copy tints, shades and tones.",
         "icon": "🎨",
-        "featured": true,
-        "menu": true
+        "group": "CSS & Design",
+        "keywords": "hex rgb hsl palette tint shade tone colour"
     },
     {
         "component": "Passwords",
@@ -16,8 +16,8 @@
         "category": "generators",
         "description": "Generate secure passwords for your applications.",
         "icon": "🔐",
-        "featured": true,
-        "menu": true
+        "group": "Generators",
+        "keywords": "security random credentials"
     },
     {
         "component": "PixelToRem",
@@ -26,8 +26,8 @@
         "category": "converters",
         "description": "Calculator to convert Px to Rem and vice versa.",
         "icon": "📐",
-        "featured": true,
-        "menu": true
+        "group": "CSS & Design",
+        "keywords": "pixels rem units root font size css"
     },
     {
         "component": "UrlShortener",
@@ -36,8 +36,8 @@
         "category": "tools",
         "description": "Reduce your links to something more comfortable.",
         "icon": "✂️",
-        "featured": false,
-        "menu": false
+        "group": "Data & Text",
+        "hidden": true
     },
     {
         "component": "LoremIpsum",
@@ -46,7 +46,17 @@
         "category": "generators",
         "description": "Generate Lorem Ipsum text for your projects.",
         "icon": "📝",
-        "featured": true,
-        "menu": false
+        "group": "Generators",
+        "keywords": "placeholder dummy text"
+    },
+    {
+        "component": "JsonFormatter",
+        "title": "JSON Formatter",
+        "slug": "json-formatter",
+        "category": "tools",
+        "description": "Validate, format and minify JSON in your browser.",
+        "icon": "{}",
+        "group": "Data & Text",
+        "keywords": "api pretty print parse indent"
     }
 ]
