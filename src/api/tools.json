@@ -98,5 +98,15 @@
         "icon": "IMG",
         "group": "CSS & Design",
         "keywords": "compress convert resize image webp png jpeg jpg canvas quality"
+    },
+    {
+        "component": "SvgOptimizer",
+        "title": "SVG Optimizer",
+        "slug": "svg-optimizer",
+        "category": "tools",
+        "description": "Optimize SVG markup, compare previews and download the result.",
+        "icon": "SVG",
+        "group": "CSS & Design",
+        "keywords": "vector compress minify xml asset svgo"
     }
 ]

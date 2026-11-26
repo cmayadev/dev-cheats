@@ -1,0 +1,85 @@
+.toolbar, .actions, .summary, .comparison figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+
+.toolbar {
+  margin-bottom: 16px;
+  font-size: .875rem;
+  font-weight: 650;
+
+  input { max-width: 100%; }
+
+  input::file-selector-button {
+    margin-inline-end: 8px;
+    padding: 6px 10px;
+    border: 1px solid var(--input-border);
+    border-radius: var(--surface-radius);
+    background: var(--button-alt-background);
+    color: var(--text-default);
+    cursor: pointer;
+  }
+}
+
+.columns {
+  display: grid;
+  gap: 12px;
+  align-items: start;
+
+  > * { min-width: 0; }
+}
+
+@container (min-width: 580px) {
+  .columns { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+.actions { margin-top: 12px; }
+
+.comparison {
+  margin-top: 24px;
+
+  figure {
+    overflow: hidden;
+    border: 1px solid var(--divider-background);
+    border-radius: var(--surface-radius);
+  }
+
+  figcaption {
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--divider-background);
+    font-size: .875rem;
+    font-weight: 650;
+  }
+
+  figcaption span {
+    color: var(--text-light);
+    font: .75rem/1.5 ui-monospace, monospace;
+  }
+
+  img {
+    width: 100%;
+    height: 160px;
+    padding: 16px;
+    object-fit: contain;
+    background: repeating-conic-gradient(var(--divider-background) 0% 25%, transparent 0% 50%) 0 / 16px 16px;
+  }
+}
+
+.summary {
+  justify-content: space-between;
+  margin-top: 12px;
+  font-size: .875rem;
+
+  a {
+    padding: 6px 12px;
+    border-radius: var(--surface-radius);
+    background: var(--action-background);
+    color: var(--action-text);
+    font-weight: 650;
+
+    &:hover { background: var(--action-hover); }
+  }
+}
