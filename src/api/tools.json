@@ -68,5 +68,15 @@
         "icon": "{}",
         "group": "Data & Text",
         "keywords": "api pretty print parse indent"
+    },
+    {
+        "component": "UrlInspector",
+        "title": "URL Inspector",
+        "slug": "url-inspector",
+        "category": "tools",
+        "description": "Inspect a URL and edit its query parameters in your browser.",
+        "icon": "🔗",
+        "group": "Data & Text",
+        "keywords": "query string params fragment domain host api percent encoding utm"
     }
 ]
