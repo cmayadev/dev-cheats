@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { generatePassword } from "../../api/password-generator";
-import { checkPasswordSecurity } from "../../api/password-validator";
 import Button from "../../components/ui/Button/Button";
 import Tool from "../../components/layout/Tool/Tool";
 import styles from "./Passwords.module.scss";
@@ -34,7 +33,36 @@ export default function Passwords({ title }) {
   const passwordField = useRef(null);
   const [feedback, setFeedback] = useState(null);
   const copyMessage = feedback?.password === password ? feedback : null;
-  const strength = checkPasswordSecurity(password);
+  const worker = useRef(null);
+  const [assessment, setAssessment] = useState(null);
+  const [strengthUnavailable, setStrengthUnavailable] = useState(false);
+  const strength = assessment?.password === password ? assessment.strength : undefined;
+
+  useEffect(() => {
+    let checker;
+    try {
+      checker = new Worker(new URL("./passwordStrength.worker.js", import.meta.url), { type: "module" });
+    } catch {
+      setStrengthUnavailable(true);
+      return;
+    }
+
+    worker.current = checker;
+    checker.onmessage = ({ data }) => setAssessment(data);
+    checker.onerror = () => {
+      checker.terminate();
+      worker.current = null;
+      setStrengthUnavailable(true);
+    };
+    return () => {
+      checker.terminate();
+      worker.current = null;
+    };
+  }, []);
+
+  useEffect(() => {
+    worker.current?.postMessage(password);
+  }, [password]);
 
   function updateSettings(changes) {
     const next = { ...settings, ...changes };
@@ -77,13 +105,16 @@ export default function Passwords({ title }) {
             <Button onClick={copyPassword}>Copy</Button>
           </div>
         </div>
-        <input id="generated-password" ref={passwordField} className={styles.password} type="text"
-          value={password} readOnly autoComplete="off" spellCheck={false} />
+        <textarea id="generated-password" ref={passwordField} className={styles.password} rows={1}
+          data-long={password.length > 24} value={password} readOnly autoComplete="off" spellCheck={false} />
         <p className={copyMessage?.error ? "tool-error" : "tool-feedback"} role="status">
           {copyMessage?.message}
         </p>
         <div className={styles.strength} data-strength={strength}>
-          <span role="status">Estimated strength · {strengthLabels[strength]}</span>
+          <span role="status">
+            {strength ? `Estimated strength · ${strengthLabels[strength]}`
+              : strengthUnavailable ? "Strength estimate unavailable." : "Estimating strength…"}
+          </span>
           <div className={styles.segments} aria-hidden="true">
             <span /><span /><span /><span /><span />
           </div>
