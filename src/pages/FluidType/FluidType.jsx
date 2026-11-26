@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import ShareLink from "../../components/ui/ShareLink/ShareLink";
 import TextPanel from "../../components/ui/TextPanel/TextPanel";
 import Tool from "../../components/layout/Tool/Tool";
 import { fluidType } from "./fluidType";
@@ -21,8 +23,28 @@ const initialValues = {
 };
 
 export default function FluidType({ title }) {
-  const [values, setValues] = useState(initialValues);
-  const [position, setPosition] = useState(50);
+  const [params] = useSearchParams();
+  const requested = Object.fromEntries(fields.map(([name]) => {
+    const value = params.get(name);
+    const number = Number(value);
+    return [name, Number.isFinite(number) && number > 0 ? String(number) : initialValues[name]];
+  }));
+  const valid = fluidType(...fields.map(([name]) => Number(requested[name])));
+  const values = valid ? requested : initialValues;
+  const preview = Number(params.get("preview")?.trim() || 50);
+  const position = Number.isInteger(preview) && preview >= 0 && preview <= 100 ? preview : 50;
+
+  return (
+    <Tool title={title}>
+      <FluidEditor key={`${Object.values(values).join(":")}:${position}`}
+        initialSettings={values} initialPosition={position} />
+    </Tool>
+  );
+}
+
+function FluidEditor({ initialSettings, initialPosition }) {
+  const [values, setValues] = useState(initialSettings);
+  const [position, setPosition] = useState(initialPosition);
   const [minSize, maxSize, minWidth, maxWidth, rootSize] = fields.map(([name]) => Number(values[name]));
   const result = fluidType(minSize, maxSize, minWidth, maxWidth, rootSize);
   const viewport = minWidth + (maxWidth - minWidth) * (position / 100);
@@ -35,8 +57,7 @@ export default function FluidType({ title }) {
 
 
   return (
-    <Tool title={title}>
-      <p className={styles.intro}>Generate a CSS font size that scales between two viewport widths.</p>
+    <>
       <div className={styles.fields}>
         {fields.map(([name, label]) => (
           <label key={name}>
@@ -55,6 +76,7 @@ export default function FluidType({ title }) {
           Enter positive values. The maximum viewport width must exceed the minimum, and the maximum font size must be at least the minimum.
         </p>
       )}
+      <ShareLink settings={result ? { ...values, preview: position } : null} />
       {result && (
         <>
           <section className={styles.section} aria-labelledby="fluid-preview">
@@ -76,6 +98,6 @@ export default function FluidType({ title }) {
           </div>
         </>
       )}
-    </Tool>
+    </>
   );
 }

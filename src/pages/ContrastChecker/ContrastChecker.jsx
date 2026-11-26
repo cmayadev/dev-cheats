@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Button from "../../components/ui/Button/Button";
+import ShareLink from "../../components/ui/ShareLink/ShareLink";
 import TextPanel from "../../components/ui/TextPanel/TextPanel";
 import Tool from "../../components/layout/Tool/Tool";
 import { contrastRatio, normalizeHex } from "./contrast";
@@ -60,6 +61,7 @@ function ContrastEditor({ initialText, initialBackground }) {
         <ColorField name="background" label="Background color" value={background} color={backgroundColor} onChange={setBackground} />
         <Button className={styles.swap} onClick={swapColors}>Swap colors</Button>
       </div>
+      <ShareLink settings={ratio !== null ? { text: textColor, background: backgroundColor } : null} />
       {ratio !== null && (
         <>
           <div className={styles.preview} style={{ color: textColor, backgroundColor }}>
