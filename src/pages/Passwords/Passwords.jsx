@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { toast } from "react-toastify";
+import { useRef, useState } from "react";
 import { generatePassword } from "../../api/password-generator";
 import { checkPasswordSecurity } from "../../api/password-validator";
 import Button from "../../components/ui/Button/Button";
@@ -32,12 +31,16 @@ export default function Passwords({ title }) {
     symbols: false,
   });
   const [password, setPassword] = useState(() => createPassword(settings));
+  const passwordField = useRef(null);
+  const [feedback, setFeedback] = useState(null);
+  const copyMessage = feedback?.password === password ? feedback : null;
   const strength = checkPasswordSecurity(password);
 
   function updateSettings(changes) {
     const next = { ...settings, ...changes };
     setSettings(next);
     setPassword(createPassword(next));
+    setFeedback(null);
   }
 
   function randomizeOptions() {
@@ -51,9 +54,13 @@ export default function Passwords({ title }) {
   async function copyPassword() {
     try {
       await navigator.clipboard.writeText(password);
-      toast.success("Password copied to clipboard.");
+      setFeedback({ password, message: "Copied to clipboard." });
     } catch {
-      toast.error("Could not copy the password. Select it and copy it manually.");
+      if (passwordField.current?.value === password) {
+        passwordField.current.focus();
+        passwordField.current.select();
+      }
+      setFeedback({ password, error: true, message: "Clipboard unavailable. Copy the selected text manually." });
     }
   }
 
@@ -62,10 +69,19 @@ export default function Passwords({ title }) {
       <div className={styles.result}>
         <div className={styles.resultHeader}>
           <label htmlFor="generated-password">Generated password</label>
-          <Button onClick={copyPassword}>Copy</Button>
+          <div className={styles.actions}>
+            <Button type="primary" onClick={() => {
+              setPassword(createPassword(settings));
+              setFeedback(null);
+            }}>Generate</Button>
+            <Button onClick={copyPassword}>Copy</Button>
+          </div>
         </div>
-        <input id="generated-password" className={styles.password} type="text"
+        <input id="generated-password" ref={passwordField} className={styles.password} type="text"
           value={password} readOnly autoComplete="off" spellCheck={false} />
+        <p className={copyMessage?.error ? "tool-error" : "tool-feedback"} role="status">
+          {copyMessage?.message}
+        </p>
         <div className={styles.strength} data-strength={strength}>
           <span role="status">Estimated strength · {strengthLabels[strength]}</span>
           <div className={styles.segments} aria-hidden="true">
@@ -96,10 +112,7 @@ export default function Passwords({ title }) {
         </div>
       </fieldset>
 
-      <div className={styles.actions}>
-        <Button type="primary" onClick={() => setPassword(createPassword(settings))}>
-          Generate password
-        </Button>
+      <div className={styles.randomize}>
         <Button onClick={randomizeOptions}>Randomize options</Button>
       </div>
     </Tool>

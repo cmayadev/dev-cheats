@@ -97,13 +97,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.main {
-  flex-grow: 1;
-  flex-shrink: 0;
-  margin: var(--dc-layout-top-height, 0px) auto 0;
-  width: 100%;
-}
-
 .home {
   padding-bottom: 96px;
 }
@@ -124,24 +117,6 @@ code {
   }
 }
 
-@media (min-width: 960px) {
-  .main {
-    padding-top: var(--nav-height);
-  }
-  .main.has-sidebar {
-    margin: var(--dc-layout-top-height, 0px) 0 0;
-    padding-left: 272px;
-  }
-
-}
-
-@media (min-width: 1440px) {
-  .main.has-sidebar {
-    padding-right: calc((100vw - 1440px) / 2);
-    padding-left: calc((100vw - 1440px) / 2 + 272px);
-  }
-}
-
 :where(a, button, input, textarea, select):focus-visible {
   outline: 2px solid var(--brand-color);
   outline-offset: 3px;
@@ -154,3 +129,13 @@ code {
 .route-message a {
   text-decoration: underline;
 }
+
+.tool-error, .tool-feedback {
+  font-size: .875rem;
+  overflow-wrap: anywhere;
+}
+
+.tool-error { color: var(--error-text); }
+.tool-feedback { color: var(--text-light); }
+
+.tool-error:not(:empty), .tool-feedback:not(:empty) { margin-block: 8px; }

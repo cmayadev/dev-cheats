@@ -1,30 +1,16 @@
-.intro, .actions span {
-  color: var(--text-light);
-}
-
 .actions {
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin: 16px 0;
-  font-size: 0.875rem;
+  margin-top: 12px;
 }
 
 .editors {
   display: grid;
-  gap: 14px;
+  align-items: start;
+  gap: 16px;
 }
 
-.error {
-  color: var(--error-text);
-  margin-top: 12px;
-  overflow-wrap: anywhere;
-}
-
-@media (min-width: 720px) {
-  .editors {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    align-items: start;
-  }
+@container (min-width: 620px) {
+  .editors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

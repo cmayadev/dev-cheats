@@ -35,23 +35,26 @@ export default function JsonFormatter({ title }) {
 
   return (
     <Tool title={title}>
-      <p className={styles.intro}>Format, validate or minify JSON in your browser.</p>
-      <div className={styles.actions}>
-        <Button type="primary" onClick={() => transform(true)}>Format JSON</Button>
-        <Button onClick={() => transform(false)}>Minify</Button>
-        <Button onClick={() => updateInput("")}>Clear</Button>
-        <span role="status">{status}</span>
-      </div>
       <div className={styles.editors}>
-        <TextPanel id="json-input" label="Input" value={input} rows={11}
-          placeholder="Paste your JSON here" invalid={Boolean(error)}
-          describedBy={error ? "json-error" : undefined}
-          action={<Button onClick={() => updateInput(example)}>Load example</Button>}
-          onChange={(event) => updateInput(event.target.value)} />
-        <TextPanel id="json-output" label="Output" value={output} rows={11}
-          placeholder="Formatted JSON will appear here" copyLabel="Copy JSON" />
+        <div>
+          <TextPanel id="json-input" label="Input" value={input} rows={11}
+            placeholder="Paste your JSON here" invalid={Boolean(error)}
+            describedBy={error ? "json-error" : undefined}
+            action={<Button onClick={() => updateInput(example)}>Load example</Button>}
+            onChange={(event) => updateInput(event.target.value)} />
+          {error && <p id="json-error" role="alert" className="tool-error">{error}</p>}
+          <div className={styles.actions}>
+            <Button type="primary" onClick={() => transform(true)}>Format JSON</Button>
+            <Button onClick={() => transform(false)}>Minify</Button>
+            <Button onClick={() => updateInput("")}>Clear</Button>
+          </div>
+        </div>
+        <div>
+          <TextPanel id="json-output" label="Output" value={output} rows={11}
+            placeholder="Formatted JSON will appear here" copyLabel="Copy JSON" />
+          <p className="tool-feedback" role="status">{status}</p>
+        </div>
       </div>
-      {error && <p id="json-error" role="alert" className={styles.error}>{error}</p>}
     </Tool>
   );
 }

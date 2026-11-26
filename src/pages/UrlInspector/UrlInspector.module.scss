@@ -68,12 +68,6 @@
   }
 }
 
-.error {
-  margin-top: 8px;
-  font-size: 0.875rem;
-  color: var(--error-text);
-}
-
 @media (max-width: 480px) {
   .parameters li {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -84,4 +78,16 @@
       justify-self: start;
     }
   }
+}
+
+.editors {
+  display: grid;
+  align-items: start;
+  gap: 16px;
+
+  > div { min-width: 0; }
+}
+
+@container (min-width: 620px) {
+  .editors { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

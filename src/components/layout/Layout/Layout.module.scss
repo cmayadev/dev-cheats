@@ -1,11 +1,19 @@
-.Layout {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
+.body, .toolLayout { flex: 1; }
+.main { min-width: 0; }
+
 @media (min-width: 960px) {
-    .content {
-        padding: 32px 32px 0;
-    }
+  .toolLayout {
+    display: grid;
+    grid-template-columns: 232px minmax(0, 1fr);
+    width: min(100%, 1440px);
+    margin-inline: auto;
+  }
+
+  .toolLayout .main { padding: 36px clamp(24px, 4vw, 56px) 64px; }
 }

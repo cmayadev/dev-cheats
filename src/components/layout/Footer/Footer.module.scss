@@ -16,3 +16,14 @@
     text-decoration: underline;
   }
 }
+
+.brand {
+  color: var(--text-default);
+  font-weight: 700;
+}
+
+.footer nav {
+  display: flex;
+  gap: clamp(12px, 3vw, 24px);
+  color: var(--text-light);
+}

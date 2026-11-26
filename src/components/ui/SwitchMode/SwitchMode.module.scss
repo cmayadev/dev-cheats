@@ -3,16 +3,6 @@
     align-items: center;
     pointer-events: auto;
 
-    &:before {
-        margin-right: 16px;
-        margin-left: 8px;
-        width: 1px;
-        height: 24px;
-        background-color: var(--divider-background);
-        content: "";
-        width: 1px;
-    }
-
     button {
         cursor: pointer;
         position: relative;

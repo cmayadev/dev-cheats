@@ -40,16 +40,21 @@ export default function UrlInspector({ title }) {
 
   return (
     <Tool title={title}>
-      <p className={styles.intro}>Inspect a URL and edit its query parameters in your browser.</p>
-      <div className={styles.bar}>
-        <label htmlFor="url-input">URL</label>
-        <Button onClick={() => updateInput(example)}>Load example</Button>
+      <div className={styles.editors}>
+        <div>
+          <div className={styles.bar}>
+            <label htmlFor="url-input">URL</label>
+            <Button onClick={() => updateInput(example)}>Load example</Button>
+          </div>
+          <input className={styles.input} id="url-input" type="text" inputMode="url"
+            autoComplete="off" spellCheck={false} placeholder="https://example.com"
+            value={input} onChange={(event) => updateInput(event.target.value)}
+            aria-invalid={invalid} aria-describedby={invalid ? "url-error" : undefined} />
+          {invalid && <p id="url-error" className="tool-error" role="alert">Enter a full HTTP or HTTPS URL.</p>}
+        </div>
+        <TextPanel id="url-result" label="Result" value={result} rows={2}
+          placeholder="The updated URL will appear here" copyLabel="Copy URL" />
       </div>
-      <input className={styles.input} id="url-input" type="text" inputMode="url"
-        autoComplete="off" spellCheck={false} placeholder="https://example.com"
-        value={input} onChange={(event) => updateInput(event.target.value)}
-        aria-invalid={invalid} aria-describedby={invalid ? "url-error" : undefined} />
-      {invalid && <p id="url-error" className={styles.error}>Enter a full HTTP or HTTPS URL.</p>}
       {url && (
         <>
           <dl className={styles.details}>
@@ -88,9 +93,6 @@ export default function UrlInspector({ title }) {
               </ul>
             ) : <p className={styles.intro}>No query parameters.</p>}
           </section>
-          <div className={styles.section}>
-            <TextPanel id="url-result" label="Result" value={result} rows={2} copyLabel="Copy URL" />
-          </div>
         </>
       )}
     </Tool>

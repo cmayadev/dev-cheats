@@ -6,11 +6,12 @@
 
 @media (min-width: 960px) {
   .tool {
-    padding: 0 0 96px;
+    padding: 0;
   }
 }
 
 .workspace {
+  container-type: inline-size;
   padding: clamp(14px, 3vw, 26px);
   border: 1px solid var(--input-border);
   border-radius: var(--surface-radius);
