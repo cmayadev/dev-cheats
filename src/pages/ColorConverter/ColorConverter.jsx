@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Tool from "../../components/layout/Tool/Tool";
 import {
   hexToRgb, rgbToHsl, copyToClipboard, generateTints,
@@ -51,6 +52,9 @@ export default function ColorConverter({ title }) {
           </div>
         </div>
       </div>
+      <Link className={styles.related} to={`/tools/contrast-checker?background=${encodeURIComponent(color)}`}>
+        Check contrast with this color
+      </Link>
       {Object.entries(palette).map(([label, colors]) => (
         <section key={label} className={styles.group}>
           <h2>{label}</h2>

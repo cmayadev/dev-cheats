@@ -10,6 +10,16 @@
         "keywords": "hex rgb hsl palette tint shade tone colour"
     },
     {
+        "component": "ContrastChecker",
+        "title": "Contrast Checker",
+        "slug": "contrast-checker",
+        "category": "tools",
+        "description": "Check text and background colors against WCAG contrast thresholds.",
+        "icon": "◐",
+        "group": "CSS & Design",
+        "keywords": "wcag accessibility aa aaa foreground background ratio"
+    },
+    {
         "component": "Passwords",
         "title": "Password Generator",
         "slug": "password-generator",
